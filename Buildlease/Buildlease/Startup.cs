@@ -89,6 +89,7 @@ namespace Buildlease
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
             });
+            // its my comment
         }
     }
 }
