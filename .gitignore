@@ -235,3 +235,5 @@ _Pvt_Extensions
 *.db
 appsettings.json
 .idea/
+*.sln.iml
+*.DS_Store
