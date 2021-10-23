@@ -4,7 +4,7 @@ namespace Services.Abstractions
 {
     public interface ICatalogueService
     {
-        CaregoryView[] GetAllCategories();
+        CategoryView[] GetAllCategories();
         CategoryFilterView[] GetCategoryFilters(int categoryId);
         ProductView[] GetProducts();
         ProductFullView GetProduct(int productId);
