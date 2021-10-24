@@ -1,6 +1,6 @@
 ﻿namespace Domain.Models
 {
-    public enum CommonOrderStatus
+    public enum OrderStatus
     {
         Cart = 0,
         WaitingForApproval = 101,

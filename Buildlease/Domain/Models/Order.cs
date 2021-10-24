@@ -4,6 +4,6 @@
     {
         public int Id { get; set; }
         public int CustomerId { get; set; }
-        public CommonOrderStatus Status { get; set; }
+        public OrderStatus Status { get; set; }
     }
 }
