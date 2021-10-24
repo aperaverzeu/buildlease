@@ -6,11 +6,14 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
-using Buildlease.Data;
-using Buildlease.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Persistence;
+using Domain.Models;
+using Services.Abstractions;
+using Services;
+using System;
 
 namespace Buildlease
 {
@@ -46,6 +49,13 @@ namespace Buildlease
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
+
+            services.AddSwaggerGen();
+
+            services.AddScoped<IServiceManager, ServiceManager>();
+
+            services.AddControllers()
+                .AddApplicationPart(typeof(Presentation.AssemblyReference).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +65,9 @@ namespace Buildlease
             {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API"));
             }
             else
             {
