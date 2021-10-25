@@ -7,7 +7,7 @@ namespace Contracts.Views
 {
     public class ProductOrderView
     {
-        public int Id { get; set; }
+        public int ProductId { get; set; }
         public string Name { get; set; }
         public string ShortDescription { get; set; }
         public string ImagePath { get; set; }
