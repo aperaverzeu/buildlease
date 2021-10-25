@@ -12,7 +12,7 @@ namespace Contracts.Views
         public string ShortDescription { get; set; }
         public string Description { get; set; }
         public string ImagePath { get; set; }
-        public int Count { get; set; }
+        public int TotalCount { get; set; }
         public int AvailableCount { get; set; }
         public decimal? Price { get; set; }
         public ProductAttributeView[] Attributes { get; set; }
