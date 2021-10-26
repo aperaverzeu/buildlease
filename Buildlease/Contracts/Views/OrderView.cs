@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,8 +10,9 @@ namespace Contracts.Views
     {
         public int Id { get; set; }
         public DateTime OrderAcceptDate { get; set; }
-        public /*CommonOrderStatus*/ int Status { get; set; }
+        public OrderStatus Status { get; set; }
         public int ProductCount { get; set; }
         public decimal Price { get; set; }
+        public ProductOrderView[] ProductOrders { get; set; }
     }
 }

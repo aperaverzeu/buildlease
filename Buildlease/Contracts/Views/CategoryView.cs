@@ -11,5 +11,6 @@ namespace Contracts.Views
         public int ParentId { get; set; }
         public string Name { get; set; }
         public int ProductCount { get; set; }
+        public string DefaultImagePath { get; set; }
     }
 }

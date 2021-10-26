@@ -7,7 +7,6 @@ namespace Contracts.Views
 {
     public class CartFullView
     {
-        public decimal Price { get; set; }
         public ProductOrderView[] ProductOrders { get; set; }
     }
 }
