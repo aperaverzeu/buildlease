@@ -10,7 +10,7 @@ namespace Services
 
         public CatalogueService(ApplicationDbContext dbContext) => _dbContext = dbContext;
 
-        public CategoryView[] GetAllCategories()
+        public CategoryFullView[] GetAllCategories()
         {
             throw new System.NotImplementedException();
         }
