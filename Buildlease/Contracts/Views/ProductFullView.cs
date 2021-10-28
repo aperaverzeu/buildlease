@@ -8,6 +8,7 @@ namespace Contracts.Views
     public class ProductFullView
     {
         public int Id { get; set; }
+        public CategoryView[] CategoryPath { get; set; }
         public string Name { get; set; }
         public string ShortDescription { get; set; }
         public string Description { get; set; }
