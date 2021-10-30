@@ -237,3 +237,4 @@ appsettings.json
 .idea/
 *.sln.iml
 *.DS_Store
+.vscode/
