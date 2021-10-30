@@ -1,4 +1,5 @@
-﻿using Contracts.Views;
+﻿using Contracts.Requests;
+using Contracts.Views;
 using Persistence;
 using Services.Abstractions;
 
@@ -25,7 +26,7 @@ namespace Services
             throw new System.NotImplementedException();
         }
 
-        public ProductView[] GetProducts()
+        public ProductView[] GetProducts(GetProductsRequest request)
         {
             throw new System.NotImplementedException();
         }

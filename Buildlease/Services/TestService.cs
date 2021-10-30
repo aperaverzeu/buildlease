@@ -1,4 +1,5 @@
-﻿using Services.Abstractions;
+﻿using Contracts.Requests;
+using Services.Abstractions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -18,6 +19,11 @@ namespace Services
         {
             await Task.Delay(5000, cancellationToken);
             return $"Thanks for yout time, {name}.";
+        }
+
+        public string DoRequestTest(TestRequest request)
+        {
+            return $"Well done, {request.Name}!";
         }
     }
 }
