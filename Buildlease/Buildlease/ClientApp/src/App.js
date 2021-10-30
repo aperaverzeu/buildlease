@@ -7,6 +7,7 @@ import { Counter } from './components/Counter';
 import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
 import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
 import { ApplicationPaths } from './components/api-authorization/ApiAuthorizationConstants';
+import Test from './components/Test';
 
 import './custom.css'
 
@@ -16,6 +17,7 @@ export default class App extends Component {
   render () {
     return (
       <Layout>
+        <Route exact path='/Test' component={Test} />
         <Route exact path='/' component={Home} />
         <Route path='/counter' component={Counter} />
         <AuthorizeRoute path='/fetch-data' component={FetchData} />
