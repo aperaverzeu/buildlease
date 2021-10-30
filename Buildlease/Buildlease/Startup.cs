@@ -14,6 +14,9 @@ using Domain.Models;
 using Services.Abstractions;
 using Services;
 using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Converters;
 
 namespace Buildlease
 {
@@ -44,7 +47,14 @@ namespace Buildlease
             services.AddAuthentication()
                 .AddIdentityServerJwt();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.Converters.Add(new StringEnumConverter() { NamingStrategy = new DefaultNamingStrategy() });
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver { NamingStrategy = new DefaultNamingStrategy() };
+                    options.SerializerSettings.Formatting = Formatting.Indented;
+                });
+
             services.AddRazorPages();
 
             // In production, the React files will be served from this directory
