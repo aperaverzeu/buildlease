@@ -1,4 +1,5 @@
-﻿using Contracts.Views;
+﻿using Contracts.Requests;
+using Contracts.Views;
 
 namespace Services.Abstractions
 {
@@ -6,7 +7,7 @@ namespace Services.Abstractions
     {
         CategoryFullView[] GetAllCategories();
         CategoryFilterView[] GetCategoryFilters(int categoryId);
-        ProductView[] GetProducts();
+        ProductView[] GetProducts(GetProductsRequest request);
         ProductFullView GetProduct(int productId);
     }
 }

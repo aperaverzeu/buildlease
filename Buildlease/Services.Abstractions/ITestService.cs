@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using Contracts.Requests;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Services.Abstractions
@@ -7,5 +8,6 @@ namespace Services.Abstractions
     {
         string DoTest(string name);
         Task<string> DoTest(string name, CancellationToken cancellationToken = default);
+        string DoRequestTest(TestRequest request);
     }
 }
