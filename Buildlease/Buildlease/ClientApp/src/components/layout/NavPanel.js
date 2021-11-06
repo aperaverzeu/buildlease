@@ -26,20 +26,28 @@ export class NavPanel extends Component {
 
         return (
             <>
-                <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-                <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-                    <ul className="navbar-nav flex-grow d-flex align-items-center">
+                <NavbarToggler onClick={this.toggleNavbar} className='mr-2' />
+                <Collapse className='d-sm-inline-flex flex-sm-row-reverse' isOpen={!this.state.collapsed} navbar>
+                    <ul className='navbar-nav flex-grow d-flex align-items-center'>
                         <NavItem>
-                            <NavLink tag={Link} className="text-light" to="/test">TypeScript</NavLink>
+                            <NavLink tag={Link} className='text-light' to='/favorites'>
+                                <Favorites/>
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} className="text-light" to="/">Home</NavLink>
+                            <NavLink tag={Link} className='text-light' to='/notifications'>
+                                <Notifications/>
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} className="text-light" to="/counter">Counter</NavLink>
+                            <NavLink tag={Link} className='text-light' to='/cart'>
+                                <Cart/>
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} className="text-light" to="/fetch-data">Fetch data</NavLink>
+                            <NavLink tag={Link} className='text-light' to='/profile'>
+                                <Profile/>
+                            </NavLink>
                         </NavItem>
                         <LoginMenu />
                     </ul>

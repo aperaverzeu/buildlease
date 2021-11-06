@@ -1,7 +1,6 @@
 import { Component } from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { Container, Navbar, NavbarBrand } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { LoginMenu } from '../api-authorization/LoginMenu';
 import NavPanel from './NavPanel';
 import logoIcon from '../../assets/tmp-logo.png'
 
