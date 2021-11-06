@@ -1,13 +1,7 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Route } from 'react-router';
-import { Layout } from './components/Layout';
-import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
-import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
-import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
-import { ApplicationPaths } from './components/api-authorization/ApiAuthorizationConstants';
-import Test from './components/Test';
+import { MainPage } from './components/main-page/MainPage';
+import { GenPage } from './components/GenPage';
 
 import './custom.css'
 
@@ -16,13 +10,10 @@ export default class App extends Component {
 
   render () {
     return (
-      <Layout>
-        <Route exact path='/Test' component={Test} />
-        <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <AuthorizeRoute path='/fetch-data' component={FetchData} />
-        <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
-      </Layout>
+      <>
+        <Route exact path='/' component={MainPage} />
+        <Route path='/:smth' component={GenPage} />
+      </>
     );
   }
 }
