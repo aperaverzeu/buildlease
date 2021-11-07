@@ -26,12 +26,11 @@ export class NavMenu extends Component {
 
     render() {
         return (
-            <Navbar className={`navbar-expand-sm navbar-toggleable-sm ${styles.navMenu}`} light>
+            <Navbar className={`navbar-expand-sm navbar-toggleable-sm ${styles.wideBar}`} light>
                 <Container className='d-flex'>
                     <NavbarBrand tag={Link} to="/">
                         <img src={logoIcon} className={styles.logo} alt='' />
                     </NavbarBrand>
-
                     <NavPanel/>
                 </Container>
             </Navbar>

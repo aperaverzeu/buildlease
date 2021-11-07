@@ -4,6 +4,8 @@ import { StarBorderOutlined as Favorites, NotificationsOutlined as Notifications
 import { Link } from 'react-router-dom';
 import { LoginMenu } from '../api-authorization/LoginMenu';
 
+import styles from './layout.module.css';
+
 export class NavPanel extends Component {
     static displayName = NavPanel.name;
 
@@ -31,22 +33,22 @@ export class NavPanel extends Component {
                     <ul className='navbar-nav flex-grow d-flex align-items-center'>
                         <NavItem>
                             <NavLink tag={Link} className='text-light' to='/favorites'>
-                                <Favorites/>
+                                <Favorites className={styles.navPanelIcon}/>
                             </NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink tag={Link} className='text-light' to='/notifications'>
-                                <Notifications/>
+                                <Notifications className={styles.navPanelIcon}/>
                             </NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink tag={Link} className='text-light' to='/cart'>
-                                <Cart/>
+                                <Cart className={styles.navPanelIcon}/>
                             </NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink tag={Link} className='text-light' to='/profile'>
-                                <Profile/>
+                                <Profile className={styles.navPanelIcon}/>
                             </NavLink>
                         </NavItem>
                         <LoginMenu />
