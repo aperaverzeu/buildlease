@@ -3,6 +3,8 @@ import { Route } from 'react-router';
 import { MainPage } from './components/main-page/MainPage';
 import { GenPage } from './components/GenPage';
 
+import './base.module.css';
+
 export default class App extends Component {
   static displayName = App.name;
 

@@ -1,6 +1,10 @@
-/* Provide sufficient contrast against white background */
 p {
   font-family: 'Source Sans Pro', sans-serif;
+}
+
+h1 {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 28px;
 }
 
 a {
@@ -13,6 +17,6 @@ code {
 
 .btn-primary {
   color: #fff;
-  background-color: #1b6ec2;
+  background-color: #ff6655;
   border-color: #1861ac;
 }

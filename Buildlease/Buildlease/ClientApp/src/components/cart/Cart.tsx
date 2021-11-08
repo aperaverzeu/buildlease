@@ -1,8 +1,10 @@
+import { SubHeader } from "../layout/SubHeader"
+
 function Cart() {
     return (
-        <div>
-            
-        </div>
+        <>
+            <SubHeader/>
+        </>
     )
 }
 

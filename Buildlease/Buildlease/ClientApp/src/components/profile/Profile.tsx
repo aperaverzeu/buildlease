@@ -1,8 +1,10 @@
+import { SubHeader } from "../layout/SubHeader"
+
 function Profile() {
     return (
-        <div>
-            
-        </div>
+        <>
+            <SubHeader/>
+        </>
     )
 }
 

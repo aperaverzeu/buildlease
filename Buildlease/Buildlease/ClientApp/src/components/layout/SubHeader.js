@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { Route } from 'react-router';
-import { Container } from 'reactstrap';
 
 import PageState from './PageState';
 import SortRule from './SortRule';
@@ -12,12 +11,12 @@ export class SubHeader extends Component {
 
     render() {
         return (
-            <Container className={`d-flex ${styles.wideBar}`}>
+            <div className={`d-flex ${styles.wideBar}`}>
                 <PageState/>
                 <Route path='/catalog'>
                     <SortRule/>
                 </Route>
-            </Container>
+            </div>
         );
     }
 }
