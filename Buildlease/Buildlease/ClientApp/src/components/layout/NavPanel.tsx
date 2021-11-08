@@ -6,10 +6,12 @@ import { LoginMenu } from '../api-authorization/LoginMenu';
 
 import styles from './layout.module.css';
 
-export class NavPanel extends Component {
-    static displayName = NavPanel.name;
+type NavBarState = { collapsed?: boolean };
 
-    constructor(props) {
+type NavPanelProps = { state?: NavBarState };
+
+export class NavPanel extends Component<NavPanelProps, NavBarState> {
+    constructor(props: NavPanelProps) {
         super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);

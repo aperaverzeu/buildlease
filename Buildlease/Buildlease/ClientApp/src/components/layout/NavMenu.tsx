@@ -6,10 +6,12 @@ import logoIcon from '../../assets/tmp-logo.png'
 
 import styles from './layout.module.css';
 
-export class NavMenu extends Component {
-    static displayName = NavMenu.name;
+type NavBarState = { collapsed?: boolean };
 
-    constructor(props) {
+type NavMenuProps = { state?: NavBarState };
+
+export class NavMenu extends Component<NavMenuProps, NavBarState> {
+    constructor(props: NavMenuProps) {
         super(props);
 
         this.toggleNavbar = this.toggleNavbar.bind(this);

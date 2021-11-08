@@ -4,8 +4,6 @@ import { Container } from 'reactstrap';
 import BigHeader from './BigHeader';
 
 export class MainPage extends Component {
-    // static displayName = MainPage.name;
-
     render() {
         return (
             <>
