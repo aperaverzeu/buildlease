@@ -183,6 +183,9 @@ export class AuthorizeService {
         if (!response.ok) {
             throw new Error(`Could not load settings for '${ApplicationName}'`);
         }
+
+        console.log(response); // the response is causing minor exception
+
         let settings = await response.json();
         settings.automaticSilentRenew = true;
         settings.includeIdTokenInSilentRenew = true;

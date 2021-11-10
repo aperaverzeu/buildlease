@@ -12,8 +12,6 @@ import NotFound from './NotFound';
 import Cart from './cart/Cart';
 import Profile from './profile/Profile';
 
-import FetchData from './FetchData';
-
 export class GenPage extends Component {
     render() {
         return(
@@ -24,7 +22,6 @@ export class GenPage extends Component {
                     <Route path='/cart' component={Cart}/> {/* should be for authenticated users */}
                     <Route path='/profile' component={Profile}/> {/* should be for authenticated users */}
 
-                    <AuthorizeRoute path='/fetch-data' component={FetchData} />
                     <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
 
                     <Route component={NotFound} />
