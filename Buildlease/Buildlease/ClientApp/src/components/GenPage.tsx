@@ -19,8 +19,8 @@ export class GenPage extends Component {
                 <Switch>
                     <Route path='/catalog' component={Catalog}/>
 
-                    <Route path='/cart' component={Cart}/> {/* should be for authenticated users */}
-                    <Route path='/profile' component={Profile}/> {/* should be for authenticated users */}
+                    <AuthorizeRoute path='/cart' component={Cart}/>
+                    <AuthorizeRoute path='/profile' component={Profile}/>
 
                     <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
 

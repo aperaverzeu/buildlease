@@ -1,4 +1,3 @@
-import React from 'react'
 import { Component } from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { ApplicationPaths, QueryParameterNames } from './ApiAuthorizationConstants'
@@ -27,10 +26,12 @@ export default class AuthorizeRoute extends Component {
         const { ready, authenticated } = this.state;
         var link = document.createElement("a");
         link.href = this.props.path;
+
         const returnUrl = `${link.protocol}//${link.host}${link.pathname}${link.search}${link.hash}`;
         const redirectUrl = `${ApplicationPaths.Login}?${QueryParameterNames.ReturnUrl}=${encodeURIComponent(returnUrl)}`
+
         if (!ready) {
-            return <div></div>;
+            return <div>Not ready.</div>;
         } else {
             const { component: Component, ...rest } = this.props;
             return <Route {...rest}
