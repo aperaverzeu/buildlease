@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { Collapse, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import { StarBorderOutlined as Favorites, NotificationsOutlined as Notifications, ShoppingCartOutlined as Cart, AccountCircleOutlined as Profile } from "@material-ui/icons"
+import { StarBorderOutlined as Favorites, NotificationsOutlined as Notifications,
+    ShoppingCartOutlined as Cart, AccountCircleOutlined as Profile , FormatListBulleted as Catalog} from "@material-ui/icons"
 import { Link } from 'react-router-dom';
 import { LoginMenu } from '../api-authorization/LoginMenu';
 
@@ -27,12 +28,21 @@ export class NavPanel extends Component<NavPanelProps, NavBarState> {
     }
 
     render() {
-
         return (
             <>
                 <NavbarToggler onClick={this.toggleNavbar} className='mr-2' />
                 <Collapse className='d-sm-inline-flex flex-sm-row-reverse' isOpen={!this.state.collapsed} navbar>
                     <ul className='navbar-nav flex-grow d-flex align-items-center'>
+                        <NavItem>
+                            <NavLink tag={Link} className='text-light' to='/catalog'>
+                                <Catalog className={styles.navPanelIcon}/>
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} className='text-light' to='/cart'>
+                                <Cart className={styles.navPanelIcon}/>
+                            </NavLink>
+                        </NavItem>
                         <NavItem>
                             <NavLink tag={Link} className='text-light' to='/favorites'>
                                 <Favorites className={styles.navPanelIcon}/>
@@ -41,11 +51,6 @@ export class NavPanel extends Component<NavPanelProps, NavBarState> {
                         <NavItem>
                             <NavLink tag={Link} className='text-light' to='/notifications'>
                                 <Notifications className={styles.navPanelIcon}/>
-                            </NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink tag={Link} className='text-light' to='/cart'>
-                                <Cart className={styles.navPanelIcon}/>
                             </NavLink>
                         </NavItem>
                         <NavItem>
