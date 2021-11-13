@@ -4,6 +4,7 @@ import { MainPage } from './components/main-page/MainPage';
 import { GenPage } from './components/GenPage';
 
 import './base.module.css';
+import 'antd/dist/antd.css';
 
 export default class App extends Component {
   render () {

@@ -11,13 +11,14 @@ import Catalog from './Catalog';
 import NotFound from './NotFound';
 import Cart from './cart/Cart';
 import Profile from './profile/Profile';
+import Catalogue from './Catalogue/Catalogue';
 
 export class GenPage extends Component {
     render() {
         return(
             <Layout>
                 <Switch>
-                    <Route path='/catalog' component={Catalog}/>
+                    <Route path='/catalog/:stringCategoryId?' component={Catalogue}/>
 
                     <AuthorizeRoute path='/cart' component={Cart}/>
                     <AuthorizeRoute path='/profile' component={Profile}/>
