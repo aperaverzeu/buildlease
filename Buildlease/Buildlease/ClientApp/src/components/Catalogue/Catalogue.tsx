@@ -8,13 +8,17 @@ import Item from "./Item";
 import AttributeFilter from "./Request/AttributeFilter";
 import GetProductsRequest from "./Request/GetProductsRequest";
 import SortRule from "./Request/SortRule";
-import CategoryFilterView from "./Views/CategoryFilterView";
-import ProductView from "./Views/ProductView";
+import CategoryFilterView from "../Views/CategoryFilterView";
+import ProductView from "../Views/ProductView";
+import LOGIC from "../../LOGIC";
+
 
 export default function Catalogue() {
 
   const { stringCategoryId } = useParams<{stringCategoryId?: string | undefined}>();
-  const id: number = (stringCategoryId && +stringCategoryId) || 0;
+  const categoryId: number = (stringCategoryId && +stringCategoryId) || 0;
+
+  const breadcrumb = LOGIC.GetBreadcrumb(categoryId);
 
   const [products, setProducts] = useState<ProductView[] | undefined>(undefined);
   const [filters, setFilters] = useState<CategoryFilterView[] | undefined>(undefined);
@@ -28,7 +32,7 @@ export default function Catalogue() {
 
   function BuildRequestObject(): GetProductsRequest {
     const obj: GetProductsRequest = {
-      CategoryId: id,
+      CategoryId: categoryId,
       Filters: filtration,
       OrderByRule: sortRule,
       SkipCount: (pageNumber - 1) * pageSize,
@@ -38,8 +42,7 @@ export default function Catalogue() {
   }
 
   function LoadProducts() {
-    Promise
-      .resolve(API.GetProducts(BuildRequestObject()))
+    API.GetProducts(BuildRequestObject())
       .then(res => setProducts(res));
   }
 
@@ -53,8 +56,7 @@ export default function Catalogue() {
   }, [pageNumber]);
 
   useEffect(() => {
-    Promise
-      .resolve(API.GetCategoryFilters(id))
+    API.GetCategoryFilters(categoryId)
       .then(res => setFilters(res));
   },[]);
   
@@ -74,10 +76,10 @@ export default function Catalogue() {
         }}
       >
         <Breadcrumb>
-          <Breadcrumb.Item><a href={PATH.ToCategory(0)} target="_self">Home Sweet Home</a></Breadcrumb.Item>
-          <Breadcrumb.Item>Front-End</Breadcrumb.Item>
-          <Breadcrumb.Item>React</Breadcrumb.Item>
-          <Breadcrumb.Item>Hell</Breadcrumb.Item>
+          {breadcrumb.map(cat => 
+            <Breadcrumb.Item><a href={PATH.ToCategory(cat.Id)} target="_self">{cat.Name}</a></Breadcrumb.Item>
+          )}
+          
         </Breadcrumb>
         <Select defaultValue={sortRule} onChange={(newValue) => setSortRule(newValue)}>
           {Object.values(SortRule).map((item => <Select.Option value={item}>{item}</Select.Option>))}

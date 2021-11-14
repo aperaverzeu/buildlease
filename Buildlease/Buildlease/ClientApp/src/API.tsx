@@ -1,11 +1,18 @@
 import axios from "axios";
 import GetProductsRequest from "./components/Catalogue/Request/GetProductsRequest";
-import CategoryFilterView from "./components/Catalogue/Views/CategoryFilterView";
-import ProductView from "./components/Catalogue/Views/ProductView";
+import CategoryFilterView from "./components/Views/CategoryFilterView";
+import ProductView from "./components/Views/ProductView";
+import CategoryFullView from "./components/Views/CategoryFullView";
 
 const MainLink = 'https://localhost:44329/api/';
 
 const API = {
+
+  GetAllCategories: () => {
+    return axios
+      .post<CategoryFullView[]>(MainLink + 'GetAllCategories')
+      .then(res => res.data);
+  },
   
   GetProducts: (info: GetProductsRequest) => {
     return axios
@@ -24,6 +31,7 @@ const API = {
       .post<void>(MainLink + `SetProductOrderCount/${productId}/${count}`)
       .then(res => res.data);
   },
+  
 }
 
 export default API;

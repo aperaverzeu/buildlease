@@ -11,6 +11,7 @@ const PATH = {
       return MainLink + `catalog`;
     return MainLink + `catalog/${categoryId}`;
   },
+  
 }
 
 export default PATH;
