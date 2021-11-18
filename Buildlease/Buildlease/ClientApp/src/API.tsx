@@ -4,7 +4,7 @@ import CategoryFilterView from "./components/Views/CategoryFilterView";
 import ProductView from "./components/Views/ProductView";
 import CategoryFullView from "./components/Views/CategoryFullView";
 
-const MainLink = 'https://localhost:44329/api/';
+const MainLink = 'https://localhost:5001/api/';
 
 const API = {
 
