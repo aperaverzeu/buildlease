@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Models
+﻿namespace Domain.Models
 {
     public class Address
     {
@@ -12,7 +6,7 @@ namespace Domain.Models
         public string CustomerId { get; set; }
         public int Priority { get; set; }
 
-        public string MailIndex { get; set; }
+        public string PostalCode { get; set; }
         public string City { get; set; }
         public string Street { get; set; }
         public string Building { get; set; }
