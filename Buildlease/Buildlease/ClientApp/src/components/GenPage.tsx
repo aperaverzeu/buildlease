@@ -12,11 +12,13 @@ import NotFound from './NotFound';
 import Cart from './cart/Cart';
 import Profile from './profile/Profile';
 import Catalogue from './Catalogue/Catalogue';
+import Globals from '../Globals';
 
 export class GenPage extends Component {
     render() {
         return(
             <Layout>
+            {Globals.Categories ?
                 <Switch>
                     <Route path='/catalog/:stringCategoryId?' component={Catalogue}/>
 
@@ -27,6 +29,9 @@ export class GenPage extends Component {
 
                     <Route component={NotFound} />
                 </Switch>
+            :
+                <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>
+            }
             </Layout>
         )
     }
