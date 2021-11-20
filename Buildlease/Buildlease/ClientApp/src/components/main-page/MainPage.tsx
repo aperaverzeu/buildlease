@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Container } from 'reactstrap';
+import Globals from '../../Globals';
 
 import BigHeader from './BigHeader';
 import SearchBar from "./SearchBar";
@@ -20,10 +21,16 @@ export class MainPage extends Component {
         return (
             <>
                 <BigHeader />
-                
-                <SearchBar OnClick={Search}/>
-                <CategoryBar categories={this.data}/>
-                <RecomendationBar smth={'lalala'}/>
+
+                <Container>
+                    {Globals.Categories ?
+                        <SearchBar OnClick={Search}/>
+                        <CategoryBar categories={this.data}/>
+                        <RecomendationBar smth={'lalala'}/>
+                    :
+                        <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>
+                    }
+                </Container>
             </>
         );
     }
