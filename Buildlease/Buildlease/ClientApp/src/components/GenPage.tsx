@@ -14,6 +14,8 @@ import Profile from './profile/Profile';
 import Catalogue from './Catalogue/Catalogue';
 import Globals from '../Globals';
 
+import styles from './gen_page.module.css';
+
 export class GenPage extends Component {
     render() {
         return(

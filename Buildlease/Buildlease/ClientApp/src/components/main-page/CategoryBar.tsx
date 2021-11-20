@@ -11,12 +11,15 @@ interface Props {
 export default function CategoryBar(props: Props) {
     return (
         <div className={styles.categoryContainer}>
-            <p className={styles.categoryContainerTitle}>OUR EQUIPMENT CATEGORIES</p>
+            <div style={{marginTop: '40px', marginBottom: '20px'}}>
+                <h1>OUR EQUIPMENT CATEGORIES</h1>
+            </div>
             <div className={styles.categoryGridContainer}>
                 {/*todo: add links*/}
                 {props.categories.map(category => (
-                    <div className={styles.categoryGridItem}>
-                        <Icon className={styles.chevronStyle}/>{category}
+                    <div className={'d-flex'}>
+                        <Icon className={styles.chevronStyle}/>
+                        <h5>{category}</h5>
                     </div>
                 ))}
             </div>
