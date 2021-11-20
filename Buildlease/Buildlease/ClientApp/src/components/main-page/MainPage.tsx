@@ -24,9 +24,11 @@ export class MainPage extends Component {
 
                 <Container>
                     {Globals.Categories ?
-                        <SearchBar OnClick={Search}/>
-                        <CategoryBar categories={this.data}/>
-                        <RecomendationBar smth={'lalala'}/>
+                        <>
+                            <SearchBar OnClick={Search}/>
+                            <CategoryBar categories={this.data}/>
+                            <RecomendationBar smth={'lalala'} />
+                        </>
                     :
                         <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>
                     }
