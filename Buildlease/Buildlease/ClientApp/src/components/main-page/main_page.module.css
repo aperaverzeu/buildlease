@@ -12,3 +12,90 @@ html, body {
   background-size: cover;
   background-position: center bottom;
 }
+
+.searchContainer {
+  border-radius: 10px;
+  border: 1px solid black;
+  height: 3%;
+  width: 30%;
+  background-color: white;
+  margin: 0 auto;
+  margin-top: -1.5%;
+  display: flex;
+}
+
+.searchView {
+  border-radius: 10px;
+  flex-grow: 37;
+  display: flex;
+}
+
+.searchIcon {
+  flex-grow: 1;
+}
+
+.searchInput {
+  flex-grow: 10;
+  border: none;
+  border-left: 1px solid black;
+}
+
+.searchButton {
+  flex-grow: 10;
+  border-radius: 10px;
+  border-color: #ff6655;
+  background-color: #ff6655;
+  text-align: center;
+  color: white;
+}
+
+.categoryContainer {
+  width: 100%;
+  height: fit-content;
+  background-color: white;
+}
+
+.categoryContainerTitle {
+  font-family: Helvetica Neue Medium Extended;
+  font-size: 24px; 
+  font-weight: bold;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.categoryGridContainer {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20%;
+  grid-gap: 10px;
+  background-color: #fff;
+  justify-content: center;
+  align-content: center;
+}
+
+.categoryGridItem {
+  font-family: Helvetica Neue Medium Extended;
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 150%;
+}
+
+.chevronStyle {
+  font-size: large;
+  color: #ff6655;
+}
+
+.recommendationContainer {
+  border-color: black;
+  width: 100%;
+  height: fit-content;
+  background-color: white;
+}
+
+.recommendationTile {
+  border: 1px solid black;;
+  width: 240px;
+  height: 240px;
+  background-color: white;
+}
