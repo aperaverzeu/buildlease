@@ -32,6 +32,9 @@ namespace Buildlease
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            if (Configuration.GetConnectionString("DefaultConnection").Contains("amazonaws"))
+                throw new ArgumentException("You shall not drop remote database, mortal one!");
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
                     Configuration.GetConnectionString("DefaultConnection")));
