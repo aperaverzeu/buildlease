@@ -42,6 +42,20 @@ namespace Services
         {
             _dbContext.Database.EnsureDeleted();
             _dbContext.Database.EnsureCreated();
+            FillDatabaseWithExampleEntities();
+        }
+
+        private void FillDatabaseWithExampleEntities()
+        {
+            _dbContext.Database.BeginTransaction();
+
+            _dbContext.Categories.AddRange(Domain.EntitiesExample.CategoryEntities.Get());
+            _dbContext.Products.AddRange(Domain.EntitiesExample.ProductEntities.Get());
+            _dbContext.Attributes.AddRange(Domain.EntitiesExample.AttributeEntities.Get());
+            _dbContext.ProductAttributes.AddRange(Domain.EntitiesExample.ProductAttributeEntities.Get());
+
+            _dbContext.SaveChanges();
+            _dbContext.Database.CommitTransaction();
         }
     }
 }
