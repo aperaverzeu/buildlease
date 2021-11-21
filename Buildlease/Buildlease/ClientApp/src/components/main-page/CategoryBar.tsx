@@ -1,6 +1,3 @@
-import React from "react";
-import { NavMenu } from '../layout/NavMenu';
-
 import styles from './main_page.module.css'
 import { ChevronRightRounded as Icon} from "@material-ui/icons"
 
@@ -19,7 +16,7 @@ export default function CategoryBar(props: Props) {
                 {props.categories.map(category => (
                     <div className={'d-flex'}>
                         <Icon className={styles.chevronStyle}/>
-                        <h5>{category}</h5>
+                        <h5 style={{margin: '0px'}}>{category}</h5>
                     </div>
                 ))}
             </div>
