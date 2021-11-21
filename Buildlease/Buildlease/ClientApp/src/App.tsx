@@ -1,6 +1,6 @@
 import { Route } from 'react-router-dom';
-import MainPage from './components/main-page/MainPage';
-import GenPage from './components/GenPage';
+import { MainPage } from './components/main-page/MainPage';
+import { GenPage } from './components/GenPage';
 
 import Globals from './Globals';
 
