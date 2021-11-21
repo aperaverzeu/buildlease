@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Domain.Models;
+using System.Collections.Generic;
 
-namespace Domain.Models.EntitiesExample
+namespace Domain.EntitiesExample
 {
     public static class ProductEntities
     {
