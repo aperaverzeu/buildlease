@@ -6,15 +6,13 @@ import { SearchRounded as SearchIcon} from "@material-ui/icons"
 
 import { Input } from 'antd';
 
-const { Search } = Input;
-
 interface Props {
     onSearch: (arg0: string) => void
 }
 
 export default function SearchBar(props: Props) {
     return (
-        <Search
+        <Input.Search
             style={{width: '50%'}} // todo: to be changed somehow to look fine on different screens
             placeholder="I'm looking for..."
             allowClear
