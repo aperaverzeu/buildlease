@@ -110,7 +110,7 @@ namespace Domain.Models.EntitiesExample
                 },
                 new Attribute()
                 {
-                    Id = 12,
+                    Id = 13,
                     CategoryId = 7,
                     Name = "Width",
                     ValueType = AttributeType.Decimal,
@@ -118,7 +118,7 @@ namespace Domain.Models.EntitiesExample
                 },
                 new Attribute()
                 {
-                    Id = 12,
+                    Id = 14,
                     CategoryId = 5,
                     Name = "Material",
                     ValueType = AttributeType.String,
