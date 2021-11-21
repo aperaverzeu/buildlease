@@ -66,11 +66,40 @@ namespace Domain.Models.EntitiesExample
                 },
                 new ProductAttribute()
                 {
-                Id = 7,
-                ProductId = 0,
-                AttributeId = 0,
-                ValueString = "Pine"
-                }
+                    Id = 7,
+                    ProductId = 0,
+                    AttributeId = 0,
+                    ValueString = "Pine"
+                },
+
+                new ProductAttribute()
+                {
+                    Id = 8,
+                    ProductId = 11,
+                    AttributeId = 8,
+                    ValueString = "Wood"
+                },
+                new ProductAttribute()
+                {
+                    Id = 9,
+                    ProductId = 12,
+                    AttributeId = 8,
+                    ValueString = "Plastic"
+                },
+                new ProductAttribute()
+                {
+                    Id = 10,
+                    ProductId = 11,
+                    AttributeId = 13,
+                    ValueNumber = 42
+                },
+                new ProductAttribute()
+                {
+                    Id = 11,
+                    ProductId = 12,
+                    AttributeId = 13,
+                    ValueNumber = 42
+                },
             };
         }
     }

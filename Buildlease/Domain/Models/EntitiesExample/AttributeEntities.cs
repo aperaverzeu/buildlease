@@ -111,10 +111,10 @@ namespace Domain.Models.EntitiesExample
                 new Attribute()
                 {
                     Id = 13,
-                    CategoryId = 7,
-                    Name = "Width",
+                    CategoryId = 1,
+                    Name = "Length",
                     ValueType = AttributeType.Decimal,
-                    UnitName = "millimetres"
+                    UnitName = "cm"
                 },
                 new Attribute()
                 {
