@@ -7,7 +7,7 @@ import { SearchRounded as SearchIcon} from "@material-ui/icons"
 import { Input } from 'antd';
 
 interface Props {
-    onSearch: (text_или_query_или_типа_того: string) => void
+    onSearch: (query: string) => void
 }
 
 export default function SearchBar(props: Props) {
