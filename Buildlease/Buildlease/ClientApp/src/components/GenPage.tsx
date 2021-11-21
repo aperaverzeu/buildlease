@@ -1,42 +1,36 @@
-import { Component, useState } from 'react';
+// routing
 import { Route, Switch } from 'react-router-dom';
 
-import AuthorizeRoute from './api-authorization/AuthorizeRoute';
+// auth
 import ApiAuthorizationRoutes from './api-authorization/ApiAuthorizationRoutes';
 import { ApplicationPaths } from './api-authorization/ApiAuthorizationConstants';
+import AuthorizeRoute from './api-authorization/AuthorizeRoute';
 
-import Layout from './layout/Layout';
+// gen layout
+import SubHeader from './layout/SubHeader';
+import SideMenu from './layout/SideMenu';
+import MainContent from './layout/MainContent';
 
-import Catalog from './Catalog';
-import NotFound from './NotFound';
-import Cart from './cart/Cart';
-import Profile from './profile/Profile';
-import Catalogue from './Catalogue/Catalogue';
-import Globals from '../Globals';
-
+// styles (do we need em here tho?)
 import styles from './gen_page.module.css';
 
 export default function GenPage() {
-    
-    const [OK, setOK] = useState<boolean>(Globals.Categories !== undefined);
-    if (!OK) Globals.OnCategoriesLoadedListeners!.push(() => setOK(true));
-    
     return (
-        <Layout>
-        {OK ?
+        <>
             <Switch>
-                <Route path='/catalog/:stringCategoryId?' component={Catalogue}/>
+                <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
+                <Route>
+                    { /* I kmow it looks like shit but I can explain */ }
+                    <AuthorizeRoute path='/cart' component={ () => { return(<></>) } }/>
+                    <AuthorizeRoute path='/profile'  component={ () => { return(<></>) } }/>
 
-                    <AuthorizeRoute path='/cart' component={Cart}/>
-                    <AuthorizeRoute path='/profile' component={Profile}/>
-
-                    <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
-
-                    <Route component={NotFound} />
-                </Switch>
-            :
-                <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>
-            }
-        </Layout>
+                    <SubHeader/>
+                    <div>
+                        <SideMenu/>
+                        <MainContent/>
+                    </div>
+                </Route>
+            </Switch>
+        </>
     )
 }

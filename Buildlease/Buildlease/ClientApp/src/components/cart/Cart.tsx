@@ -1,9 +1,7 @@
-import { SubHeader } from "../layout/SubHeader"
-
 function Cart() {
     return (
         <>
-            <SubHeader/>
+            Cart
         </>
     )
 }

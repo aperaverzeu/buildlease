@@ -1,9 +1,7 @@
-import { SubHeader } from "../layout/SubHeader"
-
 function Profile() {
     return (
         <>
-            <SubHeader/>
+            Profile
         </>
     )
 }

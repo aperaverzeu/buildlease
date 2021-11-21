@@ -1,14 +1,15 @@
 import { Route } from 'react-router-dom';
+import AuthorizeRoute from '../api-authorization/AuthorizeRoute';
 
 function PageState() {
     return (
         <>
-            <Route path='/cart'>
+            <AuthorizeRoute path='/cart'>
                 <h1>Your Cart:</h1>
-            </Route>
-            <Route path='/profile'>
+            </AuthorizeRoute>
+            <AuthorizeRoute path='/profile'>
                 <h1>Your Profile:</h1>
-            </Route>
+            </AuthorizeRoute>
             <Route path='/catalog'>
                 <p>*Breadcrumb to be here*</p>
             </Route>
