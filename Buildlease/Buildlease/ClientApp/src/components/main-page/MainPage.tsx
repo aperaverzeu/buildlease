@@ -1,25 +1,33 @@
-import { useState } from 'react';
+import { Component, useState } from 'react';
 import { Container } from 'reactstrap';
 import Globals from '../../Globals';
 
 import BigHeader from './BigHeader';
+import CategoryBar from "./CategoryBar";
+import RecomendationBar from "./RecommendationBar";
 
-export default function MainPage() {
+export class MainPage extends Component {
+    data = ['Aerial Work Platforms', 'Compaction', 'Lightning', 'Concrete & Masonry',
+            'Plumbing', 'Rail', 'Pumps', 'Saws',
+            'Vehicles', 'Trailers', 'Safety', 'Generators',
+            'Traffic Management', 'Heating & Cooling', 'Test & Measure', 'Cleaning' 
+    ]
 
-    const [OK, setOK] = useState<boolean>(Globals.Categories !== undefined);
-    if (!OK) Globals.OnCategoriesLoadedListeners!.push(() => setOK(true));
+    render() {
+        return (
+            <>
+                <BigHeader />
 
-    return (
-        <>
-            <BigHeader />
-            <Container>
-                <h1>Hello, world!</h1>
-                {OK ?
-                    <p>This is to be the content of the main page, i.e. "our categories", "popular", and "featured"</p>
-                :
-                    <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>
-                }
-            </Container>
-        </>
-    );
+                <Container className='d-flex flex-column justify-content-center'>
+                    {Globals.Categories ?
+                        <>
+                            <CategoryBar categories={this.data}/>
+                        </>
+                    :
+                        <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>
+                    }
+                </Container>
+            </>
+        );
+    }
 }

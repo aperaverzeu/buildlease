@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Component, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import AuthorizeRoute from './api-authorization/AuthorizeRoute';
@@ -14,27 +14,27 @@ import Profile from './profile/Profile';
 import Catalogue from './Catalogue/Catalogue';
 import Globals from '../Globals';
 
-export default function GenPage() {
-    
-    const [OK, setOK] = useState<boolean>(Globals.Categories !== undefined);
-    if (!OK) Globals.OnCategoriesLoadedListeners!.push(() => setOK(true));
-    
-    return (
-        <Layout>
-        {OK ?
-            <Switch>
-                <Route path='/catalog/:stringCategoryId?' component={Catalogue}/>
+import styles from './gen_page.module.css';
 
-                <AuthorizeRoute path='/cart' component={Cart}/>
-                <AuthorizeRoute path='/profile' component={Profile}/>
+export class GenPage extends Component {
+    render() {
+        return(
+            <Layout>
+                {Globals.Categories ?
+                    <Switch>
+                        <Route path='/catalog/:stringCategoryId?' component={Catalogue}/>
 
-                <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
+                    <AuthorizeRoute path='/cart' component={Cart}/>
+                    <AuthorizeRoute path='/profile' component={Profile}/>
 
-                <Route component={NotFound} />
-            </Switch>
-        :
-            <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>
-        }
+                    <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
+
+                    <Route component={NotFound} />
+                </Switch>
+            :
+                <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>
+            }
         </Layout>
-    )
+        )
+    }
 }
