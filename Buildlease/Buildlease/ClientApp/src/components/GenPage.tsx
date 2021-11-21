@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import AuthorizeRoute from './api-authorization/AuthorizeRoute';
@@ -24,17 +24,16 @@ export class GenPage extends Component {
                 <Switch>
                     <Route path='/catalog/:stringCategoryId?' component={Catalogue}/>
 
-                    <AuthorizeRoute path='/cart' component={Cart}/>
-                    <AuthorizeRoute path='/profile' component={Profile}/>
+                <AuthorizeRoute path='/cart' component={Cart}/>
+                <AuthorizeRoute path='/profile' component={Profile}/>
 
-                    <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
+                <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
 
-                    <Route component={NotFound} />
-                </Switch>
-            :
-                <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>
-            }
-            </Layout>
-        )
-    }
+                <Route component={NotFound} />
+            </Switch>
+        :
+            <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>
+        }
+        </Layout>
+    )
 }

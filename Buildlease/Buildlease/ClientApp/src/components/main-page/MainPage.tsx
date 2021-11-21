@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import { Container } from 'reactstrap';
 import Globals from '../../Globals';
 
