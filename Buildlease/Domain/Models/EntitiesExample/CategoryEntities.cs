@@ -131,7 +131,7 @@ namespace Domain.Models.EntitiesExample
                 {
                     Id = 17,
                     ParentId = 11,
-                    Name = "Corder",
+                    Name = "Corner",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
             };

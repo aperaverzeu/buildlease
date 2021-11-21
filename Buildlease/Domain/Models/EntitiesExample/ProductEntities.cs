@@ -96,6 +96,22 @@ namespace Domain.Models.EntitiesExample
                     TotalCount = 1889,
                     Price = 10
                 },
+                new Product()
+                {
+                    Id = 11,
+                    CategoryId = 1,
+                    Name = "Wood toothbrush",
+                    TotalCount = 100,
+                    Price = 40
+                },
+                new Product()
+                {
+                    Id = 12,
+                    CategoryId = 2,
+                    Name = "ElectorToothBrush",
+                    TotalCount = 1,
+                    Price = 1000
+                },
             };
         }
     }
