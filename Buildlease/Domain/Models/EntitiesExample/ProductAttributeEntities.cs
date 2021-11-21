@@ -35,6 +35,41 @@ namespace Domain.Models.EntitiesExample
                     ProductId = 3,
                     AttributeId = 11,
                     ValueNumber = 3
+                },
+                new ProductAttribute()
+                {
+                    Id = 4,
+                    ProductId = 3,
+                    AttributeId = 14,
+                    ValueString = "Steel"
+                },
+                new ProductAttribute()
+                {
+                    Id = 5,
+                    ProductId = 4,
+                    AttributeId = 14,
+                    ValueString = "Carbonised steel"
+                },
+                new ProductAttribute()
+                {
+                    Id = 6,
+                    ProductId = 6,
+                    AttributeId = 14,
+                    ValueString = "Titan"
+                },
+                new ProductAttribute()
+                {
+                    Id = 7,
+                    ProductId = 1,
+                    AttributeId = 0,
+                    ValueString = "Linden"
+                },
+                new ProductAttribute()
+                {
+                Id = 7,
+                ProductId = 0,
+                AttributeId = 0,
+                ValueString = "Pine"
                 }
             };
         }
