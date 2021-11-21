@@ -12,30 +12,38 @@ namespace Services
     internal sealed class DatabaseTestService : IDatabaseTestService
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly ICatalogueService _catalogue;
 
-        public DatabaseTestService(ApplicationDbContext dbContext) => _dbContext = dbContext;
+        public DatabaseTestService(ApplicationDbContext dbContext, ICatalogueService catalogue)
+        {
+            _dbContext = dbContext;
+            _catalogue = catalogue;
+        }
 
         public void DoTest()
         {
-            var test0 = _dbContext.TestModels.ToList();
-            _dbContext.Database.BeginTransaction();
-            _dbContext.TestModels.AddRange(new List<TestModel>() {
-                new()
-                {
-                    Id = 1,
-                    ParentId = 1,
-                    Value = "42",
-                },
-                new()
-                {
-                    Id = 42,
-                    ParentId = 1,
-                    Value = "42",
-                },
+            var GetAllCategories = _catalogue.GetAllCategories();
+
+            var GetCategoryFilters = _catalogue.GetCategoryFilters(1);
+            GetCategoryFilters = _catalogue.GetCategoryFilters(3);
+
+            var GetProduct = _catalogue.GetProduct(1);
+            GetProduct = _catalogue.GetProduct(13);
+
+            var GetProducts = _catalogue.GetProducts(new GetProductsRequest() 
+            {
+                CategoryId = 1,
+                OrderByRule = SortRule.Default,
+                SkipCount = 10,
+                TakeCount = 10,
             });
-            _dbContext.SaveChanges();
-            _dbContext.Database.CommitTransaction();
-            var test = _dbContext.TestModels.ToList();
+            GetProducts = _catalogue.GetProducts(new GetProductsRequest()
+            {
+                CategoryId = 2,
+                OrderByRule = SortRule.PriceAscending,
+                SkipCount = 0,
+                TakeCount = 1,
+            });
         }
 
         public void RestartDatabase()

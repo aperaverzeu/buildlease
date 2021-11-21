@@ -16,11 +16,14 @@ namespace Services
 
         public CategoryFullView[] GetAllCategories()
         {
-            var categories = _db.Set<Category>().ToArray();
+            var categories = _db.Categories
+                .OrderBy(e => e.Id)
+                .ToArray();
 
-            var categoriesProductCount = _db.Set<Product>()
+            var categoriesProductCount = _db.Products
                 .GroupBy(e => e.CategoryId)
-                .ToDictionary(g => g.Key, g => g.Count());
+                .Select(g => new { g.Key, Count = g.Count() })
+                .ToDictionary(obj => obj.Key, obj => obj.Count);
 
             var categoriesView = categories
                 .Select(e => new CategoryFullView()
@@ -50,11 +53,11 @@ namespace Services
 
         public CategoryFilterView[] GetCategoryFilters(int categoryId)
         {
-            var cats = _db.Set<Category>()
+            var cats = _db.Categories
                 .GetPathFromRoot(categoryId)
                 .Select(e => e.Id);
 
-            var atts = _db.Set<Attribute>()
+            var atts = _db.Attributes
                 .Where(e => cats.Contains(e.CategoryId))
                 .Select(e => new CategoryFilterView()
                 {
@@ -66,22 +69,26 @@ namespace Services
 
             foreach (var att in atts)
             {
-                att.Values = _db.Set<ProductAttribute>()
+                att.Values = _db.ProductAttributes
                     .Where(e => e.AttributeId == att.Id)
                     .Where(e => e.ValueString != null)
                     .Select(e => e.ValueString)
                     .Distinct()
                     .ToArray();
 
-                att.MinValue = _db.Set<ProductAttribute>()
-                    .Where(e => e.AttributeId == att.Id)
-                    .Where(e => e.ValueNumber != null)
-                    .Min(e => e.ValueNumber);
+                if (!att.Values.Any()) att.Values = null;
 
-                att.MaxValue = _db.Set<ProductAttribute>()
+                att.MinValue = _db.ProductAttributes
                     .Where(e => e.AttributeId == att.Id)
                     .Where(e => e.ValueNumber != null)
-                    .Max(e => e.ValueNumber);
+                    .Min(e => e.ValueNumber)
+                    ?? null;
+
+                att.MaxValue = _db.ProductAttributes
+                    .Where(e => e.AttributeId == att.Id)
+                    .Where(e => e.ValueNumber != null)
+                    .Max(e => e.ValueNumber)
+                    ?? null;
             }
 
             return atts;
@@ -89,7 +96,7 @@ namespace Services
 
         public ProductFullView GetProduct(int productId)
         {
-            var product = _db.Set<Product>()
+            var product = _db.Products
                 .Single(e => e.Id == productId);
 
             var productView = new ProductFullView()
@@ -102,7 +109,7 @@ namespace Services
                 ImagePath = product.ImagePath,
             };
 
-            productView.CategoryPath = _db.Set<Category>()
+            productView.CategoryPath = _db.Categories
                 .GetPathFromRoot(product.CategoryId)
                 .Select(e => new CategoryView() 
                 {
@@ -111,9 +118,9 @@ namespace Services
                 })
                 .ToArray();
 
-            productView.Attributes = _db.Set<ProductAttribute>()
+            productView.Attributes = _db.ProductAttributes
                 .Where(e => e.ProductId == productId)
-                .Join(_db.Set<Attribute>(),
+                .Join(_db.Attributes,
                     pa => pa.AttributeId,
                     a => a.Id,
                     (pa, a) => new ProductAttributeView()
@@ -136,12 +143,12 @@ namespace Services
 
         public ProductView[] GetProducts(GetProductsRequest request)
         {
-            var subtree = _db.Set<Category>()
+            var subtree = _db.Categories
                 .GetSubtree(request.CategoryId)
                 .Select(e => e.Id)
                 .ToArray();
 
-            var query = _db.Set<Product>()
+            var query = _db.Products
                 .Where(e => subtree.Contains(e.CategoryId));
 
             if (request.Keywords is not null)

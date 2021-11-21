@@ -13,7 +13,7 @@ namespace Services
 
         public ServiceManager(ApplicationDbContext dbContext)
         {
-            _lazyDatabaseTestService = new Lazy<IDatabaseTestService>(() => new DatabaseTestService(dbContext));
+            _lazyDatabaseTestService = new Lazy<IDatabaseTestService>(() => new DatabaseTestService(dbContext, CatalogueService));
             _lazyTestService = new Lazy<ITestService>(() => new TestService());
             _lazyCatalogueService = new Lazy<ICatalogueService>(() => new CatalogueService(dbContext));
             _lazyOrderService = new Lazy<IOrderService>(() => new OrderService(dbContext));
