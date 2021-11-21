@@ -4,133 +4,133 @@ namespace Domain.Models.EntitiesExample
 {
     public static class CategoryEntities
     {
-        public static List<Category> Categories()
+        public static List<Category> Get()
         {
             return new List<Category>
             {
                 new Category()
                 {
-                    Id = 0,
-                    ParentId = 0,
-                    Name = "All",
-                    DefaultImagePath = "/wwwroot/somewhere"
-                },
-                new Category()
-                {
                     Id = 1,
-                    ParentId = 0,
-                    Name = "ToothBrushes",
+                    ParentId = 1,
+                    Name = "All",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 2,
                     ParentId = 1,
-                    Name = "Electric Toothbrushes",
+                    Name = "ToothBrushes",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 3,
-                    ParentId = 1,
-                    Name = "Simple Toothbrushes",
+                    ParentId = 2,
+                    Name = "Electric Toothbrushes",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 4,
-                    ParentId = 0,
-                    Name = "Tools",
+                    ParentId = 2,
+                    Name = "Simple Toothbrushes",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 5,
-                    ParentId = 4,
-                    Name = "Carpentry tools",
+                    ParentId = 1,
+                    Name = "Tools",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 6,
                     ParentId = 5,
-                    Name = "Hacksaws",
+                    Name = "Carpentry tools",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 7,
-                    ParentId = 5,
-                    Name = "Planners",
+                    ParentId = 6,
+                    Name = "Hacksaws",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 8,
-                    ParentId = 5,
-                    Name = "Chisels",
+                    ParentId = 6,
+                    Name = "Planners",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 9,
-                    ParentId = 0,
-                    Name = "Building materials",
+                    ParentId = 6,
+                    Name = "Chisels",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 10,
-                    ParentId = 9,
-                    Name = "Rolled Metal",
+                    ParentId = 1,
+                    Name = "Building materials",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 11,
-                    ParentId = 9,
-                    Name = "Industrial wood",
+                    ParentId = 10,
+                    Name = "Rolled Metal",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 12,
                     ParentId = 10,
-                    Name = "Fittings",
+                    Name = "Industrial wood",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 13,
-                    ParentId = 10,
-                    Name = "Sheet Metal",
+                    ParentId = 11,
+                    Name = "Fittings",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 14,
-                    ParentId = 10,
-                    Name = "Wire",
+                    ParentId = 11,
+                    Name = "Sheet Metal",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 15,
                     ParentId = 11,
-                    Name = "Board",
+                    Name = "Wire",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 16,
-                    ParentId = 11,
-                    Name = "Bar",
+                    ParentId = 12,
+                    Name = "Board",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 17,
-                    ParentId = 11,
+                    ParentId = 12,
+                    Name = "Bar",
+                    DefaultImagePath = "/wwwroot/somewhere"
+                },
+                new Category()
+                {
+                    Id = 18,
+                    ParentId = 12,
                     Name = "Corner",
                     DefaultImagePath = "/wwwroot/somewhere"
                 },
