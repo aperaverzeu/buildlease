@@ -6,28 +6,29 @@ import BigHeader from './BigHeader';
 import CategoryBar from "./CategoryBar";
 import RecomendationBar from "./RecommendationBar";
 
-export class MainPage extends Component {
-    data = ['Aerial Work Platforms', 'Compaction', 'Lightning', 'Concrete & Masonry',
-            'Plumbing', 'Rail', 'Pumps', 'Saws',
-            'Vehicles', 'Trailers', 'Safety', 'Generators',
-            'Traffic Management', 'Heating & Cooling', 'Test & Measure', 'Cleaning' 
-    ]
+const data = ['Aerial Work Platforms', 'Compaction', 'Lightning', 'Concrete & Masonry',
+    'Plumbing', 'Rail', 'Pumps', 'Saws',
+    'Vehicles', 'Trailers', 'Safety', 'Generators',
+    'Traffic Management', 'Heating & Cooling', 'Test & Measure', 'Cleaning'
+]
 
-    render() {
-        return (
-            <>
-                <BigHeader />
+export default function MainPage() {
+    const [OK, setOK] = useState<boolean>(Globals.Categories !== undefined);
+    if (!OK) Globals.OnCategoriesLoadedListeners!.push(() => setOK(true));
 
-                <Container className='d-flex flex-column justify-content-center'>
-                    {Globals.Categories ?
-                        <>
-                            <CategoryBar categories={this.data}/>
-                        </>
-                    :
-                        <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>
-                    }
-                </Container>
-            </>
-        );
-    }
+    return (
+        <>
+            <BigHeader />
+
+            <Container className='d-flex flex-column justify-content-center'>
+                {OK ?
+                    <>
+                        <CategoryBar categories={data}/>
+                    </>
+                :
+                    <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>
+                }
+            </Container>
+        </>
+    );
 }

@@ -16,13 +16,16 @@ import Globals from '../Globals';
 
 import styles from './gen_page.module.css';
 
-export class GenPage extends Component {
-    render() {
-        return(
-            <Layout>
-                {Globals.Categories ?
-                    <Switch>
-                        <Route path='/catalog/:stringCategoryId?' component={Catalogue}/>
+export default function GenPage() {
+    
+    const [OK, setOK] = useState<boolean>(Globals.Categories !== undefined);
+    if (!OK) Globals.OnCategoriesLoadedListeners!.push(() => setOK(true));
+    
+    return (
+        <Layout>
+        {OK ?
+            <Switch>
+                <Route path='/catalog/:stringCategoryId?' component={Catalogue}/>
 
                     <AuthorizeRoute path='/cart' component={Cart}/>
                     <AuthorizeRoute path='/profile' component={Profile}/>
@@ -35,6 +38,5 @@ export class GenPage extends Component {
                 <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>
             }
         </Layout>
-        )
-    }
+    )
 }
