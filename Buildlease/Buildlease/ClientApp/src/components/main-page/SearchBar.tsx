@@ -4,22 +4,21 @@ import { NavMenu } from '../layout/NavMenu';
 import styles from './main_page.module.css'
 import { SearchRounded as SearchIcon} from "@material-ui/icons"
 
+import { Input } from 'antd';
+
 interface Props {
-    OnClick: any
+    onSearch: (query: string) => void
 }
 
 export default function SearchBar(props: Props) {
     return (
-        <div className={styles.searchContainer}>
-            <div className={styles.searchView}>
-                <SearchIcon className={styles.searchIcon}/>
-                <input className={styles.searchInput}
-                    placeholder={"I'm looking for..."}
-                />
-            </div>
-            <button className={styles.searchButton} onClick={props.OnClick}>
-                <text className={styles.searchButtonText}> Search </text>
-            </button>
-        </div>
+        <Input.Search
+            style={{width: '50%'}} // todo: to be changed somehow to look fine on different screens
+            placeholder="I'm looking for..."
+            allowClear
+            enterButton="Search"
+            size="large" // todo: to be changed to 48px of height somehow
+            onSearch={props.onSearch}
+        />
     );
 }
