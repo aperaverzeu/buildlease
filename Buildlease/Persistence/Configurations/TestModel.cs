@@ -24,9 +24,11 @@ namespace Persistence.Configurations
                     .IsRequired()
                     .HasDefaultValue(1);
 
-            builder .HasOne<TestModel>()
-                    .WithMany()
-                    .HasForeignKey(e => e.ParentId);
+            builder .HasMany<TestModel>(e => e.Children)
+                    .WithOne(e => e.Parent)
+                    .HasForeignKey(e => e.ParentId)
+                    .IsRequired()
+                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
