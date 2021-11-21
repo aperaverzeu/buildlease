@@ -34,7 +34,6 @@ namespace Domain.Models.EntitiesExample
                     Id = 4,
                     ParentId = 2,
                     Name = "Simple Toothbrushes",
-                    DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
@@ -48,7 +47,6 @@ namespace Domain.Models.EntitiesExample
                     Id = 6,
                     ParentId = 5,
                     Name = "Carpentry tools",
-                    DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
@@ -69,14 +67,12 @@ namespace Domain.Models.EntitiesExample
                     Id = 9,
                     ParentId = 6,
                     Name = "Chisels",
-                    DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 10,
                     ParentId = 1,
                     Name = "Building materials",
-                    DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
@@ -90,7 +86,6 @@ namespace Domain.Models.EntitiesExample
                     Id = 12,
                     ParentId = 10,
                     Name = "Industrial wood",
-                    DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
@@ -118,21 +113,18 @@ namespace Domain.Models.EntitiesExample
                     Id = 16,
                     ParentId = 12,
                     Name = "Board",
-                    DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 17,
                     ParentId = 12,
                     Name = "Bar",
-                    DefaultImagePath = "/wwwroot/somewhere"
                 },
                 new Category()
                 {
                     Id = 18,
                     ParentId = 12,
                     Name = "Corner",
-                    DefaultImagePath = "/wwwroot/somewhere"
                 },
             };
         }
