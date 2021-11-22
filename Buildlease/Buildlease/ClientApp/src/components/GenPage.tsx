@@ -6,10 +6,10 @@ import ApiAuthorizationRoutes from './api-authorization/ApiAuthorizationRoutes';
 import { ApplicationPaths } from './api-authorization/ApiAuthorizationConstants';
 import AuthorizeRoute from './api-authorization/AuthorizeRoute';
 
-// gen layout
-import SubHeader from './layout/SubHeader';
-import SideMenu from './layout/SideMenu';
-import MainContent from './layout/MainContent';
+// pages components
+import Catalog from './catalog/Catalog';
+import Cart from './cart/Cart';
+import Profile from './profile/Profile';
 
 // styles (do we need em here tho?)
 import styles from './gen_page.module.css';
@@ -19,18 +19,9 @@ export default function GenPage() {
         <>
             <Switch>
                 <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
-                <Route>
-                    { /* I kmow it looks like shit but I can explain
-                         We might not even need this tho */ }
-                    <AuthorizeRoute path='/cart' component={ () => { return(<></>) } }/>
-                    <AuthorizeRoute path='/profile'  component={ () => { return(<></>) } }/>
-
-                    <SubHeader/>
-                    <div className='d-flex flex-row flex-grow-1'>
-                        <SideMenu/>
-                        <MainContent/>
-                    </div>
-                </Route>
+                <AuthorizeRoute path='/cart' component={Cart}/>
+                <AuthorizeRoute path='/profile'  component={Profile}/>
+                <Route path='/catalog' component={Catalog}/>
             </Switch>
         </>
     )

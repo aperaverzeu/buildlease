@@ -12,6 +12,9 @@ import CategoryFilterView from "../views/CategoryFilterView";
 import ProductView from "../views/ProductView";
 import LOGIC from "../../LOGIC";
 
+import SubHeader from "../layout/SubHeader";
+import SideMenu from "../layout/SideMenu";
+import MainContent from "../layout/MainContent";
 
 export default function Catalog() {
 
@@ -61,8 +64,8 @@ export default function Catalog() {
     }, []);
 
     return (
-        <div className='d-flex flex-column'>
-            <div className='d-flex flex-row flex-nowrap justify-content-between'>
+        <>
+            <SubHeader>
                 <Breadcrumb>
                     {breadcrumb.map(cat =>
                         <Breadcrumb.Item><a href={PATH.ToCategory(cat.Id)} target="_self">{cat.Name}</a></Breadcrumb.Item>
@@ -72,9 +75,9 @@ export default function Catalog() {
                 <Select defaultValue={sortRule} onChange={(newValue) => setSortRule(newValue)}>
                     {Object.values(SortRule).map((item => <Select.Option value={item}>{item}</Select.Option>))}
                 </Select>
-            </div>
-            <div className='d-flex flex-row flex-nowrap'>
-                <div className='d-flex flex-column flex-grow-0'
+            </SubHeader>
+            <div className='d-flex flex-row flex-grow-1'>
+                <SideMenu className='d-flex flex-column flex-grow-0'
                     style={{
                         minWidth: 300,
                         width: 300,
@@ -82,31 +85,34 @@ export default function Catalog() {
                     }}
                 >
                     {filters && <Filters filtersInfo={filters} filtration={filtration} setFiltration={setFiltration} />}
-                </div>
-                <div className='d-flex flex-row flex-wrap'
-                    style={{
-                        justifyContent: 'space-evenly',
-                        flexGrow: 1,
-                        minWidth: 500,
-                        width: 1200,
-                    }}
-                >
-                    {products?.map(prod =>
-                        <Item
-                            key={prod.Id}
-                            ProductView={prod}
-                        />
-                    )}
-                </div>
+                </SideMenu>
+                <MainContent>
+                    <div className='w-100 d-flex flex-column'
+                        style={{
+                            flexGrow: 1,
+                            minWidth: 500,
+                        }}
+                    >
+                        <div className='d-flex flex-row flex-wrap'>
+                            {products?.map(prod =>
+                                <Item
+                                    key={prod.Id}
+                                    ProductView={prod}
+                                />
+                            )}
+                        </div>
+
+                        <div className='d-flex justify-content-center'>
+                            <Pagination
+                                current={pageNumber}
+                                total={42}
+                                pageSize={pageSize}
+                                onChange={(newValue) => setPageNumber(newValue)}
+                            />
+                        </div>
+                    </div>
+                </MainContent>
             </div>
-            <div className='d-flex justify-content-center'>
-                <Pagination
-                    current={pageNumber}
-                    total={42}
-                    pageSize={pageSize}
-                    onChange={(newValue) => setPageNumber(newValue)}
-                />
-            </div>
-        </div>
+        </>
     );
 }
