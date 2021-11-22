@@ -20,7 +20,8 @@ export default function GenPage() {
             <Switch>
                 <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
                 <Route>
-                    { /* I kmow it looks like shit but I can explain */ }
+                    { /* I kmow it looks like shit but I can explain
+                         We might not even need this tho */ }
                     <AuthorizeRoute path='/cart' component={ () => { return(<></>) } }/>
                     <AuthorizeRoute path='/profile'  component={ () => { return(<></>) } }/>
 

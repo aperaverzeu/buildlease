@@ -7,7 +7,7 @@ export class Layout extends Component {
         return (
             <>
                 <Header />
-                <Container>
+                <Container className='d-flex flex-column flex-grow-1'>
                     {this.props.children}
                 </Container>
             </>
