@@ -33,12 +33,7 @@ function NumberItem({ UnitName, MinValue, MaxValue, OnChange }: NumberItemProps)
     console.log(MinValue, MaxValue, valueRange);
 
     return (
-        <div
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-        >
+        <div className='d-flex flex-column'>
             <Slider
                 range
                 min={MinValue}
@@ -47,14 +42,7 @@ function NumberItem({ UnitName, MinValue, MaxValue, OnChange }: NumberItemProps)
                 defaultValue={valueRange}
                 onAfterChange={(value) => setValueRange(value)}
             />
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    flexWrap: 'nowrap',
-                }}
-            >
+            <div className='d-flex flex-row justify-content-between flex-nowrap'>
                 <InputNumber
                     min={MinValue}
                     max={MaxValue}
@@ -84,10 +72,7 @@ function StringItem({ Values, OnChange }: StringItemProps) {
                 options={Values}
                 value={checked}
                 onChange={(list) => setChecked(list.map(item => item.toString()))}
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                }}
+                className='d-flex flex-column'
             />
         </div>
     );
@@ -96,14 +81,7 @@ function StringItem({ Values, OnChange }: StringItemProps) {
 export default function Item({ CategoryFilterView, OnFilterChange }: ItemProps) {
 
     return (
-        <div
-            style={{
-                display: 'flex',
-                flexDirection: 'row',
-                flexWrap: 'nowrap',
-                justifyContent: 'space-between',
-            }}
-        >
+        <div className='d-flex flex-row flex-nowrap justify-content-between'>
             <div>{CategoryFilterView.Name}</div>
             {CategoryFilterView.Values &&
                 <StringItem

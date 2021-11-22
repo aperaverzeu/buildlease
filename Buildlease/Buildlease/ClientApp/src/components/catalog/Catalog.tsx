@@ -61,20 +61,8 @@ export default function Catalog() {
     }, []);
 
     return (
-        <div
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-        >
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    flexWrap: 'nowrap',
-                    justifyContent: 'space-between',
-                }}
-            >
+        <div className='d-flex flex-column'>
+            <div className='d-flex flex-row flex-nowrap justify-content-between'>
                 <Breadcrumb>
                     {breadcrumb.map(cat =>
                         <Breadcrumb.Item><a href={PATH.ToCategory(cat.Id)} target="_self">{cat.Name}</a></Breadcrumb.Item>
@@ -85,18 +73,9 @@ export default function Catalog() {
                     {Object.values(SortRule).map((item => <Select.Option value={item}>{item}</Select.Option>))}
                 </Select>
             </div>
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    flexWrap: 'nowrap',
-                }}
-            >
-                <div
+            <div className='d-flex flex-row flex-nowrap'>
+                <div className='d-flex flex-column flex-grow-0'
                     style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        flexGrow: 0,
                         minWidth: 300,
                         width: 300,
                         maxWidth: 300,
@@ -104,11 +83,8 @@ export default function Catalog() {
                 >
                     {filters && <Filters filtersInfo={filters} filtration={filtration} setFiltration={setFiltration} />}
                 </div>
-                <div
+                <div className='d-flex flex-row flex-wrap'
                     style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        flexWrap: 'wrap',
                         justifyContent: 'space-evenly',
                         flexGrow: 1,
                         minWidth: 500,
@@ -123,12 +99,7 @@ export default function Catalog() {
                     )}
                 </div>
             </div>
-            <div
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                }}
-            >
+            <div className='d-flex justify-content-center'>
                 <Pagination
                     current={pageNumber}
                     total={42}

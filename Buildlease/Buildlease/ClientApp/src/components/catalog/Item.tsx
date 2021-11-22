@@ -14,11 +14,8 @@ export default function Item({ ProductView }: ItemProps) {
     const [isAdded, setIsAdded] = useState<boolean>(ProductView.AlreadyInCart);
 
     return (
-        <div
+        <div className='d-flex flex-row flex-nowrap'
             style={{
-                display: 'flex',
-                flexDirection: 'row',
-                flexWrap: 'nowrap',
                 minWidth: 400,
                 width: 400,
                 maxWidth: 400,
@@ -37,11 +34,8 @@ export default function Item({ ProductView }: ItemProps) {
                 }}
             />
 
-            <div
+            <div className='w-100 d-flex flex-column'
                 style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    width: '100%',
                     margin: 10,
                 }}
             >
@@ -49,14 +43,7 @@ export default function Item({ ProductView }: ItemProps) {
                 <div style={{ fontSize: 12, fontWeight: 'lighter' }}>{ProductView.AvailableCount}/{ProductView.TotalCount} available</div>
                 <div style={{ fontSize: 12 }}>{ProductView.ShortDescription}</div>
                 <div style={{ fontSize: 20, fontWeight: 'lighter' }}>{ProductView.Price ? `$${ProductView.Price} per day` : 'Price is unknown'}</div>
-                <div
-                    style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        flexWrap: 'nowrap',
-                        justifyContent: 'space-between',
-                    }}
-                >
+                <div className='d-flex flex-row flex-nowrap justify-content-between'>
                     {isAdded ?
                         <Button icon={<ShoppingCartOutlined />} disabled>
                             Already in cart

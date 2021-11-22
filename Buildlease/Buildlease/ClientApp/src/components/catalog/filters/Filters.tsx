@@ -11,12 +11,7 @@ interface FiltersProps {
 export default function Filters({ filtersInfo, filtration, setFiltration }: FiltersProps) {
 
     return (
-        <div
-            style={{
-                display: 'flex',
-                flexDirection: 'column',
-            }}
-        >
+        <div className='d-flex flex-column'>
             {filtersInfo.map(filter => {
                 if (filter.Values && (filter.UnitName || filter.MinValue || filter.MaxValue)) throw 'Undefined multi type filter';
                 if (!filter.Values && !(filter.UnitName && filter.MinValue && filter.MaxValue)) throw 'Undefined none type filter';
