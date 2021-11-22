@@ -5,10 +5,8 @@ import Catalog from '../catalog/Catalog';
 
 export default function MainContent() {
     return(
-        <>
-            Main Content
-            
-            <Route path='/catalog' component={Catalog}/>
-        </>
+        <div className='h-100 d-flex flex-grow-1 justify-content-center align-items-center'>
+            <p>Main Content</p>
+        </div>
     );
 }

@@ -26,7 +26,7 @@ export default function GenPage() {
                     <AuthorizeRoute path='/profile'  component={ () => { return(<></>) } }/>
 
                     <SubHeader/>
-                    <div>
+                    <div className='d-flex flex-row flex-grow-1'>
                         <SideMenu/>
                         <MainContent/>
                     </div>
