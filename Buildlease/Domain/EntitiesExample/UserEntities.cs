@@ -3,7 +3,7 @@ using Domain.Models;
 
 namespace Domain.EntitiesExample
 {
-    public static class CustomerEntities
+    public static class UserEntities
     {
         public static List<ApplicationUser> Get()
         {

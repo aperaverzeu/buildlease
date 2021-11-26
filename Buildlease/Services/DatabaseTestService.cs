@@ -62,7 +62,7 @@ namespace Services
             _dbContext.Attributes.AddRange(Domain.EntitiesExample.AttributeEntities.Get());
             _dbContext.ProductAttributes.AddRange(Domain.EntitiesExample.ProductAttributeEntities.Get());
 
-            _dbContext.Users.AddRange(Domain.EntitiesExample.CustomerEntities.Get());
+            _dbContext.Users.AddRange(Domain.EntitiesExample.UserEntities.Get());
 
             _dbContext.SaveChanges();
             _dbContext.Database.CommitTransaction();
