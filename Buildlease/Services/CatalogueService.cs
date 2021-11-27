@@ -95,7 +95,7 @@ namespace Services
             return atts;
         }
 
-        public ProductFullView GetProduct(int productId)
+        public ProductFullView GetProduct(int productId, string userId)
         {
             var product = _db.Products
                 .Single(e => e.Id == productId);
@@ -120,15 +120,21 @@ namespace Services
                 .ToArray();
 
             productView.Attributes = _db.GetProductAttributeViews(productId);
+            productView.AvailableCount = _db.GetProductAvailableCount(productId);
 
-            // TODO
-            productView.AvailableCount = -1;
-            productView.CountInCart = -1;
+            var cart = _db.ValidateAndGetCart(userId);
+            productView.CountInCart = cart is null ? 0 : (
+                _db.ProductOrders
+                .Where(e => e.OrderId == cart.Id)
+                .Where(e => e.ProductId == productView.Id)
+                .SingleOrDefault()
+                ?.Count
+                ?? 0);
 
             return productView;
         }
 
-        public ProductView[] GetProducts(GetProductsRequest request)
+        public ProductView[] GetProducts(GetProductsRequest request, string userId)
         {
             var subtree = _db.Categories
                 .GetSubtree(request.CategoryId)
@@ -203,12 +209,18 @@ namespace Services
                 })
                 .ToArray();
 
+            var cart = _db.ValidateAndGetCart(userId);
+
             foreach (var prod in productViews)
             {
-                // TODO
-                prod.AlreadyInCart = false;
                 prod.AvailableCount = _db.GetProductAvailableCount(prod.Id);
                 prod.Attributes = _db.GetProductAttributeViews(prod.Id);
+
+                prod.AlreadyInCart = cart is not null &&
+                    _db.ProductOrders
+                    .Where(e => e.OrderId == cart.Id)
+                    .Select(e => e.ProductId)
+                    .Contains(prod.Id);
             }
 
             return productViews;

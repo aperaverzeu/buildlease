@@ -13,25 +13,9 @@ namespace Services
 
         public OrderService(ApplicationDbContext dbContext) => _db = dbContext;
 
-        public Order ValidateAndGetCart(string userId)
-        {
-            var carts = _db.Orders
-                .Where(e => e.CustomerId == userId)
-                .Where(e => e.Status == OrderStatus.Cart);
-
-            if (carts.Count() != 1)
-            {
-                _db.Orders.RemoveRange(carts);
-                _db.Orders.Add(new Order() { CustomerId = userId, Status = OrderStatus.Cart });
-                _db.SaveChanges();
-            }
-
-            return _db.Orders.Single(e => e.Status == OrderStatus.Cart);
-        }
-
         public CartFullView GetMyCart(string userId)
         {
-            var order = ValidateAndGetCart(userId);
+            var order = _db.ValidateAndGetCart(userId);
             var productOrderViews = _db.GetProductOrderViews(order.Id);
             var cartFullView = new CartFullView()
             {
@@ -59,7 +43,11 @@ namespace Services
             {
                 orderView.ProductCount = orderView.ProductOrders.Sum(po => po.Count);
                 orderView.Price = orderView.ProductOrders.Sum(po => po.Price);
-                orderView.OrderAcceptDate = System.DateTime.UtcNow;
+
+                orderView.OrderAcceptDate = 
+                    _db.HistoryOfOrderStatus
+                    .Where(e => e.OrderId == orderView.Id)
+                    .Min(e => e.Date);
             }
 
             return orderViews;
