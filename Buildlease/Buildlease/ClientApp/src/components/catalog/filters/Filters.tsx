@@ -1,5 +1,5 @@
 import AttributeFilter from '../requests/AttributeFilter';
-import CategoryFilterView from '../../views_/CategoryFilterView';
+import CategoryFilterView from '../../views/CategoryFilterView';
 import Item from './Item';
 
 interface FiltersProps {
