@@ -11,4 +11,16 @@
         DeclinedByCustomer = 201,
         DeclinedByAdmin = 202,
     }
+
+    public static class OrderStatusMetadata
+    {
+        public static readonly OrderStatus[] ReservationStatuses =
+            new OrderStatus[]
+            {
+                OrderStatus.WaitingForApproval,
+                OrderStatus.Approved,
+                OrderStatus.DocumentPending,
+                OrderStatus.InProcess,
+            };
+    }
 }

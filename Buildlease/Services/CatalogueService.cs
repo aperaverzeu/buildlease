@@ -207,7 +207,7 @@ namespace Services
             {
                 // TODO
                 prod.AlreadyInCart = false;
-                prod.AvailableCount = -1;
+                prod.AvailableCount = _db.GetProductAvailableCount(prod.Id);
                 prod.Attributes = _db.GetProductAttributeViews(prod.Id);
             }
 
