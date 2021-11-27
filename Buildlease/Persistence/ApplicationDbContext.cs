@@ -1,5 +1,4 @@
 ﻿using Domain.Models;
-using Domain.Models.Historicity;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +20,6 @@ namespace Persistence
         public DbSet<ProductOrder> ProductOrders { get; set; }
 
         public DbSet<HistoryOfOrderStatus> HistoryOfOrderStatus { get; set; }
-        //public DbSet<HistoryOfProduct> HistoryOfProduct { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options,

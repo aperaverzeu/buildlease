@@ -22,5 +22,13 @@
                 OrderStatus.DocumentPending,
                 OrderStatus.InProcess,
             };
+
+        public static readonly OrderStatus[] DeclinableStatuses =
+            new OrderStatus[]
+            {
+                OrderStatus.WaitingForApproval,
+                OrderStatus.Approved,
+                OrderStatus.DocumentPending,
+            };
     }
 }
