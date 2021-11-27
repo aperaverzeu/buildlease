@@ -1,4 +1,4 @@
-import CategoryFullView from "./components/Views/CategoryFullView";
+import CategoryFullView from "./components/views_tmp/CategoryFullView";
 import Globals from "./Globals";
 
 const LOGIC = {

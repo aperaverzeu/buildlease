@@ -8,8 +8,8 @@ import Item from "./Item";
 import AttributeFilter from "./Request/AttributeFilter";
 import GetProductsRequest from "./Request/GetProductsRequest";
 import SortRule from "./Request/SortRule";
-import CategoryFilterView from "../Views/CategoryFilterView";
-import ProductView from "../Views/ProductView";
+import CategoryFilterView from "../views_tmp/CategoryFilterView";
+import ProductView from "../views_tmp/ProductView";
 import LOGIC from "../../LOGIC";
 
 
