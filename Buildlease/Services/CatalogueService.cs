@@ -181,10 +181,6 @@ namespace Services
                         .ThenBy(e => e.Id);
                     break;
 
-                // TODO or remove
-                case SortRule.PopularityAscending:
-                case SortRule.PopularityDescending:
-
                 case SortRule.Default:
                     query = query
                         .OrderBy(e => e.Id);

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Domain.Models.Historicity
+namespace Domain.Models
 {
     public class HistoryOfOrderStatus
     {

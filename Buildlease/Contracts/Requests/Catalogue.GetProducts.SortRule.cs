@@ -13,7 +13,5 @@ namespace Contracts.Requests
         PriceDescending,
         NameAscending,
         NameDescending,
-        PopularityAscending,
-        PopularityDescending,
     }
 }
