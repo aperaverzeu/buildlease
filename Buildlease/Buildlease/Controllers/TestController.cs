@@ -125,7 +125,6 @@ namespace Buildlease.Controllers
                 {
                     Id = 69,
                     Name = "SCP-1876 - Личная зубная щётка",
-                    ShortDescription = "Была замечена в Берлине",
                     TotalCount = 213,
                     AvailableCount = 1,
                     Price = 1123.89M,
@@ -142,7 +141,6 @@ namespace Buildlease.Controllers
                 {
                     Id = 13,
                     Name = "Красная отвёртка",
-                    ShortDescription = "Её прапрапрапрадеду подарил Джеймс Кук",
                     TotalCount = 0,
                     AvailableCount = 0,
                     Price = 144,
@@ -152,7 +150,6 @@ namespace Buildlease.Controllers
                 {
                     Id = 42,
                     Name = "Синяя отвёртка",
-                    ShortDescription = "Её прапрапрапрадеду никто не дарил",
                     TotalCount = 39,
                     AvailableCount = 0,
                     Price = 95.40M,
@@ -161,7 +158,6 @@ namespace Buildlease.Controllers
                 {
                     Id = 1,
                     Name = "Зелёная отвёртка",
-                    ShortDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
                     ImagePath = "wwwroot/static/products/1.jpg",
                     TotalCount = 48500,
                     AvailableCount = 4200,
@@ -178,7 +174,6 @@ namespace Buildlease.Controllers
             {
                 Id = productId,
                 Name = "Зелёная отвёртка",
-                ShortDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
                 Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n" + 
                               "Из колхозной молодёжи панковал один лишь я\n" +
                               "Я носил портки из кожи и был грязный, как свинья\n" + 
@@ -365,7 +360,6 @@ namespace Buildlease.Controllers
                     {
                         ProductId = 42,
                         Name = "Зубная щётка",
-                        ShortDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
                         ImagePath = "wwwroot/static/products/1.jpg",
                         Count = 11,
                         Price = 22.11M,
@@ -374,7 +368,6 @@ namespace Buildlease.Controllers
                     {
                         ProductId = 13,
                         Name = "Saint Tropez",
-                        ShortDescription = "Car à la plage de Saint Tropez / A summer day I meet you there / I take your hand I say mon cher / And we're in love",
                         ImagePath = "https://www.kursivom.ru/wp-content/uploads/2020/11/Army_of_Lovers_20.jpg",
                         Count = 22,
                         Price = 280.00M,
@@ -394,7 +387,6 @@ namespace Buildlease.Controllers
                     {
                         ProductId = 42,
                         Name = "Зубная щётка",
-                        ShortDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
                         ImagePath = "wwwroot/static/products/1.jpg",
                         Count = 11,
                         Price = 22.11M,
@@ -403,7 +395,6 @@ namespace Buildlease.Controllers
                     {
                         ProductId = 13,
                         Name = "Saint Tropez",
-                        ShortDescription = "Car à la plage de Saint Tropez / A summer day I meet you there / I take your hand I say mon cher / And we're in love",
                         ImagePath = "https://www.kursivom.ru/wp-content/uploads/2020/11/Army_of_Lovers_20.jpg",
                         Count = 22,
                         Price = 280.00M,
