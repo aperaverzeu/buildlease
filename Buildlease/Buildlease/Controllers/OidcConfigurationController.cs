@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Project1.Controllers
+namespace Buildlease.Controllers
 {
     public class OidcConfigurationController : Controller
     {

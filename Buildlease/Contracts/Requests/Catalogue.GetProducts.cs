@@ -9,6 +9,7 @@ namespace Contracts.Requests
     public class GetProductsRequest
     {
         public int CategoryId { get; set; }
+        public string[] Keywords { get; set; }
         public AttributeFilter[] Filters { get; set; }
         public SortRule OrderByRule { get; set; }
         public int SkipCount { get; set; }

@@ -9,7 +9,7 @@ namespace Contracts.Views
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string ShortDescription { get; set; }
+        public ProductAttributeView[] Attributes { get; set; }
         public string ImagePath { get; set; }
         public int TotalCount { get; set; }
         public int AvailableCount { get; set; }     
