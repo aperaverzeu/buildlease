@@ -41,7 +41,6 @@ export default function Item({ ProductView }: ItemProps) {
             >
                 <div style={{ fontSize: 16, fontWeight: 'bold' }}>{ProductView.Name}</div>
                 <div style={{ fontSize: 12, fontWeight: 'lighter' }}>{ProductView.AvailableCount}/{ProductView.TotalCount} available</div>
-                <div style={{ fontSize: 12 }}>{ProductView.ShortDescription}</div>
                 <div style={{ fontSize: 20, fontWeight: 'lighter' }}>{ProductView.Price ? `$${ProductView.Price} per day` : 'Price is unknown'}</div>
                 <div className='d-flex flex-row flex-nowrap justify-content-between'>
                     {isAdded ?
