@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Ardalis.ApiEndpoints;
 using Microsoft.AspNetCore.Mvc;
@@ -19,7 +20,8 @@ namespace Presentation.Endpoints
         [HttpGet("DatabaseTest")]
         public override ActionResult Handle()
         {
-            _serviceManager.DatabaseTestService.DoTest();
+            var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            _serviceManager.DatabaseTestService.DoTest(userId);
             return new OkResult();
         }
     }
