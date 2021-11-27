@@ -10,7 +10,6 @@ namespace Contracts.Views
         public int Id { get; set; }
         public CategoryView[] CategoryPath { get; set; }
         public string Name { get; set; }
-        public string ShortDescription { get; set; }
         public string Description { get; set; }
         public string ImagePath { get; set; }
         public int TotalCount { get; set; }
