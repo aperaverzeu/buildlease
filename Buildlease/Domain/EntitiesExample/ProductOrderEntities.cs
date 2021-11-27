@@ -1,7 +1,15 @@
-﻿namespace Domain.EntitiesExample
+﻿using System.Collections.Generic;
+using Domain.Models;
+
+namespace Domain.EntitiesExample
 {
-    public class ProductOrderEntities
+    public static class ProductOrderEntities
     {
-        
+        public static List<ProductOrder> Get()
+        {
+            return new List<ProductOrder>()
+            {
+            };
+        }
     }
 }
