@@ -1,5 +1,5 @@
 import axios from "axios";
-import GetProductsRequest from "./components/Catalogue/Request/GetProductsRequest";
+import GetProductsRequest from "./components/catalog/requests/GetProductsRequest";
 import CategoryFilterView from "./components/views/CategoryFilterView";
 import ProductView from "./components/views/ProductView";
 import CategoryFullView from "./components/views/CategoryFullView";

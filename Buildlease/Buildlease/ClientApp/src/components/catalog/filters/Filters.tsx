@@ -1,4 +1,4 @@
-import AttributeFilter from '../Request/AttributeFilter';
+import AttributeFilter from '../requests/AttributeFilter';
 import CategoryFilterView from '../../views/CategoryFilterView';
 import Item from './Item';
 

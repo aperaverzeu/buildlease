@@ -3,17 +3,16 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../../API";
 import PATH from "../../PATH";
-import Filters from "./Filters/Filters";
+import Filters from "./filters/Filters";
 import Item from "./Item";
-import AttributeFilter from "./Request/AttributeFilter";
-import GetProductsRequest from "./Request/GetProductsRequest";
-import SortRule from "./Request/SortRule";
+import AttributeFilter from "./requests/AttributeFilter";
+import GetProductsRequest from "./requests/GetProductsRequest";
+import SortRule from "./requests/SortRule";
 import CategoryFilterView from "../views/CategoryFilterView";
 import ProductView from "../views/ProductView";
 import LOGIC from "../../LOGIC";
 
-
-export default function Catalogue() {
+export default function Catalog() {
 
   const { stringCategoryId } = useParams<{stringCategoryId?: string | undefined}>();
   const categoryId: number = (stringCategoryId && +stringCategoryId) || 0;
