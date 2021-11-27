@@ -1,7 +1,9 @@
+import ProductAttributeView from "./ProductAttributeView";
+
 export default interface ProductView {
   Id: number,
   Name: string,
-  ShortDescription: string,
+  Attributes: ProductAttributeView[],
   ImagePath: string,
   TotalCount: number,
   AvailableCount: number,  
