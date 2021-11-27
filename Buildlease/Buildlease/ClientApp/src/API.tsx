@@ -1,8 +1,8 @@
 import axios from "axios";
 import GetProductsRequest from "./components/catalog/requests/GetProductsRequest";
-import CategoryFilterView from "./components/views/CategoryFilterView";
-import ProductView from "./components/views/ProductView";
-import CategoryFullView from "./components/views/CategoryFullView";
+import CategoryFilterView from "./components/views_/CategoryFilterView";
+import ProductView from "./components/views_/ProductView";
+import CategoryFullView from "./components/views_/CategoryFullView";
 
 const MainLink = 'https://localhost:5001/api/';
 

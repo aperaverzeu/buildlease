@@ -3,7 +3,7 @@ import { Button, message } from 'antd';
 import { useState } from 'react';
 import API from '../../API';
 import PATH from '../../PATH';
-import ProductView from '../views/ProductView';
+import ProductView from '../views_/ProductView';
 
 interface ItemProps {
     ProductView: ProductView,
