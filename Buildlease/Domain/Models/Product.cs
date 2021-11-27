@@ -9,5 +9,8 @@
         public string ImagePath { get; set; }
         public int TotalCount { get; set; }
         public decimal? Price { get; set; }
+
+        public Category Category { get; set; }
+        public ProductAttribute ProductAttribute { get; set; }
     }
 }
