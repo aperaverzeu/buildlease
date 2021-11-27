@@ -48,7 +48,7 @@ namespace Domain.EntitiesExample
                 new Order()
                 {
                     Id = 7,
-                    CustomerId = "c65e9a5d-ef9f-450b-b851-f97190da3470",
+                    CustomerId = "f92039fd-5e51-431e-aefe-4a18e6cc846a",
                     Status = OrderStatus.InProcess //+
                 },
             };
