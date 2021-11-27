@@ -31,7 +31,7 @@ namespace Persistence.Configurations
 
             builder .HasOne<Category>(a => a.Category)
                     .WithMany(c => c.Attributes)
-                    .HasForeignKey(e => e.CategoryId)
+                    .HasForeignKey(a => a.CategoryId)
                     .IsRequired()
                     .OnDelete(DeleteBehavior.SetNull);
         }

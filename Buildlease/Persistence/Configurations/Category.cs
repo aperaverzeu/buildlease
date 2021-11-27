@@ -31,8 +31,8 @@ namespace Persistence.Configurations
                     .HasMaxLength(int.MaxValue);
 
             builder .HasMany<Category>(c => c.SubCategories)
-                    .WithOne(s => s.ParentCategory)
-                    .HasForeignKey(e => e.ParentId)
+                    .WithOne(sc => sc.ParentCategory)
+                    .HasForeignKey(sc => sc.ParentId)
                     .IsRequired()
                     .OnDelete(DeleteBehavior.Cascade);
         }
