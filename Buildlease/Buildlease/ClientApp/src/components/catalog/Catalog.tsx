@@ -36,6 +36,7 @@ export default function Catalog() {
     function BuildRequestObject(): GetProductsRequest {
         const obj: GetProductsRequest = {
             CategoryId: categoryId,
+            Keywords: null,
             Filters: filtration,
             OrderByRule: sortRule,
             SkipCount: (pageNumber - 1) * pageSize,
