@@ -21,11 +21,17 @@ namespace Services.Extension
             if (carts.Count() != 1)
             {
                 db.Orders.RemoveRange(carts);
-                db.Orders.Add(new Order() { CustomerId = userId, Status = OrderStatus.Cart });
+                db.Orders.Add(new Order() { 
+                    Id = db.Orders.Max(e => e.Id) + 1, // TODO: кринж
+                    CustomerId = userId, 
+                    Status = OrderStatus.Cart,
+                });
                 db.SaveChanges();
             }
 
-            return db.Orders.Single(e => e.Status == OrderStatus.Cart);
+            return db.Orders
+                .Where(e => e.CustomerId == userId)
+                .Single(e => e.Status == OrderStatus.Cart);
         }
     }
 }
