@@ -3,6 +3,7 @@ using Contracts.Views;
 using Domain.Models;
 using Persistence;
 using Services.Abstractions;
+using Services.Extension;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -118,23 +119,9 @@ namespace Services
                 })
                 .ToArray();
 
-            productView.Attributes = _db.ProductAttributes
-                .Where(e => e.ProductId == productId)
-                .Join(_db.Attributes,
-                    pa => pa.AttributeId,
-                    a => a.Id,
-                    (pa, a) => new ProductAttributeView()
-                    {
-                        Name = a.Name,
-                        Value = a.ValueType == AttributeType.String ? 
-                            pa.ValueString : 
-                            (pa.ValueNumber.HasValue ? $"{pa.ValueNumber.Value} {a.UnitName}" : null),
-                    }
-                )
-                .ToArray();
+            productView.Attributes = _db.GetProductAttributeViews(productId);
 
             // TODO
-            productView.ShortDescription = null; 
             productView.AvailableCount = -1;
             productView.CountInCart = -1;
 
@@ -221,7 +208,7 @@ namespace Services
                 // TODO
                 prod.AlreadyInCart = false;
                 prod.AvailableCount = -1;
-                prod.ShortDescription = null;
+                prod.Attributes = _db.GetProductAttributeViews(prod.Id);
             }
 
             return productViews;
