@@ -7,11 +7,10 @@ import { ApplicationPaths } from './api-authorization/ApiAuthorizationConstants'
 
 import Layout from './layout/Layout';
 
-import Catalog from './Catalog';
 import NotFound from './NotFound';
 import Cart from './cart/Cart';
 import Profile from './profile/Profile';
-import Catalogue from './Catalogue/Catalogue';
+import Catalog from './catalog/Catalog';
 import Globals from '../Globals';
 
 import styles from './gen_page.module.css';
@@ -25,7 +24,7 @@ export default function GenPage() {
         <Layout>
         {OK ?
             <Switch>
-                <Route path='/catalog/:stringCategoryId?' component={Catalogue}/>
+                <Route path='/catalog/:stringCategoryId?' component={Catalog}/>
 
                     <AuthorizeRoute path='/cart' component={Cart}/>
                     <AuthorizeRoute path='/profile' component={Profile}/>
