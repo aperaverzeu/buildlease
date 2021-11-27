@@ -26,11 +26,11 @@ namespace Services
 
             var GetMyCart = _service.GetMyCart(userId);
 
-            var GetOrder1 = _service.GetOrder(userId, 0);
-            var GetOrder2 = _service.GetOrder(userId, 0);
-            var GetOrder3 = _service.GetOrder(userId, 0);
-            var GetOrder4 = _service.GetOrder(userId, 0);
-            var GetOrder5 = _service.GetOrder(userId, 0);
+            var myOrdersIds = Domain.EntitiesExample.OrderEntities.Get().Where(o => o.CustomerId == userId).Select(o => o.Id);
+            foreach (var orderId in myOrdersIds)
+            {
+                var GetOrder = _service.GetOrder(userId, orderId);
+            }
         }
 
         public void RestartDatabase()
@@ -50,6 +50,10 @@ namespace Services
             _dbContext.ProductAttributes.AddRange(Domain.EntitiesExample.ProductAttributeEntities.Get());
 
             _dbContext.Users.AddRange(Domain.EntitiesExample.UserEntities.Get());
+
+            _dbContext.Orders.AddRange(Domain.EntitiesExample.OrderEntities.Get());
+            _dbContext.ProductOrders.AddRange(Domain.EntitiesExample.ProductOrderEntities.Get());
+            _dbContext.HistoryOfOrderStatus.AddRange(Domain.EntitiesExample.OrderStatusHistoryEntities.Get());
 
             _dbContext.SaveChanges();
             _dbContext.Database.CommitTransaction();

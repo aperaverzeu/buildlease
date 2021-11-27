@@ -18,10 +18,11 @@ namespace Services.Extension
             =>
                 db.ProductOrders
                 .Where(e => e.OrderId == orderId)
-                .ToProductOrderViews(db)
+                .ToProductOrderViewsWithoutAttributes(db)
+                .FillAttributes(db)
                 .ToArray();
 
-        public static IQueryable<ProductOrderView> ToProductOrderViews(
+        private static IQueryable<ProductOrderView> ToProductOrderViewsWithoutAttributes(
             this IQueryable<ProductOrder> ProductOrders, 
             ApplicationDbContext db)
             =>
@@ -36,8 +37,20 @@ namespace Services.Extension
                         Name = p.Name,
                         ImagePath = p.ImagePath,
                         Price = p.Price.Value,
-                        Attributes = db.GetProductAttributeViews(p.Id),
+                        Attributes = null,
                     }
                 );
+
+        private static IEnumerable<ProductOrderView> FillAttributes(
+            this IQueryable<ProductOrderView> ProductOrders,
+            ApplicationDbContext db)
+            =>
+            ProductOrders
+            .ToArray()
+            .Select(e =>
+            {
+                e.Attributes = db.GetProductAttributeViews(e.ProductId);
+                return e;
+            });
     }
 }

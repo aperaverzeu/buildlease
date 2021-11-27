@@ -17,7 +17,7 @@ namespace Presentation.Endpoints
         private readonly IServiceManager _serviceManager;
         public DatabaseTestHandler(IServiceManager serviceManager) => _serviceManager = serviceManager;
 
-        [HttpGet("DatabaseTest")]
+        [HttpPost("DatabaseTest")]
         public override ActionResult Handle()
         {
             var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

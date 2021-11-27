@@ -3,6 +3,7 @@ using Domain.Models;
 using Persistence;
 using Services.Abstractions;
 using Services.Extension;
+using System;
 using System.Linq;
 
 namespace Services
@@ -13,8 +14,15 @@ namespace Services
 
         public OrderService(ApplicationDbContext dbContext) => _db = dbContext;
 
+        private void ValidateUser(string userId)
+        {
+            if (userId is null) throw new UnauthorizedAccessException("You must login first");
+        }
+
         public CartFullView GetMyCart(string userId)
         {
+            ValidateUser(userId);
+
             var order = _db.ValidateAndGetCart(userId);
             var productOrderViews = _db.GetProductOrderViews(order.Id);
             var cartFullView = new CartFullView()
@@ -26,6 +34,8 @@ namespace Services
 
         public OrderView[] GetMyOrders(string userId)
         {
+            ValidateUser(userId);
+
             var orders = _db.Orders
                 .Where(e => e.CustomerId == userId)
                 .Where(e => e.Status != OrderStatus.Cart);
@@ -35,16 +45,22 @@ namespace Services
                 {
                     Id = e.Id,
                     Status = e.Status,
-                    ProductOrders = _db.GetProductOrderViews(e.Id),
                 })
                 .ToArray();
 
             foreach (var orderView in orderViews)
             {
+                orderView.ProductOrders = _db.GetProductOrderViews(orderView.Id);
+
                 orderView.ProductCount = orderView.ProductOrders.Sum(po => po.Count);
                 orderView.Price = orderView.ProductOrders.Sum(po => po.Price);
 
-                orderView.OrderAcceptDate = 
+                // TODO: Remove after testing
+                if (!_db.HistoryOfOrderStatus.Where(e => e.OrderId == orderView.Id).Any())
+                    orderView.OrderAcceptDate = DateTime.UtcNow;
+                else
+
+                orderView.OrderAcceptDate =
                     _db.HistoryOfOrderStatus
                     .Where(e => e.OrderId == orderView.Id)
                     .Min(e => e.Date);
@@ -55,9 +71,13 @@ namespace Services
 
         public OrderFullView GetOrder(string userId, int orderId)
         {
+            ValidateUser(userId);
+
             var order = _db.Orders
                 .Where(e => e.CustomerId == userId)
-                .Single(e => e.Id == orderId);
+                .SingleOrDefault(e => e.Id == orderId);
+
+            if (order is null) throw new UnauthorizedAccessException("It's not your order");
 
             var statuses = _db.HistoryOfOrderStatus
                 .Where(e => e.OrderId == order.Id)
