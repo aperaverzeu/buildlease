@@ -23,7 +23,12 @@ namespace Persistence.Configurations
                     .IsRequired();
 
             builder .Property(e => e.Name)
-                    .IsRequired();
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+            builder .Property(e => e.DefaultImagePath)
+                    .HasDefaultValue(null)
+                    .HasMaxLength(int.MaxValue);
 
             builder .HasMany<Category>(c => c.SubCategories)
                     .WithOne(s => s.ParentCategory)

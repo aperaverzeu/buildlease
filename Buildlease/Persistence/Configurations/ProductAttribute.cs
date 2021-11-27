@@ -25,6 +25,9 @@ namespace Persistence.Configurations
             builder .Property(e => e.AttributeId)
                     .IsRequired();
 
+            builder.Property(e => e.ValueString)
+                    .HasMaxLength(100);
+
             builder .HasOne<Attribute>(pa => pa.Attribute)
                     .WithMany(a => a.ProductAttributes)
                     .IsRequired()
