@@ -7,6 +7,6 @@ namespace Services.Abstractions
     public interface IDatabaseTestService
     {
         void RestartDatabase();
-        void DoTest();
+        void DoTest(string userId);
     }
 }

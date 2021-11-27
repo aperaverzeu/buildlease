@@ -12,38 +12,25 @@ namespace Services
     internal sealed class DatabaseTestService : IDatabaseTestService
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly ICatalogueService _catalogue;
+        private readonly IOrderService _service;
 
-        public DatabaseTestService(ApplicationDbContext dbContext, ICatalogueService catalogue)
+        public DatabaseTestService(ApplicationDbContext dbContext, IOrderService service)
         {
             _dbContext = dbContext;
-            _catalogue = catalogue;
+            _service = service;
         }
 
-        public void DoTest()
+        public void DoTest(string userId)
         {
-            var GetAllCategories = _catalogue.GetAllCategories();
+            var GetMyOrders = _service.GetMyOrders(userId);
 
-            var GetCategoryFilters = _catalogue.GetCategoryFilters(1);
-            GetCategoryFilters = _catalogue.GetCategoryFilters(3);
+            var GetMyCart = _service.GetMyCart(userId);
 
-            var GetProduct = _catalogue.GetProduct(1);
-            GetProduct = _catalogue.GetProduct(13);
-
-            var GetProducts = _catalogue.GetProducts(new GetProductsRequest() 
-            {
-                CategoryId = 1,
-                OrderByRule = SortRule.Default,
-                SkipCount = 10,
-                TakeCount = 10,
-            });
-            GetProducts = _catalogue.GetProducts(new GetProductsRequest()
-            {
-                CategoryId = 2,
-                OrderByRule = SortRule.PriceAscending,
-                SkipCount = 0,
-                TakeCount = 1,
-            });
+            var GetOrder1 = _service.GetOrder(userId, 0);
+            var GetOrder2 = _service.GetOrder(userId, 0);
+            var GetOrder3 = _service.GetOrder(userId, 0);
+            var GetOrder4 = _service.GetOrder(userId, 0);
+            var GetOrder5 = _service.GetOrder(userId, 0);
         }
 
         public void RestartDatabase()
