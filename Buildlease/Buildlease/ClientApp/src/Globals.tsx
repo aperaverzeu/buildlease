@@ -1,4 +1,4 @@
-import CategoryFullView from "./components/Views/CategoryFullView";
+import CategoryFullView from "./components/views/CategoryFullView";
 
 interface GlobalsFields {
   Categories: CategoryFullView[] | undefined;
