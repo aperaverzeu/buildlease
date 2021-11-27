@@ -1,7 +1,7 @@
 import { Checkbox, InputNumber, Slider } from 'antd';
 import { useEffect, useState } from 'react';
 import AttributeFilter from '../requests/AttributeFilter';
-import CategoryFilterView from '../../views_tmp/CategoryFilterView';
+import CategoryFilterView from '../../views/CategoryFilterView';
 
 interface ItemProps {
     CategoryFilterView: CategoryFilterView,
