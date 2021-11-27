@@ -12,27 +12,29 @@ namespace Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<ProductAttribute> builder)
         {
-            builder.ToTable("ProductAttribute")
+            builder .ToTable("ProductAttribute")
                     .HasKey(e => e.Id);
 
-            builder.Property(e => e.Id)
+            builder .Property(e => e.Id)
                     .ValueGeneratedOnAdd()
                     .IsRequired();
 
-            builder.Property(e => e.ProductId)
-                    .IsRequired()
-                    .HasDefaultValue(1);
+            builder .Property(e => e.ProductId)
+                    .IsRequired();
 
-            builder.Property(e => e.AttributeId)
-                    .IsRequired()
-                    .HasDefaultValue(1);
+            builder .Property(e => e.AttributeId)
+                    .IsRequired();
 
-            builder.HasOne<Attribute>(e => e.Attribute)
-                    .WithOne(e => e.ProductAttribute)
+            builder .HasOne<Attribute>(pa => pa.Attribute)
+                    .WithMany(a => a.ProductAttributes)
+                    .IsRequired()
+                    .HasForeignKey(e => e.AttributeId)
                     .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne<Product>(e => e.Product)
-                    .WithOne(e => e.ProductAttribute)
+            builder .HasOne<Product>(pa => pa.Product)
+                    .WithMany(p => p.ProductAttributes)
+                    .IsRequired()
+                    .HasForeignKey(e => e.ProductId)
                     .OnDelete(DeleteBehavior.Cascade);
         }
     }

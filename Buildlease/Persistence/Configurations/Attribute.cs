@@ -12,19 +12,18 @@ namespace Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Attribute> builder)
         {
-            builder.ToTable("Attribute")
+            builder .ToTable("Attribute")
                     .HasKey(e => e.Id);
 
-            builder.Property(e => e.Id)
+            builder .Property(e => e.Id)
                     .ValueGeneratedOnAdd()
                     .IsRequired();
 
-            builder.Property(e => e.CategoryId)
-                    .IsRequired()
-                    .HasDefaultValue(1);
+            builder .Property(e => e.CategoryId)
+                    .IsRequired();
 
-            builder.HasOne<Category>(e => e.Category)
-                    .WithMany(e => e.Attributes)
+            builder .HasOne<Category>(a => a.Category)
+                    .WithMany(c => c.Attributes)
                     .HasForeignKey(e => e.CategoryId)
                     .IsRequired()
                     .OnDelete(DeleteBehavior.SetNull);

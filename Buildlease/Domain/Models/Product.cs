@@ -1,4 +1,6 @@
-﻿namespace Domain.Models
+﻿using System.Collections.Generic;
+
+namespace Domain.Models
 {
     public class Product
     {
@@ -11,6 +13,6 @@
         public decimal? Price { get; set; }
 
         public Category Category { get; set; }
-        public ProductAttribute ProductAttribute { get; set; }
+        public IEnumerable<ProductAttribute> ProductAttributes { get; set; }
     }
 }

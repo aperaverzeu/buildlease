@@ -12,25 +12,24 @@ namespace Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.ToTable("Product")
+            builder .ToTable("Product")
                     .HasKey(e => e.Id);
 
-            builder.Property(e => e.Id)
+            builder .Property(e => e.Id)
                     .ValueGeneratedOnAdd()
                     .IsRequired();
 
-            builder.Property(e => e.CategoryId)
-                    .IsRequired()
-                    .HasDefaultValue(1);
-
-            builder.Property(e => e.Name)
-                   .IsRequired();
-
-            builder.Property(e => e.CategoryId)
+            builder .Property(e => e.CategoryId)
                     .IsRequired();
 
-            builder.HasOne<Category>(e => e.Category)
-                    .WithMany(e => e.Products)
+            builder .Property(e => e.Name)
+                    .IsRequired();
+
+            builder .Property(e => e.CategoryId)
+                    .IsRequired();
+
+            builder .HasOne<Category>(p => p.Category)
+                    .WithMany(c => c.Products)
                     .HasForeignKey(e => e.CategoryId)
                     .IsRequired()
                     .OnDelete(DeleteBehavior.SetNull);

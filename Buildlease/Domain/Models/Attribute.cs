@@ -1,4 +1,6 @@
-﻿namespace Domain.Models
+﻿using System.Collections.Generic;
+
+namespace Domain.Models
 {
     public class Attribute
     {
@@ -9,6 +11,6 @@
         public string UnitName { get; set; }
 
         public Category Category { get; set; }
-        public ProductAttribute ProductAttribute { get; set; }
+        public IEnumerable<ProductAttribute> ProductAttributes { get; set; }
     }
 }
