@@ -18,24 +18,14 @@ namespace Services.Extension
             =>
                 db.ProductAttributes
                 .Where(e => e.ProductId == productId)
-                .ToProductAttributeViews(db)
+                .Include(e => e.Attribute)
+                .Select(e => new ProductAttributeView()
+                {
+                    Name = e.Attribute.Name,
+                    Value = e.Attribute.ValueType == AttributeType.String ?
+                            e.ValueString :
+                            (e.ValueNumber.HasValue ? $"{e.ValueNumber.Value} {e.Attribute.UnitName}" : null),
+                })
                 .ToArray();
-
-        public static IQueryable<ProductAttributeView> ToProductAttributeViews(
-            this IQueryable<ProductAttribute> ProductAttributes, 
-            ApplicationDbContext db)
-            => 
-            ProductAttributes
-                .Join(db.Attributes,
-                    pa => pa.AttributeId,
-                    a => a.Id,
-                    (pa, a) => new ProductAttributeView()
-                    {
-                        Name = a.Name,
-                        Value = a.ValueType == AttributeType.String ?
-                            pa.ValueString :
-                            (pa.ValueNumber.HasValue ? $"{pa.ValueNumber.Value} {a.UnitName}" : null),
-                    }
-                );
     }
 }
