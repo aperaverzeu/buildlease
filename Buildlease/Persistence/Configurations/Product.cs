@@ -19,24 +19,34 @@ namespace Persistence.Configurations
                     .ValueGeneratedOnAdd()
                     .IsRequired();
 
-            builder.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-            builder.Property(e => e.Description)
-                    .HasMaxLength(int.MaxValue);
-
-            builder.Property(e => e.ImagePath)
-                    .HasMaxLength(int.MaxValue);
-
             builder .Property(e => e.CategoryId)
                     .IsRequired();
+
+            builder .Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(500);
+
+            builder .Property(e => e.Description)
+                    .IsRequired()
+                    .HasDefaultValue(string.Empty)
+                    .HasMaxLength(int.MaxValue);
+
+            builder .Property(e => e.ImagePath)
+                    .IsRequired(false)
+                    .HasDefaultValue(null)
+                    .HasMaxLength(500);
+
+            builder .Property(e => e.TotalCount)
+                    ;
+
+            builder .Property(e => e.Price)
+                    ;
 
             builder .HasOne<Category>(p => p.Category)
                     .WithMany(c => c.Products)
                     .HasForeignKey(p => p.CategoryId)
                     .IsRequired()
-                    .OnDelete(DeleteBehavior.SetNull);
+                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

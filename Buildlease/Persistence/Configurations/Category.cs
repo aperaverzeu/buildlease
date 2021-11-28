@@ -27,11 +27,12 @@ namespace Persistence.Configurations
                     .HasMaxLength(100);
 
             builder .Property(e => e.DefaultImagePath)
+                    .IsRequired(false)
                     .HasDefaultValue(null)
-                    .HasMaxLength(int.MaxValue);
+                    .HasMaxLength(500);
 
-            builder .HasMany<Category>(c => c.SubCategories)
-                    .WithOne(sc => sc.ParentCategory)
+            builder .HasOne<Category>(sc => sc.ParentCategory)
+                    .WithMany(c => c.SubCategories)
                     .HasForeignKey(sc => sc.ParentId)
                     .IsRequired()
                     .OnDelete(DeleteBehavior.Cascade);

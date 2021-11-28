@@ -26,14 +26,19 @@ namespace Persistence.Configurations
                     .IsRequired()
                     .HasMaxLength(100);
 
+            builder .Property(e => e.ValueType)
+                    ;
+
             builder .Property(e => e.UnitName)
-                    .HasMaxLength(100);
+                    .IsRequired(false)
+                    .HasDefaultValue(null)
+                    .HasMaxLength(50);
 
             builder .HasOne<Category>(a => a.Category)
                     .WithMany(c => c.Attributes)
                     .HasForeignKey(a => a.CategoryId)
                     .IsRequired()
-                    .OnDelete(DeleteBehavior.SetNull);
+                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

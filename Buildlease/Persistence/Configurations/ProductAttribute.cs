@@ -25,19 +25,24 @@ namespace Persistence.Configurations
             builder .Property(e => e.AttributeId)
                     .IsRequired();
 
+            builder .Property(e => e.ValueNumber)
+                    ;
+
             builder .Property(e => e.ValueString)
+                    .IsRequired(false)
+                    .HasDefaultValue(null)
                     .HasMaxLength(100);
 
             builder .HasOne<Attribute>(pa => pa.Attribute)
                     .WithMany(a => a.ProductAttributes)
-                    .IsRequired()
                     .HasForeignKey(pa => pa.AttributeId)
+                    .IsRequired()
                     .OnDelete(DeleteBehavior.Cascade);
 
             builder .HasOne<Product>(pa => pa.Product)
                     .WithMany(p => p.ProductAttributes)
-                    .IsRequired()
                     .HasForeignKey(pa => pa.ProductId)
+                    .IsRequired()
                     .OnDelete(DeleteBehavior.Cascade);
         }
     }
