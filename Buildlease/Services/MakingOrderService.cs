@@ -75,8 +75,9 @@ namespace Services
 
             order.Status = OrderStatus.WaitingForApproval;
 
-            // TODO: implement
-            order.SerializedCustomerInfo = userId;
+            order.SerializedCustomerInfo = 
+                Newtonsoft.Json.JsonConvert.SerializeObject(
+                    _manager.CustomerService.GetCustomerInfo(userId));
 
             foreach (var productOrder in productOrders)
             {
