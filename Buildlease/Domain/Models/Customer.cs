@@ -13,5 +13,7 @@ namespace Domain.Models
         public string RepresentativeName { get; set; }
         public string ContactInfo { get; set; }
         public int? JuridicalAddressId { get; set; }
+
+        //public IEnumerable<Order> Orders { get; set; }
     }
 }

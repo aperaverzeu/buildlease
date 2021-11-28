@@ -14,5 +14,6 @@ namespace Domain.Models
 
         public Category Category { get; set; }
         public IEnumerable<ProductAttribute> ProductAttributes { get; set; }
+        public IEnumerable<ProductOrder> ProductOrders { get; set; }
     }
 }
