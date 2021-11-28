@@ -128,12 +128,30 @@ namespace Buildlease.Controllers
                     TotalCount = 213,
                     AvailableCount = 1,
                     Price = 1123.89M,
+                    Attributes = new ProductAttributeView[]
+                    {
+                        new()
+                        {
+                            Name = "Скорость вращения",
+                            Value = "5000 об/мин"
+                        },
+                        new()
+                        {
+                            Name = "Длина",
+                            Value = "27 см"
+                        },
+                        new()
+                        {
+                            Name = "Металл",
+                            Value = "Смесь Росомахи и Капитана Америки"
+                        },
+                    },
                 },
                 new()
                 {
                     Id = 2,
                     Name = "Tooth-Brush™ с алмазным напылением",
-                    ImagePath = "wwwroot/static/products/22.jpg",
+                    ImagePath = "wrong/link/jpg.jpg",
                     TotalCount = 22,
                     AvailableCount = 22,
                 },
@@ -158,7 +176,7 @@ namespace Buildlease.Controllers
                 {
                     Id = 1,
                     Name = "Зелёная отвёртка",
-                    ImagePath = "wwwroot/static/products/1.jpg",
+                    ImagePath = "https://i.pinimg.com/originals/43/a3/5a/43a35af2a33785c5be181b68073f0661.gif",
                     TotalCount = 48500,
                     AvailableCount = 4200,
                     Price = 690.42M,
@@ -208,7 +226,7 @@ namespace Buildlease.Controllers
                               "Первый парень на весь край\n" + 
                               "На меня все бабки в лай\n" + 
                               "А-а-а-ай, ну и няхай!",
-                ImagePath = "wwwroot/static/products/1.jpg",
+                ImagePath = "https://i.pinimg.com/originals/43/a3/5a/43a35af2a33785c5be181b68073f0661.gif",
                 TotalCount = 500,
                 AvailableCount = 42,
                 Price = 220.10M,
@@ -269,7 +287,7 @@ namespace Buildlease.Controllers
                         new()
                         {
                             Name = "Зелёная отвёртка",
-                            ImagePath = "wwwroot/static/products/1.jpg",
+                            ImagePath = "https://i.pinimg.com/originals/43/a3/5a/43a35af2a33785c5be181b68073f0661.gif",
                         },
                     },
                 },
@@ -358,19 +376,57 @@ namespace Buildlease.Controllers
                 {
                     new()
                     {
-                        ProductId = 42,
+                        ProductId = null,
+                        ProductOrderId = 12345,
                         Name = "Зубная щётка",
-                        ImagePath = "wwwroot/static/products/1.jpg",
+                        ImagePath = "https://i.ytimg.com/vi/JPyqGsZk110/maxresdefault.jpg",
                         Count = 11,
                         Price = 22.11M,
                     },
                     new()
                     {
                         ProductId = 13,
+                        ProductOrderId = 54321,
                         Name = "Saint Tropez",
                         ImagePath = "https://www.kursivom.ru/wp-content/uploads/2020/11/Army_of_Lovers_20.jpg",
                         Count = 22,
                         Price = 280.00M,
+                        CategoryPath = new CategoryView[]
+                        {
+                            new()
+                            {
+                                Id = 0,
+                                Name = "Все",
+                            },
+                            new()
+                            {
+                                Id = 10,
+                                Name = "Отвёртки",
+                            },
+                            new()
+                            {
+                                Id = 2021,
+                                Name = "Колдунские",
+                            },
+                        },
+                        Attributes = new ProductAttributeView[]
+                        {
+                            new()
+                            {
+                                Name = "Скорость вращения",
+                                Value = "5000 об/мин"
+                            },
+                            new()
+                            {
+                                Name = "Длина",
+                                Value = "27 см"
+                            },
+                            new()
+                            {
+                                Name = "Металл",
+                                Value = "Смесь Росомахи и Капитана Америки"
+                            },
+                        },
                     }
                 }
             };
@@ -386,18 +442,56 @@ namespace Buildlease.Controllers
                     new()
                     {
                         ProductId = 42,
+                        ProductOrderId = -1,
                         Name = "Зубная щётка",
-                        ImagePath = "wwwroot/static/products/1.jpg",
+                        ImagePath = "https://i.ytimg.com/vi/JPyqGsZk110/maxresdefault.jpg",
                         Count = 11,
                         Price = 22.11M,
                     },
                     new()
                     {
                         ProductId = 13,
+                        ProductOrderId = -1,
                         Name = "Saint Tropez",
                         ImagePath = "https://www.kursivom.ru/wp-content/uploads/2020/11/Army_of_Lovers_20.jpg",
                         Count = 22,
                         Price = 280.00M,
+                        CategoryPath = new CategoryView[]
+                        {
+                            new()
+                            {
+                                Id = 0,
+                                Name = "Все",
+                            },
+                            new()
+                            {
+                                Id = 10,
+                                Name = "Отвёртки",
+                            },
+                            new()
+                            {
+                                Id = 2021,
+                                Name = "Колдунские",
+                            },
+                        },
+                        Attributes = new ProductAttributeView[]
+                        {
+                            new()
+                            {
+                                Name = "Скорость вращения",
+                                Value = "5000 об/мин"
+                            },
+                            new()
+                            {
+                                Name = "Длина",
+                                Value = "27 см"
+                            },
+                            new()
+                            {
+                                Name = "Металл",
+                                Value = "Смесь Росомахи и Капитана Америки"
+                            },
+                        },
                     }
                 }
             };
