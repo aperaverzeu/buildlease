@@ -379,7 +379,7 @@ namespace Buildlease.Controllers
                         ProductId = null,
                         ProductOrderId = 12345,
                         Name = "Зубная щётка",
-                        ImagePath = "https://i.ytimg.com/vi/JPyqGsZk110/maxresdefault.jpg",
+                        ImagePath = "https://genk.mediacdn.vn/k:thumb_w/640/2015/screen-shot-2015-07-30-at-2-31-57-pm-1438334096188/cau-chuyen-ve-nguoi-tao-ra-chu-ech-xanh-than-thanh.png",
                         Count = 11,
                         Price = 22.11M,
                     },
