@@ -3,7 +3,7 @@ using Domain.Models;
 
 namespace Domain.EntitiesExample
 {
-    public class CustomerEntities
+    public static class CustomerEntities
     {
         public static List<Customer> Get()
         {
@@ -15,7 +15,8 @@ namespace Domain.EntitiesExample
                     CompanyName = "Never Zero INC.",
                     RepresentativeName = "NZINC",
                     ContactInfo = "Email: contact@nzinc.com" +
-                                  "Phone: 88005553535"
+                                  "Phone: 88005553535",
+                    JuridicalAddressId = 4
                 },
                 new Customer()
                 {
