@@ -13,12 +13,12 @@ namespace Services
     internal sealed class MakingOrderService : IMakingOrderService
     {
         private readonly ApplicationDbContext _db;
-        private readonly ICatalogueService _catalogueService;
+        private readonly IServiceManager _manager;
 
-        public MakingOrderService(ApplicationDbContext dbContext, ICatalogueService catalogueService)
+        public MakingOrderService(ApplicationDbContext dbContext, IServiceManager manager)
         {
             _db = dbContext;
-            _catalogueService = catalogueService;
+            _manager = manager;
         }
 
         public const int NecessaryPeriodBetweenCreatingAndSigningOrderInDays = 2;
@@ -75,14 +75,15 @@ namespace Services
 
             order.Status = OrderStatus.WaitingForApproval;
 
-            // TODO: implement
-            order.SerializedCustomerInfo = userId;
+            order.SerializedCustomerInfo = 
+                Newtonsoft.Json.JsonConvert.SerializeObject(
+                    _manager.CustomerService.GetCustomerInfo(userId));
 
             foreach (var productOrder in productOrders)
             {
                 productOrder.SerializedProductFullView = 
                     Newtonsoft.Json.JsonConvert.SerializeObject(
-                        _catalogueService.GetProduct(productOrder.ProductId.Value, userId));
+                        _manager.CatalogueService.GetProduct(productOrder.ProductId.Value, userId));
             }
 
             _db.SaveChanges();

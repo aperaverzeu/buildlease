@@ -12,7 +12,7 @@ namespace Services
     {
         private readonly ApplicationDbContext _db;
 
-        public OrderService(ApplicationDbContext dbContext) => _db = dbContext;
+        public OrderService(ApplicationDbContext dbContext, IServiceManager manager) => _db = dbContext;
 
         private void ValidateUser(string userId)
         {

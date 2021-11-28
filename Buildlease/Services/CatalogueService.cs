@@ -13,7 +13,7 @@ namespace Services
     {
         private readonly ApplicationDbContext _db;
 
-        public CatalogueService(ApplicationDbContext dbContext) => _db = dbContext;
+        public CatalogueService(ApplicationDbContext dbContext, IServiceManager manager) => _db = dbContext;
 
         public CategoryFullView[] GetAllCategories()
         {
