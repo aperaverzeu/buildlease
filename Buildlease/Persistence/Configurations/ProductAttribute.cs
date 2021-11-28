@@ -26,7 +26,9 @@ namespace Persistence.Configurations
                     .IsRequired();
 
             builder .Property(e => e.ValueNumber)
-                    ;
+                    .IsRequired(false)
+                    .HasDefaultValue(null)
+                    .HasPrecision(10, 5);
 
             builder .Property(e => e.ValueString)
                     .IsRequired(false)

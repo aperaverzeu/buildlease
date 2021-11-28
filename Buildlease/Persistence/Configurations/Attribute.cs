@@ -27,7 +27,8 @@ namespace Persistence.Configurations
                     .HasMaxLength(100);
 
             builder .Property(e => e.ValueType)
-                    ;
+                    .IsRequired()
+                    .HasConversion<byte>();
 
             builder .Property(e => e.UnitName)
                     .IsRequired(false)

@@ -37,10 +37,11 @@ namespace Persistence.Configurations
                     .HasMaxLength(500);
 
             builder .Property(e => e.TotalCount)
-                    ;
+                    .IsRequired();
 
             builder .Property(e => e.Price)
-                    ;
+                    .IsRequired(false)
+                    .HasPrecision(10, 2);
 
             builder .HasOne<Category>(p => p.Category)
                     .WithMany(c => c.Products)
