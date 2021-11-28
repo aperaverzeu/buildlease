@@ -9,7 +9,7 @@ namespace Services.Abstractions
 {
     public interface ICustomerService
     {
-        CustomerInfo GetMyCustomerInfo(string userId);
-        void SaveMyCustomerInfo(CustomerInfo info);
+        CustomerInfo GetCustomerInfo(string userId);
+        void SaveCustomerInfo(CustomerInfo info);
     }
 }

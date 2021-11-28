@@ -24,7 +24,7 @@ namespace Services
         {
             var service = _manager.CustomerService;
 
-            var info = service.GetMyCustomerInfo(userId);
+            var info = service.GetCustomerInfo(userId);
 
             var addresses = info.DeliveryAddresses
                 .Append(info.JuridicalAddress ?? 
@@ -36,8 +36,8 @@ namespace Services
             info.JuridicalAddress = addresses.First();
             info.DeliveryAddresses = addresses.Skip(1).ToArray();
 
-            service.SaveMyCustomerInfo(info);
-            info = service.GetMyCustomerInfo(userId);
+            service.SaveCustomerInfo(info);
+            info = service.GetCustomerInfo(userId);
         }
 
         public void RestartDatabase()

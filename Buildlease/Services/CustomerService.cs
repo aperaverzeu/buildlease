@@ -17,7 +17,7 @@ namespace Services
 
         public CustomerService(ApplicationDbContext dbContext, IServiceManager manager) => _db = dbContext;
 
-        public CustomerInfo GetMyCustomerInfo(string userId)
+        public CustomerInfo GetCustomerInfo(string userId)
         {
             var customer = _db.Customers.SingleOrDefault(e => e.UserId == userId);
             var addresses = _db.CustomerAddresses.Where(e => e.CustomerId == userId);
@@ -35,7 +35,7 @@ namespace Services
         }
 
         // TODO: проверить добавление нового адреса у Админа после настройки билдера
-        public void SaveMyCustomerInfo(CustomerInfo info)
+        public void SaveCustomerInfo(CustomerInfo info)
         {
             var customer = info.MapToCustomer();
             var addresses = ExtractAddresses(info);
