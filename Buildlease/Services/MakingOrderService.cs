@@ -69,9 +69,9 @@ namespace Services
                 throw new InvalidOperationException(
                     $"Your cart is empty");
 
-            if (productOrders.First(po => po.Count > _db.GetProductAvailableCount(po.ProductId)) is ProductOrder error)
+            if (productOrders.First(po => po.Count > _db.GetProductAvailableCount(po.ProductId.Value)) is ProductOrder error)
                 throw new InvalidOperationException(
-                    $"There's only {_db.GetProductAvailableCount(error.ProductId)} available items of {_db.Products.Single(e => e.Id == error.ProductId).Name}");
+                    $"There's only {_db.GetProductAvailableCount(error.ProductId.Value)} available items of {_db.Products.Single(e => e.Id == error.ProductId).Name}");
 
             order.Status = OrderStatus.WaitingForApproval;
 
@@ -82,7 +82,7 @@ namespace Services
             {
                 productOrder.SerializedProductFullView = 
                     Newtonsoft.Json.JsonConvert.SerializeObject(
-                        _manager.CatalogueService.GetProduct(productOrder.ProductId, userId));
+                        _manager.CatalogueService.GetProduct(productOrder.ProductId.Value, userId));
             }
 
             _db.SaveChanges();

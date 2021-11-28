@@ -29,9 +29,22 @@ namespace Services.Extension
                 db.SaveChanges();
             }
 
-            return db.Orders
+            var cart = db.Orders
                 .Where(e => e.CustomerId == userId)
                 .Single(e => e.Status == OrderStatus.Cart);
+
+            var deletedProducts = db.ProductOrders
+                .Where(e => e.OrderId == cart.Id)
+                .Where(e => e.ProductId == null);
+
+            if (deletedProducts.Any())
+            {
+                db.ProductOrders.RemoveRange(deletedProducts);
+                db.SaveChanges();
+                throw new ArgumentNullException("There was deleted products in your cart");
+            }
+
+            return cart;
         }
     }
 }
