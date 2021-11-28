@@ -13,9 +13,10 @@ import Globals from '../Globals';
 import Catalog from './catalog/Catalog';
 import Cart from './cart/Cart';
 import Profile from './profile/Profile';
+import Product from "./product/Product";
 
 // styles (do we need em here tho?)
-import styles from './gen_page.module.css';
+import './gen_page.module.css';
 
 export default function GenPage() {
 
@@ -29,7 +30,8 @@ export default function GenPage() {
                     <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} />
                     <AuthorizeRoute path='/cart' component={Cart}/>
                     <AuthorizeRoute path='/profile'  component={Profile}/>
-                    <Route path='/catalog' component={Catalog}/>
+                    <Route path='/catalog/:stringCategoryId?' component={Catalog}/>
+                    <Route path='/products/:stringProductId' component={Product}/>
                 </Switch>
             :
                 <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>

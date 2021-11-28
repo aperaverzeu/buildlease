@@ -1,4 +1,3 @@
-import { ShoppingCartOutlined } from '@material-ui/icons';
 import { Button, message } from 'antd';
 import { useState } from 'react';
 import API from '../../API';
@@ -19,7 +18,7 @@ export default function Item({ProductView}: ItemProps) {
         minWidth: 400, 
         width: 400, 
         maxWidth: 400, 
-        minHeight: 150, 
+        height: 160, 
         border: 'solid',
       }}
     >
@@ -44,11 +43,11 @@ export default function Item({ProductView}: ItemProps) {
         <div style={{fontSize: 20, fontWeight: 'lighter'}}>{ProductView.Price ? `$${ProductView.Price} per day` : 'Price is unknown'}</div>
         <div className='d-flex flex-row flex-nowrap justify-content-between'>
           {isAdded ? 
-            <Button icon={<ShoppingCartOutlined />} disabled>
+            <Button disabled>
               Already in cart
             </Button> 
           :
-            <Button icon={<ShoppingCartOutlined />}
+            <Button
               onClick={() => {
                 message.loading({ content: 'Wait for it...', key: ProductView.Id, duration: 0 });
                 Promise

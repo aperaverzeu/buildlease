@@ -33,7 +33,9 @@ export default function App() {
                     <Switch>
                         <Route path={
                             [
-                                '/catalog',
+                                '/catalog/:stringCategoryId?',
+                                '/products/:stringProductId',
+                                '/orders/:stringOrderId',
                                 '/cart',
                                 '/profile',
                                 // to be continued...

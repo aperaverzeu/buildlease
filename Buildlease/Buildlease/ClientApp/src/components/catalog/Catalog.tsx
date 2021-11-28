@@ -11,6 +11,7 @@ import SortRule from "./requests/SortRule";
 import CategoryFilterView from "../views/CategoryFilterView";
 import ProductView from "../views/ProductView";
 import LOGIC from "../../LOGIC";
+
 import SubHeader from "../layout/SubHeader";
 import SideMenu from "../layout/SideMenu";
 import MainContent from "../layout/MainContent";

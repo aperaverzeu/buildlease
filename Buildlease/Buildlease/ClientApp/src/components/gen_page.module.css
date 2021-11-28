@@ -1,10 +1,16 @@
 p {
   font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
 }
 
-h1 {
+h2 {
   font-family: 'Source Sans Pro', sans-serif;
-  font-size: 28px;
+  font-size: 24px;
+}
+
+h3 {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 20px;
 }
 
 a {
