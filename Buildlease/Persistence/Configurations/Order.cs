@@ -28,8 +28,7 @@ namespace Persistence.Configurations
                     .HasMaxLength(int.MaxValue);
 
             builder .Property(e => e.Status)
-                    .IsRequired()
-                    .HasConversion<byte>();
+                    .IsRequired();
 
             builder .HasOne<Customer>(o => o.Customer)
                     .WithMany(c => c.Orders)

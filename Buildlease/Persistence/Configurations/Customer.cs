@@ -28,7 +28,7 @@ namespace Persistence.Configurations
 
             builder .Property(e => e.ContactInfo)
                     .IsRequired(false)
-                    .HasMaxLength(100);
+                    .HasMaxLength(1000);
 
             builder .HasOne(c => c.ApplicationUser)
                     .WithOne()
