@@ -19,15 +19,15 @@ namespace Persistence.Configurations
                     .IsRequired();
 
             builder .Property(e => e.CompanyName)
-                    .IsRequired()
+                    .IsRequired(false)
                     .HasMaxLength(100);
 
             builder .Property(e => e.RepresentativeName)
-                    .IsRequired()
+                    .IsRequired(false)
                     .HasMaxLength(100);
 
             builder .Property(e => e.ContactInfo)
-                    .IsRequired()
+                    .IsRequired(false)
                     .HasMaxLength(100);
 
             builder .Property(e => e.JuridicalAddressId)

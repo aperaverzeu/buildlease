@@ -23,7 +23,7 @@ namespace Persistence.Configurations
                     .IsRequired();
 
             builder .Property(e => e.ProductId)
-                    .IsRequired();
+                    .IsRequired(false);
 
             builder .Property(e => e.Count)
                     .IsRequired();
@@ -37,13 +37,13 @@ namespace Persistence.Configurations
                     .WithMany(o => o.ProductOrders)
                     .HasForeignKey(po => po.OrderId)
                     .IsRequired()
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.SetNull);
 
             builder .HasOne<Product>(po => po.Product)
                     .WithMany(p => p.ProductOrders)
                     .HasForeignKey(po => po.ProductId)
                     .IsRequired()
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
