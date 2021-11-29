@@ -20,14 +20,17 @@ namespace Persistence.Configurations
 
             builder .Property(e => e.CompanyName)
                     .IsRequired(false)
+                    .HasDefaultValue(null)
                     .HasMaxLength(100);
 
             builder .Property(e => e.RepresentativeName)
                     .IsRequired(false)
+                    .HasDefaultValue(null)
                     .HasMaxLength(100);
 
             builder .Property(e => e.ContactInfo)
                     .IsRequired(false)
+                    .HasDefaultValue(null)
                     .HasMaxLength(1000);
 
             builder .HasOne(c => c.ApplicationUser)

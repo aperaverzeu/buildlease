@@ -24,7 +24,7 @@ namespace Persistence.Configurations
 
             builder .Property(e => e.SerializedCustomerInfo)
                     .IsRequired(false)
-                    .HasDefaultValue(string.Empty)
+                    .HasDefaultValue(null)
                     .HasMaxLength(int.MaxValue);
 
             builder .Property(e => e.Status)

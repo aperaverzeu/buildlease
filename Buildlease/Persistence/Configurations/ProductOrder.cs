@@ -29,8 +29,8 @@ namespace Persistence.Configurations
                     .IsRequired();
 
             builder .Property(e => e.SerializedProductFullView)
-                    .IsRequired()
-                    .HasDefaultValue(string.Empty)
+                    .IsRequired(false)
+                    .HasDefaultValue(null)
                     .HasMaxLength(int.MaxValue);
 
             builder .HasOne<Order>(po => po.Order)
