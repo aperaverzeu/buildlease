@@ -8,6 +8,8 @@ namespace Domain.Models
 {
     public class Customer
     {
+        // TODO: DELETE THIS LINE AFTER CREATING BUILDER
+        [System.ComponentModel.DataAnnotations.Key]
         public string UserId { get; set; }
         public string CompanyName { get; set; }
         public string RepresentativeName { get; set; }

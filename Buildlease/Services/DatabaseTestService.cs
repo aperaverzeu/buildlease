@@ -12,25 +12,32 @@ namespace Services
     internal sealed class DatabaseTestService : IDatabaseTestService
     {
         private readonly ApplicationDbContext _dbContext;
-        private readonly IOrderService _service;
+        private readonly IServiceManager _manager;
 
-        public DatabaseTestService(ApplicationDbContext dbContext, IOrderService service)
+        public DatabaseTestService(ApplicationDbContext dbContext, IServiceManager manager)
         {
             _dbContext = dbContext;
-            _service = service;
+            _manager = manager;
         }
 
         public void DoTest(string userId)
         {
-            var GetMyOrders = _service.GetMyOrders(userId);
+            var service = _manager.CustomerService;
 
-            var GetMyCart = _service.GetMyCart(userId);
+            var info = service.GetCustomerInfo(userId);
 
-            var myOrdersIds = Domain.EntitiesExample.OrderEntities.Get().Where(o => o.CustomerId == userId).Select(o => o.Id);
-            foreach (var orderId in myOrdersIds)
-            {
-                var GetOrder = _service.GetOrder(userId, orderId);
-            }
+            var addresses = info.DeliveryAddresses
+                .Append(info.JuridicalAddress ?? 
+                new Contracts.DTOs.AddressInfo()
+                {
+                    PostalCode = "42",
+                })
+                .ToArray();
+            info.JuridicalAddress = addresses.First();
+            info.DeliveryAddresses = addresses.Skip(1).ToArray();
+
+            service.SaveCustomerInfo(info);
+            info = service.GetCustomerInfo(userId);
         }
 
         public void RestartDatabase()
@@ -58,6 +65,9 @@ namespace Services
             _dbContext.Orders.AddRange(Domain.EntitiesExample.OrderEntities.Get());
             _dbContext.ProductOrders.AddRange(Domain.EntitiesExample.ProductOrderEntities.Get());
             _dbContext.HistoryOfOrderStatus.AddRange(Domain.EntitiesExample.OrderStatusHistoryEntities.Get());
+
+            _dbContext.Customers.AddRange(Domain.EntitiesExample.CustomerEntities.Get());
+            _dbContext.CustomerAddresses.AddRange(Domain.EntitiesExample.AddressEntities.Get());
 
             _dbContext.SaveChanges();
             _dbContext.Database.CommitTransaction();
