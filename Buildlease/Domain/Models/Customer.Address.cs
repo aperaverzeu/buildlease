@@ -11,5 +11,7 @@
         public string Street { get; set; }
         public string Building { get; set; }
         public string Office { get; set; }
+
+        public Customer Customer { get; set; }
     }
 }
