@@ -33,7 +33,8 @@ export default function GenPage() {
                     <AuthorizeRoute path='/profile'  component={Profile}/>
                     <AuthorizeRoute path='/orders/:stringOrderId' component={Order}/>
                     <Route path='/catalog/:stringCategoryId?' component={Catalog}/>
-                    <Route path='/products/:stringProductId' component={Product}/>
+                    <Route path='/products/:stringProductId' component={() => <Product isHistoric={false}/>}/>
+                    <Route path='/archived-products/:stringProductOrderId' component={() => <Product isHistoric={true}/>}/>
                 </Switch>
             :
                 <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>
