@@ -23,7 +23,7 @@ namespace Persistence.Configurations
                     .IsRequired();
 
             builder .Property(e => e.SerializedCustomerInfo)
-                    .IsRequired()
+                    .IsRequired(false)
                     .HasDefaultValue(string.Empty)
                     .HasMaxLength(int.MaxValue);
 
@@ -31,11 +31,11 @@ namespace Persistence.Configurations
                     .IsRequired()
                     .HasConversion<byte>();
 
-            /*builder .HasOne<Customer>(o => o.Customer)
+            builder .HasOne<Customer>(o => o.Customer)
                     .WithMany(c => c.Orders)
                     .HasForeignKey(o => o.CustomerId)
                     .IsRequired()
-                    .OnDelete(DeleteBehavior.Cascade);*/
+                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

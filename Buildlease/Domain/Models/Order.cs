@@ -9,7 +9,7 @@ namespace Domain.Models
         public OrderStatus Status { get; set; }
         public string SerializedCustomerInfo { get; set; }
 
-        //public Customer Customer { get; set; }
+        public Customer Customer { get; set; }
         public IEnumerable<ProductOrder> ProductOrders { get; set; }
     }
 }

@@ -51,6 +51,8 @@ namespace Services
 
             _dbContext.Users.AddRange(Domain.EntitiesExample.UserEntities.Get());
 
+            _dbContext.Customers.AddRange(Domain.EntitiesExample.CustomerEntities.Get());
+
             _dbContext.Orders.AddRange(Domain.EntitiesExample.OrderEntities.Get());
             _dbContext.ProductOrders.AddRange(Domain.EntitiesExample.ProductOrderEntities.Get());
             _dbContext.HistoryOfOrderStatus.AddRange(Domain.EntitiesExample.OrderStatusHistoryEntities.Get());

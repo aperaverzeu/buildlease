@@ -12,7 +12,8 @@ namespace Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
-            builder .HasKey(e => e.UserId);
+            builder .ToTable("Customer")
+                    .HasKey(e => e.UserId);
         }
     }
 }
