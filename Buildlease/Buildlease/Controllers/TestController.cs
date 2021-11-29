@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Contracts.DTOs;
+using Contracts.Requests;
 using Contracts.Views;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -117,7 +119,7 @@ namespace Buildlease.Controllers
         }
 
         [HttpPost("GetProducts")]
-        public ProductView[] GetProducts()
+        public ProductView[] GetProducts([FromBody] GetProductsRequest request)
         {
             return new ProductView[]
             {
@@ -401,6 +403,82 @@ namespace Buildlease.Controllers
                     }
                 }
             };
+        }
+
+
+        [HttpPost("SetProductOrderCount/{productId}/{count}")]
+        public void SetProductOrderCount([FromRoute] int productId, [FromRoute] int count)
+        {
+            if (count < 0) throw new ArgumentException("count < 0");
+            return;
+        }
+
+        [HttpPost("MakeOrderFromCart")]
+        public void MakeOrderFromCart()
+        {
+            if (new Random().Next(2) == 1) throw new ArgumentException("*here will be explanation of error*");
+            return;
+        }
+
+        [HttpPost("DeclineOrder/{orderId}")]
+        public void DeclineOrder([FromRoute] int orderId)
+        {
+            if (orderId <= 0) throw new ArgumentException("*here will be explanation of error*");
+            return;
+        }
+
+
+        [HttpPost("GetCustomerInfo")]
+        public CustomerInfo GetCustomerInfo()
+        {
+            return new CustomerInfo()
+            {
+                CompanyName = "Never Zero INC.",
+                RepresentativeName = "NZINC",
+                ContactInfo = "Email: contact@nzinc.com\n" +
+                              "Phone: 88005553535",
+                JuridicalAddress = new AddressInfo()
+                {
+                    PostalCode = "69-420",
+                    City = "New-York",
+                    Street = "Central park st",
+                    Building = "Skyscraper",
+                    Office = "Overlooking central park",
+                },
+                DeliveryAddresses = new AddressInfo[]
+                {
+                    new AddressInfo()
+                    {
+                        PostalCode = "301-3322",
+                        City = "Dortmund",
+                        Street = "Karl strasse st",
+                        Building = "Loft",
+                        Office = "Single room apartment",
+                    },
+                    new AddressInfo()
+                    {
+                        PostalCode = "111-6666",
+                        City = "Reykjavik",
+                        Street = "Monderlstotrm underlstom St",
+                        Building = "House",
+                        Office = "Room overlooking the geyser",
+                    },
+                    new AddressInfo()
+                    {
+                        PostalCode = "4455-112",
+                        City = "Lisbon",
+                        Street = "Pedro Gonsales st",
+                        Building = "Great house",
+                        Office = "Near ocean",
+                    },
+                },
+            };
+        }
+
+        [HttpPost("SaveCustomerInfo")]
+        public void SaveCustomerInfo([FromBody] CustomerInfo info)
+        {
+            return;
         }
     }
 }
