@@ -12,10 +12,9 @@ namespace Domain.Models
         public string CompanyName { get; set; }
         public string RepresentativeName { get; set; }
         public string ContactInfo { get; set; }
-        public int? JuridicalAddressId { get; set; }
 
         public IEnumerable<Order> Orders { get; set; }
         public IEnumerable<Address> Addresses { get; set; }
-        //public Address JuridicalAddress { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

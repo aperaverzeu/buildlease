@@ -30,8 +30,11 @@ namespace Persistence.Configurations
                     .IsRequired(false)
                     .HasMaxLength(100);
 
-            builder .Property(e => e.JuridicalAddressId)
-                    .IsRequired(false);
+            builder .HasOne(c => c.ApplicationUser)
+                    .WithOne()
+                    .HasForeignKey<Customer>(c => c.UserId)
+                    .IsRequired()
+                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
