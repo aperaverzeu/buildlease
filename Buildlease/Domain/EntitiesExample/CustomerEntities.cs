@@ -16,7 +16,6 @@ namespace Domain.EntitiesExample
                     RepresentativeName = "NZINC",
                     ContactInfo = "Email: contact@nzinc.com\n" +
                                   "Phone: 88005553535",
-                    JuridicalAddressId = 4
                 },
                 new Customer()
                 {
@@ -25,7 +24,6 @@ namespace Domain.EntitiesExample
                     RepresentativeName = "Jade Chieftain Xi CORP",
                     ContactInfo = "Email: contact@xi.com\n" +
                                   "Phone: +7-321-99-84400928",
-                    JuridicalAddressId = null
                 },
             };
         }

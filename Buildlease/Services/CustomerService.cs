@@ -46,9 +46,6 @@ namespace Services
             _db.CustomerAddresses.AddRange(addresses);
             _db.SaveChanges();
 
-            if (info.JuridicalAddress is not null) 
-                customer.JuridicalAddressId = addresses.First().Id;
-
             _db.Customers.Remove(_db.Customers.Single(e => e.UserId == customer.UserId));
             _db.Customers.Add(customer);
             _db.SaveChanges();
@@ -67,7 +64,7 @@ namespace Services
             for (int i = 0; i < addresses.Count; i++)
             {
                 addresses[i].CustomerId = info.UserId;
-                addresses[i].Priority = i;
+                addresses[i].Priority = info.JuridicalAddress is not null ? i : i + 1;
             }
 
             return addresses;
