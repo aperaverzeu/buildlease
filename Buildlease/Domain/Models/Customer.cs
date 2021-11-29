@@ -15,5 +15,6 @@ namespace Domain.Models
         public int? JuridicalAddressId { get; set; }
 
         public IEnumerable<Order> Orders { get; set; }
+        public IEnumerable<Address> Addresses { get; set; }
     }
 }
