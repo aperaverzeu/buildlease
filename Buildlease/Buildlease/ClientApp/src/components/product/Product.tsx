@@ -61,7 +61,7 @@ export default function Product({isHistoric}: Props) {
                         <div className={styles.boxey} style={{
                             width: '272px',
                             height: '272px',
-                            backgroundImage: 'url(https://i.pinimg.com/originals/43/a3/5a/43a35af2a33785c5be181b68073f0661.gif)',
+                            backgroundImage: `url(${productDetails?.ImagePath})`,
                             backgroundSize: 'contain',
                         }}/>
                     </div>
