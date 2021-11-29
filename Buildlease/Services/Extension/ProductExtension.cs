@@ -13,18 +13,14 @@ namespace Services.Extension
     public static class ProductExtension
     {
         public static int GetProductAvailableCount(this ApplicationDbContext db, int productId)
-            =>
+            => (
+                db.Products.Single(e => e.Id == productId).TotalCount
+            -
                 db.Orders
                 .Where(e => OrderStatusMetadata.ReservationStatuses.Contains(e.Status))
-                .Join(db.ProductOrders,
-                    o => o.Id,
-                    po => po.OrderId,
-                    (o, po) => new
-                    {
-                        po.ProductId,
-                        po.Count,
-                    })
-                .Where(obj => obj.ProductId == productId)
-                .Sum(obj => obj.Count);
+                .SelectMany(e => e.ProductOrders)
+                .Where(e => e.ProductId == productId)
+                .Sum(e => e.Count)
+            );
     }
 }

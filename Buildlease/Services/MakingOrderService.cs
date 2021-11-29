@@ -28,9 +28,7 @@ namespace Services
         {
             var cart = _db.ValidateAndGetCart(userId);
 
-            var productOrder = _db.ProductOrders
-                .Where(e => e.OrderId == cart.Id)
-                .SingleOrDefault(e => e.ProductId == productId);
+            var productOrder = cart.ProductOrders.SingleOrDefault(e => e.ProductId == productId);
 
             if (productOrder is null)
             {
@@ -63,13 +61,11 @@ namespace Services
 
             var order = _db.ValidateAndGetCart(userId);
 
-            var productOrders = _db.ProductOrders.Where(e => e.OrderId == order.Id).ToArray();
-
-            if (!productOrders.Any())
+            if (!order.ProductOrders.Any())
                 throw new InvalidOperationException(
                     $"Your cart is empty");
 
-            if (productOrders.First(po => po.Count > _db.GetProductAvailableCount(po.ProductId.Value)) is ProductOrder error)
+            if (order.ProductOrders.First(po => po.Count > _db.GetProductAvailableCount(po.ProductId.Value)) is ProductOrder error)
                 throw new InvalidOperationException(
                     $"There's only {_db.GetProductAvailableCount(error.ProductId.Value)} available items of {_db.Products.Single(e => e.Id == error.ProductId).Name}");
 
@@ -79,7 +75,7 @@ namespace Services
                 Newtonsoft.Json.JsonConvert.SerializeObject(
                     _manager.CustomerService.GetCustomerInfo(userId));
 
-            foreach (var productOrder in productOrders)
+            foreach (var productOrder in order.ProductOrders)
             {
                 productOrder.SerializedProductFullView = 
                     Newtonsoft.Json.JsonConvert.SerializeObject(

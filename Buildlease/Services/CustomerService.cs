@@ -1,5 +1,6 @@
 ﻿using Contracts.DTOs;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Services.Abstractions;
 using Services.Extension.Mapping;
@@ -19,8 +20,9 @@ namespace Services
 
         public CustomerInfo GetCustomerInfo(string userId)
         {
-            var customer = _db.Customers.SingleOrDefault(e => e.UserId == userId);
-            var addresses = _db.CustomerAddresses.Where(e => e.CustomerId == userId);
+            var customer = _db.Customers
+                .Include(e => e.Addresses)
+                .SingleOrDefault(e => e.UserId == userId);
 
             if (customer is null)
             {
@@ -29,7 +31,7 @@ namespace Services
                 _db.SaveChanges();
             }
 
-            var info = customer.MapToCustomerInfo(addresses);
+            var info = customer.MapToCustomerInfo();
 
             return info;
         }
