@@ -13,7 +13,6 @@ namespace Services.Extension.Mapping
         public static AddressInfo MapToAddressInfo(this Address obj)
             => new AddressInfo()
             {
-                Id = obj.Id,
                 Building = obj.Building,
                 City = obj.City,
                 Office = obj.Office,
@@ -27,7 +26,6 @@ namespace Services.Extension.Mapping
         public static Address MapToAddress(this AddressInfo obj)
             => new Address()
             {
-                Id = obj.Id ?? 0,
                 Building = obj.Building,
                 City = obj.City,
                 Office = obj.Office,
