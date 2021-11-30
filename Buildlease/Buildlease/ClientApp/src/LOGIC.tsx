@@ -1,5 +1,11 @@
 import CategoryFullView from "./components/views/CategoryFullView";
+import ProductAttributeView from "./components/views/ProductAttributeView";
+
 import Globals from "./Globals";
+
+function firstLetterToLower(str: string) {
+    return str.charAt(0).toLowerCase() + str.slice(1);
+}
 
 const LOGIC = {
 
@@ -21,6 +27,11 @@ const LOGIC = {
         } while (current.ParentId != prev);
         result.reverse();
         return result;
+    },
+    
+    GetShortDescription: (pairs: ProductAttributeView[] | undefined): string | undefined => {
+        return pairs?.map((pair, index) =>
+            `${index == 0 ? pair.Name : firstLetterToLower(pair.Name)}: ${firstLetterToLower(pair.Value)}` + (index != pairs.length-1 ? ', ' : '.')).join()
     },
 
 }

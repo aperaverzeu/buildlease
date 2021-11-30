@@ -17,6 +17,7 @@ import PATH from "../../PATH";
 import API from "../../API";
 
 import styles from '../gen_page.module.css';
+import LOGIC from "../../LOGIC";
 
 interface Props {
     isHistoric: boolean,
@@ -37,11 +38,6 @@ export default function Product({isHistoric}: Props) {
     useEffect(() => {
         LoadProductDetails();
     }, []);
-
-    // TODO: move the attributes-based short description generating logic into separate module
-    function firstLetterToLower(str: string) {
-        return str.charAt(0).toLowerCase() + str.slice(1);
-    }
     
     return(
         <>
@@ -90,9 +86,7 @@ export default function Product({isHistoric}: Props) {
                                 marginBottom: '40px',
                             }}>
                                 <p>
-                                    {/* TODO: move the attributes-based short description generating logic into separate module */}
-                                    {productDetails?.Attributes.map((pair, index) =>
-                                        `${index == 0 ? pair.Name : firstLetterToLower(pair.Name)}: ${firstLetterToLower(pair.Value)}` + (index != productDetails?.Attributes.length-1 ? ', ' : '.'))}
+                                    {LOGIC.GetShortDescription(productDetails?.Attributes)}
                                 </p>
                             </div>
                             <div>
