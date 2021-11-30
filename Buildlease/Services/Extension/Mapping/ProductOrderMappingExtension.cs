@@ -14,15 +14,33 @@ namespace Services.Extension
     public static class ProductOrderMappingExtension
     {
         private static ProductOrderView MapToProductOrderView(this ProductOrder obj)
-            => new()
+        {
+            if (obj.SerializedProductFullView is null)
             {
-                ProductId = obj.Product.Id,
-                Count = obj.Count,
-                Name = obj.Product.Name,
-                ImagePath = obj.Product.ImagePath,
-                Price = obj.Product.Price.Value,
-                Attributes = obj.Product.GetProductAttributeViews(),
-            };
+                return new ProductOrderView()
+                {
+                    ProductId = obj.Product.Id,
+                    Count = obj.Count,
+                    Name = obj.Product.Name,
+                    ImagePath = obj.Product.ImagePath,
+                    Price = obj.Product.Price.Value,
+                    Attributes = obj.Product.GetProductAttributeViews(),
+                };
+            }
+            else
+            {
+                var product = Newtonsoft.Json.JsonConvert.DeserializeObject<ProductFullView>(obj.SerializedProductFullView);
+                return new ProductOrderView()
+                {
+                    ProductId = product.Id,
+                    Count = obj.Count,
+                    Name = product.Name,
+                    ImagePath = product.ImagePath,
+                    Price = product.Price.Value,
+                    Attributes = product.Attributes,
+                };
+            }
+        }
 
         private static IEnumerable<ProductOrderView> MapToProductOrderView(this IEnumerable<ProductOrder> objs)
             => objs

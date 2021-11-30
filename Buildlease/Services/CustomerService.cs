@@ -48,8 +48,11 @@ namespace Services
             _db.CustomerAddresses.AddRange(addresses);
             _db.SaveChanges();
 
-            _db.Customers.Remove(_db.Customers.Single(e => e.UserId == customer.UserId));
-            _db.Customers.Add(customer);
+            var dbCustomer = _db.Customers.Single(e => e.UserId == customer.UserId);
+            dbCustomer.CompanyName = customer.CompanyName;
+            dbCustomer.RepresentativeName = customer.RepresentativeName;
+            dbCustomer.ContactInfo = customer.ContactInfo;
+            _db.Customers.Update(dbCustomer);
             _db.SaveChanges();
 
             _db.Database.CommitTransaction();

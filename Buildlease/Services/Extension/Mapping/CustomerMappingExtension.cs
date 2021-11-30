@@ -18,10 +18,10 @@ namespace Services.Extension.Mapping
                 ContactInfo = customer.ContactInfo,
                 RepresentativeName = customer.RepresentativeName,
                 JuridicalAddress = customer.Addresses
-                        .SingleOrDefault(e => e.Id == customer.JuridicalAddressId)
+                        .SingleOrDefault(e => e.Priority == 0)
                         ?.MapToAddressInfo(),
                 DeliveryAddresses = customer.Addresses
-                        .Where(e => e.Id != customer.JuridicalAddressId)
+                        .Where(e => e.Priority > 0)
                         .OrderBy(e => e.Priority)
                         .MapToAddressInfo()
                         .ToArray(),
