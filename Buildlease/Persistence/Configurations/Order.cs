@@ -22,13 +22,13 @@ namespace Persistence.Configurations
             builder .Property(e => e.CustomerId)
                     .IsRequired();
 
+            builder .Property(e => e.Status)
+                    .IsRequired();
+
             builder .Property(e => e.SerializedCustomerInfo)
                     .IsRequired(false)
                     .HasDefaultValue(null)
                     .HasMaxLength(int.MaxValue);
-
-            builder .Property(e => e.Status)
-                    .IsRequired();
 
             builder .HasOne<Customer>(o => o.Customer)
                     .WithMany(c => c.Orders)
