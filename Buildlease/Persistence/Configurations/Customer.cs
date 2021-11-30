@@ -19,19 +19,25 @@ namespace Persistence.Configurations
                     .IsRequired();
 
             builder .Property(e => e.CompanyName)
-                    .IsRequired()
+                    .IsRequired(false)
+                    .HasDefaultValue(null)
                     .HasMaxLength(100);
 
             builder .Property(e => e.RepresentativeName)
-                    .IsRequired()
+                    .IsRequired(false)
+                    .HasDefaultValue(null)
                     .HasMaxLength(100);
 
             builder .Property(e => e.ContactInfo)
-                    .IsRequired()
-                    .HasMaxLength(100);
+                    .IsRequired(false)
+                    .HasDefaultValue(null)
+                    .HasMaxLength(1000);
 
-            builder .Property(e => e.JuridicalAddressId)
-                    .IsRequired(false);
+            builder .HasOne(c => c.ApplicationUser)
+                    .WithOne()
+                    .HasForeignKey<Customer>(c => c.UserId)
+                    .IsRequired()
+                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

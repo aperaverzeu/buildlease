@@ -35,10 +35,10 @@ namespace Services.Extension.Mapping
                 ContactInfo = customer.ContactInfo,
                 RepresentativeName = customer.RepresentativeName,
                 JuridicalAddress = addresses
-                    .SingleOrDefault(e => e.Id == customer.JuridicalAddressId)
+                    .SingleOrDefault(e => e.Priority == 0)
                     ?.MapToAddressInfo(),
                 DeliveryAddresses = addresses
-                    .Where(e => e.Id != customer.JuridicalAddressId)
+                    .Where(e => e.Priority > 0)
                     .OrderBy(e => e.Priority)
                     .MapToAddressInfo()
                     .ToArray(),
@@ -51,8 +51,6 @@ namespace Services.Extension.Mapping
                 CompanyName = info.CompanyName,
                 ContactInfo = info.ContactInfo,
                 RepresentativeName = info.RepresentativeName,
-                
-                JuridicalAddressId = null,
             };
     }
 }

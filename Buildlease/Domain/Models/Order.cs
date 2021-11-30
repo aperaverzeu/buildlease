@@ -11,5 +11,6 @@ namespace Domain.Models
 
         public Customer Customer { get; set; }
         public IEnumerable<ProductOrder> ProductOrders { get; set; }
+        public IEnumerable<HistoryOfOrderStatus> HistoryOfOrderStatus { get; set; }
     }
 }

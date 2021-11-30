@@ -8,5 +8,7 @@ namespace Domain.Models
         public int OrderId { get; set; }
         public DateTime Date { get; set; }
         public OrderStatus NewStatus { get; set; }
+
+        public Order Order { get; set; }
     }
 }

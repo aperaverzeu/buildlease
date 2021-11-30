@@ -8,31 +8,28 @@ using Domain.Models;
 
 namespace Persistence.Configurations
 {
-    class OrderBuilder : IEntityTypeConfiguration<Order>
+    class HistoryOfOrderStatusBuilder : IEntityTypeConfiguration<HistoryOfOrderStatus>
     {
-        public void Configure(EntityTypeBuilder<Order> builder)
+        public void Configure(EntityTypeBuilder<HistoryOfOrderStatus> builder)
         {
-            builder .ToTable("Order")
+            builder .ToTable("HistoryOfOrderStatus")
                     .HasKey(e => e.Id);
 
             builder .Property(e => e.Id)
                     .ValueGeneratedOnAdd()
                     .IsRequired();
 
-            builder .Property(e => e.CustomerId)
+            builder .Property(e => e.OrderId)
                     .IsRequired();
 
-            builder .Property(e => e.Status)
+            builder .Property(e => e.Date)
                     .IsRequired();
 
-            builder .Property(e => e.SerializedCustomerInfo)
-                    .IsRequired(false)
-                    .HasDefaultValue(null)
-                    .HasMaxLength(int.MaxValue);
+            builder .Property(e => e.NewStatus)
+                    .IsRequired();
 
-            builder .HasOne<Customer>(o => o.Customer)
-                    .WithMany(c => c.Orders)
-                    .HasForeignKey(o => o.CustomerId)
+            builder .HasOne<Order>(h => h.Order)
+                    .WithMany(o => o.HistoryOfOrderStatus)
                     .IsRequired()
                     .OnDelete(DeleteBehavior.Cascade);
         }

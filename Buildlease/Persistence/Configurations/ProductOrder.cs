@@ -23,14 +23,14 @@ namespace Persistence.Configurations
                     .IsRequired();
 
             builder .Property(e => e.ProductId)
-                    .IsRequired();
+                    .IsRequired(false);
 
             builder .Property(e => e.Count)
                     .IsRequired();
 
             builder .Property(e => e.SerializedProductFullView)
-                    .IsRequired()
-                    .HasDefaultValue(string.Empty)
+                    .IsRequired(false)
+                    .HasDefaultValue(null)
                     .HasMaxLength(int.MaxValue);
 
             builder .HasOne<Order>(po => po.Order)
@@ -42,8 +42,8 @@ namespace Persistence.Configurations
             builder .HasOne<Product>(po => po.Product)
                     .WithMany(p => p.ProductOrders)
                     .HasForeignKey(po => po.ProductId)
-                    .IsRequired()
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .IsRequired(false)
+                    .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
