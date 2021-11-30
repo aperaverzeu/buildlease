@@ -33,7 +33,7 @@ namespace Persistence.Configurations
             builder .Property(e => e.UnitName)
                     .IsRequired(false)
                     .HasDefaultValue(null)
-                    .HasMaxLength(50);
+                    .HasMaxLength(20);
 
             builder .HasOne<Category>(a => a.Category)
                     .WithMany(c => c.Attributes)
