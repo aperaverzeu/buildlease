@@ -17,6 +17,7 @@ import PATH from "../../PATH";
 import API from "../../API";
 
 import styles from '../gen_page.module.css';
+import LOGIC from "../../LOGIC";
 
 interface Props {
     isHistoric: boolean,
@@ -37,11 +38,6 @@ export default function Product({isHistoric}: Props) {
     useEffect(() => {
         LoadProductDetails();
     }, []);
-
-    // TODO: move the attributes-based short description generating logic into separate module
-    function firstLetterToLower(str: string) {
-        return str.charAt(0).toLowerCase() + str.slice(1);
-    }
     
     return(
         <>
@@ -90,9 +86,7 @@ export default function Product({isHistoric}: Props) {
                                 marginBottom: '40px',
                             }}>
                                 <p>
-                                    {/* TODO: move the attributes-based short description generating logic into separate module */}
-                                    {productDetails?.Attributes.map((pair, index) =>
-                                        `${index == 0 ? pair.Name : firstLetterToLower(pair.Name)}: ${firstLetterToLower(pair.Value)}` + (index != productDetails?.Attributes.length-1 ? ', ' : '.'))}
+                                    {LOGIC.GetShortDescription(productDetails?.Attributes)}
                                 </p>
                             </div>
                             <div>
@@ -107,7 +101,7 @@ export default function Product({isHistoric}: Props) {
                                     {productDetails?.Attributes.map(pair =>
                                         <div className='d-flex flex-row'>
                                             <div className='d-flex' style={{flex: 1}}>
-                                                <p>{`${pair.Name}:`}</p>
+                                                <p>{pair.Name}</p>
                                             </div>
                                             <div className='d-flex' style={{flex: 1}}>
                                                 <p style={{
@@ -129,16 +123,15 @@ export default function Product({isHistoric}: Props) {
                                 }}>
                                     <h2>Add to Cart Form:</h2>
                                     {
-                                        productDetails?.CountInCart && productDetails?.CountInCart > 0 ?
+                                        (productDetails && productDetails?.CountInCart > 0) &&
                                         <p style={{
                                             fontStyle: 'italic',
                                         }}>{`${productDetails.CountInCart} items already in cart.`}</p>
-                                        : <></>
                                     }
                                     <div className='d-flex flex-row'>
                                         <p>Quantity:</p>
-                                        <InputNumber defaultValue={1}/>
-                                        <Button type='primary'>Add to Cart</Button>
+                                        <InputNumber defaultValue={1} min={1} className='d-flex align-items-center' style={{height: '24px'}}/>
+                                        <Button type='primary' className='d-flex align-items-center' style={{height: '24px'}}>Add to Cart</Button>
                                     </div>
                                 </div>
                             </div>
