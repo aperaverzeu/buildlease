@@ -101,7 +101,7 @@ export default function Product({isHistoric}: Props) {
                                     {productDetails?.Attributes.map(pair =>
                                         <div className='d-flex flex-row'>
                                             <div className='d-flex' style={{flex: 1}}>
-                                                <p>{`${pair.Name}:`}</p>
+                                                <p>{pair.Name}</p>
                                             </div>
                                             <div className='d-flex' style={{flex: 1}}>
                                                 <p style={{
@@ -123,16 +123,15 @@ export default function Product({isHistoric}: Props) {
                                 }}>
                                     <h2>Add to Cart Form:</h2>
                                     {
-                                        productDetails?.CountInCart && productDetails?.CountInCart > 0 ?
+                                        (productDetails?.CountInCart && productDetails?.CountInCart > 0) &&
                                         <p style={{
                                             fontStyle: 'italic',
                                         }}>{`${productDetails.CountInCart} items already in cart.`}</p>
-                                        : <></>
                                     }
                                     <div className='d-flex flex-row'>
                                         <p>Quantity:</p>
-                                        <InputNumber defaultValue={1}/>
-                                        <Button type='primary'>Add to Cart</Button>
+                                        <InputNumber defaultValue={1} className='d-flex align-items-center' style={{height: '24px'}}/>
+                                        <Button type='primary' className='d-flex align-items-center' style={{height: '24px'}}>Add to Cart</Button>
                                     </div>
                                 </div>
                             </div>

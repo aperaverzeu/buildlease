@@ -15,6 +15,14 @@ interface Props {
 
 export default function ProductOrderCard({ProductOrderView, isInteractive}: Props) {
     
+    function removeFromCart() {
+        alert(`removed ${ProductOrderView.Name}`);
+    }
+    
+    function countChanged(value: number) {
+        alert(`${ProductOrderView.Name}'s count is now ${value}`);
+    }
+    
     return(
         <div className={`${styles.boxey} d-flex`} style={{
             height: '160px',
@@ -26,7 +34,8 @@ export default function ProductOrderCard({ProductOrderView, isInteractive}: Prop
                 height: '144px',
                 border: 'none',
                 backgroundImage: `url(${ProductOrderView?.ImagePath})`,
-                backgroundSize: 'contain',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
             }}/>
             <div style={{
                 borderLeft: '1px solid #000',
@@ -50,24 +59,24 @@ export default function ProductOrderCard({ProductOrderView, isInteractive}: Prop
                     </div>
                     <h3 style={{fontWeight: 'lighter'}}>{`$${ProductOrderView.Price.toFixed(2)}${ProductOrderView.Count > 1 ? ` × ${ProductOrderView.Count} = $${(ProductOrderView.Price*ProductOrderView.Count).toFixed(2)}` : ``} per day`}</h3>
                 </div>
-                { isInteractive ?
+                { isInteractive &&
                     <div className='d-flex align-items-center'>
-                        <div style={{
+                        <div className='d-flex align-items-center' style={{
                             paddingRight: '24px'
                         }}>
-                            <Delete style={{
-                                fontSize: '32px',
-                                color: '#ff6655',
-                                marginRight: '24px',
-                            }}/>
-                            <InputNumber defaultValue={ProductOrderView.Count} style={{
+                            <InputNumber defaultValue={ProductOrderView.Count} min={1} onChange={countChanged} style={{
                                 height: '32px',
                                 width: '60px',
+                                marginRight: '24px',
                             }}/>
-                            
+                            <Delete onClick={removeFromCart} style={{
+                                fontSize: '32px',
+                                color: '#ff6655',
+                                cursor: 'pointer',
+                            }}/>
                         </div>
                     </div>
-                        : <></> }
+                }
             </div>
         </div>
     );
