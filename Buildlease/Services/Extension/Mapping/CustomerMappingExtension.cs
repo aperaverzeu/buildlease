@@ -10,23 +10,6 @@ namespace Services.Extension.Mapping
 {
     public static class CustomerMappingExtension
     {
-        public static CustomerInfo MapToCustomerInfo(this Customer customer)
-            => new()
-            {
-                UserId = customer.UserId,
-                CompanyName = customer.CompanyName,
-                ContactInfo = customer.ContactInfo,
-                RepresentativeName = customer.RepresentativeName,
-                JuridicalAddress = customer.Addresses
-                        .SingleOrDefault(e => e.Priority == 0)
-                        ?.MapToAddressInfo(),
-                DeliveryAddresses = customer.Addresses
-                        .Where(e => e.Priority > 0)
-                        .OrderBy(e => e.Priority)
-                        .MapToAddressInfo()
-                        .ToArray(),
-            };
-
         public static CustomerInfo MapToCustomerInfo(this Customer customer, IEnumerable<Address> addresses)
             => new()
             {
@@ -43,6 +26,11 @@ namespace Services.Extension.Mapping
                     .MapToAddressInfo()
                     .ToArray(),
             };
+
+        public static CustomerInfo MapToCustomerInfo(this Customer customer)
+            => 
+            customer
+                .MapToCustomerInfo(customer.Addresses);
 
         public static Customer MapToCustomer(this CustomerInfo info)
             => new()
