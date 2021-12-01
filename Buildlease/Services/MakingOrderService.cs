@@ -65,7 +65,7 @@ namespace Services
                 throw new InvalidOperationException(
                     $"Your cart is empty");
 
-            if (order.ProductOrders.First(po => po.Count > _db.GetProductAvailableCount(po.ProductId.Value)) is ProductOrder error)
+            if (order.ProductOrders.FirstOrDefault(po => po.Count > _db.GetProductAvailableCount(po.ProductId.Value)) is ProductOrder error)
                 throw new InvalidOperationException(
                     $"There's only {_db.GetProductAvailableCount(error.ProductId.Value)} available items of {_db.Products.Single(e => e.Id == error.ProductId).Name}");
 

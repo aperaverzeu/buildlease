@@ -80,7 +80,11 @@ namespace Services
                 .Append(info.JuridicalAddress ??
                 new Contracts.DTOs.AddressInfo()
                 {
-                    PostalCode = "42",
+                    PostalCode = "PostalCode",
+                    Building = "Building",
+                    City = "City",
+                    Office = "Office",
+                    Street = "Street"
                 })
                 .ToArray();
             info.JuridicalAddress = addresses.First();
@@ -95,11 +99,15 @@ namespace Services
 
             service.SetProductOrderCount(userId, -1, 42);
 
-            service.MakeOrderFromCart(userId, DateTime.UtcNow.AddYears(-1), DateTime.UtcNow.AddYears(1));
+            try { service.MakeOrderFromCart(userId, DateTime.UtcNow.AddMonths(1), DateTime.UtcNow.AddYears(1)); } 
+            catch (InvalidOperationException) 
+            { }
 
             foreach (var orderId in _manager.OrderService.GetMyOrders(userId).Select(e => e.Id))
             {
-                service.DeclineOrder(userId, orderId);
+                try { service.DeclineOrder(userId, orderId); } 
+                catch (InvalidOperationException) 
+                { }
             }
         }
 
