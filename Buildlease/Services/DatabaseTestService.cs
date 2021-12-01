@@ -35,22 +35,22 @@ namespace Services
 
             var GetAllCategories = service.GetAllCategories();
 
-            var GetCategoryFilters = service.GetCategoryFilters(1);
-            GetCategoryFilters = service.GetCategoryFilters(3);
+            var GetCategoryFilters = service.GetCategoryFilters(-1);
+            GetCategoryFilters = service.GetCategoryFilters(-3);
 
-            var GetProduct = service.GetProduct(1, userId);
-            GetProduct = service.GetProduct(13, userId);
+            var GetProduct = service.GetProduct(-1, userId);
+            GetProduct = service.GetProduct(-13, userId);
 
             var GetProducts = service.GetProducts(new GetProductsRequest()
             {
-                CategoryId = 1,
+                CategoryId = -1,
                 OrderByRule = SortRule.Default,
                 SkipCount = 10,
                 TakeCount = 10,
             }, userId);
             GetProducts = service.GetProducts(new GetProductsRequest()
             {
-                CategoryId = 2,
+                CategoryId = -2,
                 OrderByRule = SortRule.PriceAscending,
                 SkipCount = 0,
                 TakeCount = 1,
@@ -93,7 +93,7 @@ namespace Services
         {
             var service = _manager.MakingOrderService;
 
-            service.SetProductOrderCount(userId, 1, 42);
+            service.SetProductOrderCount(userId, -1, 42);
 
             service.MakeOrderFromCart(userId, DateTime.UtcNow.AddYears(-1), DateTime.UtcNow.AddYears(1));
 
