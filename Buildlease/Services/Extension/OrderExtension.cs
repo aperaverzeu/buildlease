@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,6 @@ namespace Services.Extension
             {
                 db.Orders.RemoveRange(carts);
                 db.Orders.Add(new Order() { 
-                    Id = db.Orders.Max(e => e.Id) + 1, // TODO: кринж
                     CustomerId = userId, 
                     Status = OrderStatus.Cart,
                 });
@@ -30,12 +30,11 @@ namespace Services.Extension
             }
 
             var cart = db.Orders
+                .IncludeProductOrderView()
                 .Where(e => e.CustomerId == userId)
                 .Single(e => e.Status == OrderStatus.Cart);
 
-            var deletedProducts = db.ProductOrders
-                .Where(e => e.OrderId == cart.Id)
-                .Where(e => e.ProductId == null);
+            var deletedProducts = cart.ProductOrders.Where(e => e.ProductId == null);
 
             if (deletedProducts.Any())
             {

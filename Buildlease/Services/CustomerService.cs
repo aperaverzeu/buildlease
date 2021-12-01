@@ -1,5 +1,6 @@
 ﻿using Contracts.DTOs;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Services.Abstractions;
 using Services.Extension.Mapping;
@@ -19,8 +20,9 @@ namespace Services
 
         public CustomerInfo GetCustomerInfo(string userId)
         {
-            var customer = _db.Customers.SingleOrDefault(e => e.UserId == userId);
-            var addresses = _db.CustomerAddresses.Where(e => e.CustomerId == userId);
+            var customer = _db.Customers
+                .Include(e => e.Addresses)
+                .SingleOrDefault(e => e.UserId == userId);
 
             if (customer is null)
             {
@@ -29,12 +31,11 @@ namespace Services
                 _db.SaveChanges();
             }
 
-            var info = customer.MapToCustomerInfo(addresses);
+            var info = customer.MapToCustomerInfo();
 
             return info;
         }
 
-        // TODO: проверить добавление нового адреса у Админа после настройки билдера
         public void SaveCustomerInfo(CustomerInfo info)
         {
             var customer = info.MapToCustomer();
@@ -46,8 +47,11 @@ namespace Services
             _db.CustomerAddresses.AddRange(addresses);
             _db.SaveChanges();
 
-            _db.Customers.Remove(_db.Customers.Single(e => e.UserId == customer.UserId));
-            _db.Customers.Add(customer);
+            var dbCustomer = _db.Customers.Single(e => e.UserId == customer.UserId);
+            dbCustomer.CompanyName = customer.CompanyName;
+            dbCustomer.RepresentativeName = customer.RepresentativeName;
+            dbCustomer.ContactInfo = customer.ContactInfo;
+            _db.Customers.Update(dbCustomer);
             _db.SaveChanges();
 
             _db.Database.CommitTransaction();

@@ -1,9 +1,11 @@
 ﻿using Contracts.Requests;
 using Contracts.Views;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Services.Abstractions;
 using Services.Extension;
+using Services.Extension.Mapping;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -98,9 +100,10 @@ namespace Services
         public ProductFullView GetProduct(int productId, string userId)
         {
             var product = _db.Products
+                .IncludeProductAttributeView()
                 .Single(e => e.Id == productId);
 
-            var productView = new ProductFullView()
+            var view = new ProductFullView()
             {
                 Id = product.Id,
                 Name = product.Name,
@@ -108,9 +111,11 @@ namespace Services
                 Price = product.Price,
                 TotalCount = product.TotalCount,
                 ImagePath = product.ImagePath,
+                Attributes = product.GetProductAttributeViews(),
+                AvailableCount = _db.GetProductAvailableCount(productId),
             };
 
-            productView.CategoryPath = _db.Categories
+            view.CategoryPath = _db.Categories
                 .GetPathFromRoot(product.CategoryId)
                 .Select(e => new CategoryView() 
                 {
@@ -119,19 +124,15 @@ namespace Services
                 })
                 .ToArray();
 
-            productView.Attributes = _db.GetProductAttributeViews(productId);
-            productView.AvailableCount = _db.GetProductAvailableCount(productId);
-
             var cart = _db.ValidateAndGetCart(userId);
-            productView.CountInCart = cart is null ? 0 : (
-                _db.ProductOrders
-                .Where(e => e.OrderId == cart.Id)
-                .Where(e => e.ProductId == productView.Id)
+            view.CountInCart = 
+                cart?.ProductOrders
+                .Where(e => e.ProductId == view.Id)
                 .SingleOrDefault()
                 ?.Count
-                ?? 0);
+                ?? 0;
 
-            return productView;
+            return view;
         }
 
         public ProductView[] GetProducts(GetProductsRequest request, string userId)
@@ -195,6 +196,7 @@ namespace Services
                 .Take(request.TakeCount);
 
             var productViews = query
+                .IncludeProductAttributeView()
                 .Select(e => new ProductView()
                 {
                     Id = e.Id,
@@ -202,6 +204,7 @@ namespace Services
                     Price = e.Price,
                     ImagePath = e.ImagePath,
                     TotalCount = e.TotalCount,
+                    Attributes = e.GetProductAttributeViews(),
                 })
                 .ToArray();
 
@@ -210,11 +213,9 @@ namespace Services
             foreach (var prod in productViews)
             {
                 prod.AvailableCount = _db.GetProductAvailableCount(prod.Id);
-                prod.Attributes = _db.GetProductAttributeViews(prod.Id);
 
                 prod.AlreadyInCart = cart is not null &&
-                    _db.ProductOrders
-                    .Where(e => e.OrderId == cart.Id)
+                    cart.ProductOrders
                     .Select(e => e.ProductId)
                     .Contains(prod.Id);
             }

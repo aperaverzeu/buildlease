@@ -10,13 +10,8 @@ namespace Services.Extension.Mapping
 {
     public static class CustomerMappingExtension
     {
-        public static CustomerInfo MapToCustomerInfo(this Customer customer)
-        {
-            throw new NotImplementedException("You need Include to do this, Master!");
-        }
-
         public static CustomerInfo MapToCustomerInfo(this Customer customer, IEnumerable<Address> addresses)
-            => new CustomerInfo()
+            => new()
             {
                 UserId = customer.UserId,
                 CompanyName = customer.CompanyName,
@@ -32,8 +27,13 @@ namespace Services.Extension.Mapping
                     .ToArray(),
             };
 
+        public static CustomerInfo MapToCustomerInfo(this Customer customer)
+            => 
+            customer
+                .MapToCustomerInfo(customer.Addresses);
+
         public static Customer MapToCustomer(this CustomerInfo info)
-            => new Customer()
+            => new()
             {
                 UserId = info.UserId,
                 CompanyName = info.CompanyName,

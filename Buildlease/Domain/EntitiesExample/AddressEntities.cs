@@ -11,7 +11,7 @@ namespace Domain.EntitiesExample
             {
                 new Address()
                 {
-                    Id = 5,
+                    Id = -5,
                     CustomerId = "f92039fd-5e51-431e-aefe-4a18e6cc846a", 
                     Priority = 1,
                     PostalCode = "602-8570",
@@ -22,7 +22,7 @@ namespace Domain.EntitiesExample
                 },
                 new Address()
                 {
-                    Id = 1,
+                    Id = -1,
                     CustomerId = "c65e9a5d-ef9f-450b-b851-f97190da3470", 
                     Priority = 3,
                     PostalCode = "301-3322",
@@ -33,7 +33,7 @@ namespace Domain.EntitiesExample
                 },
                 new Address()
                 {
-                    Id = 2,
+                    Id = -2,
                     CustomerId = "c65e9a5d-ef9f-450b-b851-f97190da3470", 
                     Priority = 1,
                     PostalCode = "111-6666",
@@ -44,7 +44,7 @@ namespace Domain.EntitiesExample
                 },
                 new Address()
                 {
-                    Id = 3,
+                    Id = -3,
                     CustomerId = "c65e9a5d-ef9f-450b-b851-f97190da3470", 
                     Priority = 2,
                     PostalCode = "4455-112",
@@ -55,7 +55,7 @@ namespace Domain.EntitiesExample
                 },
                 new Address()
                 {
-                    Id = 4,
+                    Id = -4,
                     CustomerId = "c65e9a5d-ef9f-450b-b851-f97190da3470", 
                     Priority = 0,
                     PostalCode = "69-420",

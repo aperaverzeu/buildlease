@@ -1,5 +1,6 @@
 ﻿using Contracts.Views;
 using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Services.Abstractions;
 using Services.Extension;
@@ -23,11 +24,10 @@ namespace Services
         {
             ValidateUser(userId);
 
-            var order = _db.ValidateAndGetCart(userId);
-            var productOrderViews = _db.GetProductOrderViews(order.Id);
+            var cart = _db.ValidateAndGetCart(userId);
             var cartFullView = new CartFullView()
             {
-                ProductOrders = productOrderViews,
+                ProductOrders = cart.ExtractProductOrderView().ToArray(),
             };
             return cartFullView;
         }
@@ -37,6 +37,7 @@ namespace Services
             ValidateUser(userId);
 
             var orders = _db.Orders
+                .IncludeProductOrderView()
                 .Where(e => e.CustomerId == userId)
                 .Where(e => e.Status != OrderStatus.Cart);
 
@@ -45,13 +46,12 @@ namespace Services
                 {
                     Id = e.Id,
                     Status = e.Status,
+                    ProductOrders = e.ExtractProductOrderView().ToArray(),
                 })
                 .ToArray();
 
             foreach (var orderView in orderViews)
             {
-                orderView.ProductOrders = _db.GetProductOrderViews(orderView.Id);
-
                 orderView.ProductCount = orderView.ProductOrders.Sum(po => po.Count);
                 orderView.Price = orderView.ProductOrders.Sum(po => po.Price);
 
@@ -74,6 +74,7 @@ namespace Services
             ValidateUser(userId);
 
             var order = _db.Orders
+                .IncludeProductOrderView()
                 .Where(e => e.CustomerId == userId)
                 .SingleOrDefault(e => e.Id == orderId);
 
@@ -93,7 +94,7 @@ namespace Services
             {
                 Id = order.Id,
                 Status = order.Status,
-                ProductOrders = _db.GetProductOrderViews(order.Id),
+                ProductOrders = order.ExtractProductOrderView().ToArray(),
                 StatusHistory = statuses,
             };
 

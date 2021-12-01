@@ -11,7 +11,7 @@ namespace Services.Extension.Mapping
     public static class AddressMappingExtension
     {
         public static AddressInfo MapToAddressInfo(this Address obj)
-            => new AddressInfo()
+            => new()
             {
                 Building = obj.Building,
                 City = obj.City,
@@ -21,10 +21,11 @@ namespace Services.Extension.Mapping
             };
 
         public static IEnumerable<AddressInfo> MapToAddressInfo(this IEnumerable<Address> objs)
-            => objs.Select(e => e.MapToAddressInfo());
+            => objs
+                .Select(e => e.MapToAddressInfo());
 
         public static Address MapToAddress(this AddressInfo obj)
-            => new Address()
+            => new()
             {
                 Building = obj.Building,
                 City = obj.City,
@@ -37,6 +38,7 @@ namespace Services.Extension.Mapping
             };
 
         public static IEnumerable<Address> MapToAddress(this IEnumerable<AddressInfo> objs)
-            => objs.Select(e => e.MapToAddress());
+            => objs
+                .Select(e => e.MapToAddress());
     }
 }
