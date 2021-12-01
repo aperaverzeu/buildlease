@@ -36,7 +36,6 @@ namespace Services
             return info;
         }
 
-        // TODO: проверить добавление нового адреса у Админа после настройки билдера
         public void SaveCustomerInfo(CustomerInfo info)
         {
             var customer = info.MapToCustomer();
