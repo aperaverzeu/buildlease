@@ -56,7 +56,7 @@ export default function Order() {
                         <div>
                             <h2>Information:</h2>
                             <div style={{padding: '8px'}}>
-                                <p style={{margin: 0}}>{`${orderDetails?.ProductOrders.map(productOrder => productOrder.Count).reduce((a, b) => a+b, 0)} instances of ${orderDetails?.ProductOrders.length} products ordered;`}</p>
+                                <p style={{margin: 0}}>{`${orderDetails?.ProductOrders.map(productOrder => productOrder.Count).reduce((a, b) => a+b, 0)} unit(s) of ${orderDetails?.ProductOrders.length} product(s) ordered;`}</p>
                                 <p style={{margin: 0}}>{`Total price: $${orderDetails?.Price.toFixed(2)};`}</p>
                                 {orderDetails?.StatusHistory.map(status => <p style={{margin: 0}}>{`${LOGIC.GetStatusString(status.NewStatus)[0].toUpperCase() + LOGIC.GetStatusString(status.NewStatus).slice(1)} ${LOGIC.GetUserFriendlyDateRepr(status.Date)};`}</p>)}
                             </div>

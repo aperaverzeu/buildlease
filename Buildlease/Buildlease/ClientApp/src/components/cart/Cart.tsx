@@ -40,7 +40,7 @@ export default function Cart() {
                         <div>
                             <h2>Status:</h2>
                             <div style={{padding: '8px'}}>
-                                <p style={{margin: 0}}>{`${cartDetails?.ProductOrders.map(productOrder => productOrder.Count).reduce((a, b) => a+b, 0)} instances of ${cartDetails?.ProductOrders.length} products ordered;`}</p>
+                                <p style={{margin: 0}}>{`${cartDetails?.ProductOrders.map(productOrder => productOrder.Count).reduce((a, b) => a+b, 0)} unit(s) of ${cartDetails?.ProductOrders.length} product(s) ordered;`}</p>
                                 <p style={{margin: 0}}>{`Total price: $${cartDetails?.ProductOrders.map(productOrder => productOrder.Price*productOrder.Count).reduce((a, b) => a+b, 0)};`}</p>
                             </div>
                         </div>

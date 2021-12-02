@@ -7,7 +7,6 @@ import PATH from "../../PATH";
 import LOGIC from "../../LOGIC";
 import {Delete} from "@material-ui/icons";
 
-
 interface Props {
     ProductOrderView: ProductOrderView,
     isInteractive: boolean,
@@ -29,14 +28,16 @@ export default function ProductOrderCard({ProductOrderView, isInteractive}: Prop
             padding: '8px',
             marginBottom: '24px',
         }}>
-            <div className={styles.boxey} style={{
-                width: '144px',
-                height: '144px',
-                border: 'none',
-                backgroundImage: `url(${ProductOrderView?.ImagePath})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-            }}/>
+            <a href={isInteractive ? (ProductOrderView.ProductId ? PATH.ToProduct(ProductOrderView.ProductId) : PATH.ToCategory(0) /* even though it shouldn't ever happen */ ) : PATH.ToHistoricProduct(ProductOrderView.ProductOrderId)}>
+                <div className={styles.boxey} style={{
+                    width: '144px',
+                    height: '144px',
+                    border: 'none',
+                    backgroundImage: `url(${ProductOrderView?.ImagePath})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                }}/>
+            </a>
             <div style={{
                 borderLeft: '1px solid #000',
                 marginLeft: '8px',
@@ -54,7 +55,9 @@ export default function ProductOrderCard({ProductOrderView, isInteractive}: Prop
                                 )
                             }
                         </Breadcrumb>
-                        <h3>{ProductOrderView.Name}</h3>
+                        <a href={isInteractive ? (ProductOrderView.ProductId ? PATH.ToProduct(ProductOrderView.ProductId) : PATH.ToCategory(0) /* even though it shouldn't ever happen */ ) : PATH.ToHistoricProduct(ProductOrderView.ProductOrderId)}>
+                            <h3 className={styles.link}>{ProductOrderView.Name}</h3>
+                        </a>
                         <p style={{fontSize: '14px'}}>{LOGIC.GetShortDescription(ProductOrderView.Attributes)}</p>
                     </div>
                     <h3 style={{fontWeight: 'lighter'}}>{`$${ProductOrderView.Price.toFixed(2)}${ProductOrderView.Count > 1 ? ` × ${ProductOrderView.Count} = $${(ProductOrderView.Price*ProductOrderView.Count).toFixed(2)}` : ``} per day`}</h3>

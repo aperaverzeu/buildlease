@@ -24,20 +24,35 @@ interface Props {
 }
 
 export default function Product({isHistoric}: Props) {
-    
+
     const { stringProductId } = useParams<{stringProductId: string}>();
     const productId: number = +stringProductId;
     
+    const { stringProductOrderId } = useParams<{stringProductOrderId: string}>();
+    const productOrderId: number = +stringProductOrderId;
+    
     const [productDetails, setProductDetails] = useState<ProductFullView | undefined>(undefined);
+    const [formProductCount, setFormProductCount] = useState<number>(1);
     
     function LoadProductDetails() {
         API.GetProductDetails(productId)
             .then(res => setProductDetails(res));
     }
     
+    function LoadHistoricProductDetails() {
+        return;
+    }
+    
     useEffect(() => {
-        LoadProductDetails();
+        if (isHistoric)
+            LoadHistoricProductDetails()
+        else
+            LoadProductDetails();
     }, []);
+    
+    function addToCart() {
+        API.SetProductOrderCount(productId, formProductCount);
+    }
     
     return(
         <>
@@ -118,22 +133,39 @@ export default function Product({isHistoric}: Props) {
                             <div style={{
                                 padding: '24px',
                             }}>
-                                <div className={styles.boxey} style={{
-                                    padding: '16px',
-                                }}>
-                                    <h2>Add to Cart Form:</h2>
-                                    {
-                                        (productDetails && productDetails?.CountInCart > 0) &&
-                                        <p style={{
-                                            fontStyle: 'italic',
-                                        }}>{`${productDetails.CountInCart} items already in cart.`}</p>
-                                    }
-                                    <div className='d-flex flex-row'>
-                                        <p>Quantity:</p>
-                                        <InputNumber defaultValue={1} min={1} className='d-flex align-items-center' style={{height: '24px'}}/>
-                                        <Button type='primary' className='d-flex align-items-center' style={{height: '24px'}}>Add to Cart</Button>
-                                    </div>
-                                </div>
+                                {
+                                    isHistoric ?
+                                        <div className={styles.boxey} style={{
+                                            padding: '16px',
+                                        }}>
+                                            <h2 style={{
+                                                fontWeight: 'bolder',
+                                                margin: '0px'
+                                            }}>This page is not up to date</h2>
+                                        </div>
+                                        :
+                                        <div className={styles.boxey} style={{
+                                            padding: '16px',
+                                        }}>
+                                            <h2>Add to Cart Form:</h2>
+                                            {
+                                                (productDetails && productDetails?.CountInCart > 0) &&
+                                                <p style={{
+                                                    fontStyle: 'italic',
+                                                }}>{`${productDetails.CountInCart} items already in cart.`}</p>
+                                            }
+                                            <div className='d-flex flex-row'>
+                                                <p>Quantity:</p>
+                                                <InputNumber defaultValue={1} min={1} max={productDetails?.AvailableCount}
+                                                             onChange={setFormProductCount}
+                                                             className='d-flex align-items-center'
+                                                             style={{height: '24px'}}/>
+                                                <Button type='primary' className='d-flex align-items-center'
+                                                        onClick={addToCart}
+                                                        style={{height: '24px'}}>Add to Cart</Button>
+                                            </div>
+                                        </div>
+                                }
                             </div>
                         </SideMenu>
                     </div>

@@ -35,9 +35,11 @@ export default function App() {
                             [
                                 '/catalog/:stringCategoryId?',
                                 '/products/:stringProductId',
+                                '/archived-products/:stringProductOrderId',
                                 '/orders/:stringOrderId',
                                 '/cart',
                                 '/profile',
+                                '/order-history',
                                 // to be continued...
                                 `${ApplicationPaths.ApiAuthorizationPrefix}`
                             ]
