@@ -1,0 +1,42 @@
+p {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+}
+
+h1 {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 28px;
+}
+
+h2 {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 24px;
+}
+
+h3 {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 20px;
+}
+
+a {
+  color: #000000;
+}
+
+a:hover {
+  color: #000000;
+}
+
+.link:hover {
+  color: #ff6655;
+}
+
+.boxey {
+  border: 1px solid #000;
+  border-radius: 8px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #ff6655;
+  border-color: #1861ac;
+}
