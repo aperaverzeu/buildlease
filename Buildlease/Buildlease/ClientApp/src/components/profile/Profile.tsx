@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 
 import SubHeader from "../layout/SubHeader";
 import SideMenu from "../layout/SideMenu";
@@ -8,7 +8,9 @@ import CustomerInfo from "../dtos/CustomerInfo";
 
 import API from "../../API";
 
-import styles from '../gen_page.module.css';
+import {Input, Image} from "antd";
+import styles from '../gen_page.module.css'
+
 
 const subpages = [
     'general',
@@ -69,7 +71,28 @@ export default function Profile() {
                             page == 'general' ?
                                 // general info
                                 <>
-                                    Сука
+                                    <div  className='d-flex flex-row'>
+                                        <div className={`${styles.boxey}`} style={{
+                                            height: '128px',
+                                            width: '128px',
+                                            backgroundImage: `url(${newCustomerData?.CompanyImagePath})`,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center',
+                                            // marginRight: '8px',
+                                        }}/>
+                                        <div style={{marginLeft:10}}>
+                                            <h6> Company name: </h6>
+                                            <Input value={newCustomerData?.CompanyName}
+                                                   onKeyPress={event => {
+                                                       if (event.key == 'Enter') {
+                                                           // setNewCustomerData()
+                                                       }
+                                                   }}
+                                            />
+                                            <Input value={newCustomerData?.CompanyImagePath}/>
+                                        </div>
+                                    </div>
+                                    
                                 </>
                                 :
                                 page == 'addresses' ?
