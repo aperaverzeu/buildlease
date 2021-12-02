@@ -531,7 +531,9 @@ namespace Buildlease.Controllers
             return new CustomerInfo()
             {
                 CompanyName = "Never Zero INC.",
-                RepresentativeName = "NZINC",
+                CompanyImagePath = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Umbrella_Corporation_logo.svg/400px-Umbrella_Corporation_logo.svg.png",
+                RepresentativeName = "Jacque Fresco",
+                RepresentativeImagePath = "https://memepedia.ru/wp-content/uploads/2020/02/zhak-fresko-citaty-mem.png",
                 ContactInfo = "Email: contact@nzinc.com\n" +
                               "Phone: 88005553535",
                 JuridicalAddress = new AddressInfo()
