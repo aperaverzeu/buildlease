@@ -24,20 +24,35 @@ interface Props {
 }
 
 export default function Product({isHistoric}: Props) {
-    
+
     const { stringProductId } = useParams<{stringProductId: string}>();
     const productId: number = +stringProductId;
     
+    const { stringProductOrderId } = useParams<{stringProductOrderId: string}>();
+    const productOrderId: number = +stringProductOrderId;
+    
     const [productDetails, setProductDetails] = useState<ProductFullView | undefined>(undefined);
+    const [formProductCount, setFormProductCount] = useState<number>(1);
     
     function LoadProductDetails() {
         API.GetProductDetails(productId)
             .then(res => setProductDetails(res));
     }
     
+    function LoadHistoricProductDetails() {
+        return;
+    }
+    
     useEffect(() => {
-        LoadProductDetails();
+        if (isHistoric)
+            LoadHistoricProductDetails()
+        else
+            LoadProductDetails();
     }, []);
+    
+    function addToCart() {
+        API.SetProductOrderCount(productId, formProductCount);
+    }
     
     return(
         <>
@@ -97,14 +112,20 @@ export default function Product({isHistoric}: Props) {
                                 <h3>Parameters:</h3>
                                 <div className={styles.boxey} style={{
                                     padding: '16px',
+                                    paddingBottom: '4px',
                                 }}>
                                     {productDetails?.Attributes.map(pair =>
-                                        <div className='d-flex flex-row'>
+                                        <div className='d-flex flex-row' style={{
+                                            marginBottom: '12px',
+                                        }}>
                                             <div className='d-flex' style={{flex: 1}}>
-                                                <p>{pair.Name}</p>
+                                                <p style={{
+                                                    margin: '0px',
+                                                }}>{pair.Name}</p>
                                             </div>
                                             <div className='d-flex' style={{flex: 1}}>
                                                 <p style={{
+                                                    margin: '0px',
                                                     fontWeight: 'lighter',
                                                 }}>{pair.Value}</p>
                                             </div>
@@ -118,22 +139,52 @@ export default function Product({isHistoric}: Props) {
                             <div style={{
                                 padding: '24px',
                             }}>
-                                <div className={styles.boxey} style={{
-                                    padding: '16px',
-                                }}>
-                                    <h2>Add to Cart Form:</h2>
-                                    {
-                                        (productDetails && productDetails?.CountInCart > 0) &&
-                                        <p style={{
-                                            fontStyle: 'italic',
-                                        }}>{`${productDetails.CountInCart} items already in cart.`}</p>
-                                    }
-                                    <div className='d-flex flex-row'>
-                                        <p>Quantity:</p>
-                                        <InputNumber defaultValue={1} min={1} className='d-flex align-items-center' style={{height: '24px'}}/>
-                                        <Button type='primary' className='d-flex align-items-center' style={{height: '24px'}}>Add to Cart</Button>
-                                    </div>
-                                </div>
+                                {
+                                    isHistoric ?
+                                        <div className={styles.boxey} style={{
+                                            padding: '16px',
+                                        }}>
+                                            <h2 style={{
+                                                fontWeight: 'bolder',
+                                                margin: '0px',
+                                                marginBottom: '8px',
+                                            }}>This page is not up to date</h2>
+                                            <p style={{
+                                                margin: '0px',
+                                                marginBottom: '16px',
+                                                fontStyle: 'lighter italic',
+                                            }}>{`You are viewing the "..." page state as of ...`}</p>
+                                            <a>
+                                                <p className={styles.link} style={{
+                                                    margin: '0px',
+                                                    fontStyle: 'italic',
+                                                    color: '#ff6655',
+                                                }}>Go to the current product page</p>
+                                            </a>
+                                        </div>
+                                        :
+                                        <div className={styles.boxey} style={{
+                                            padding: '16px',
+                                        }}>
+                                            <h2>Add to Cart Form:</h2>
+                                            {
+                                                (productDetails && productDetails?.CountInCart > 0) &&
+                                                <p style={{
+                                                    fontStyle: 'italic',
+                                                }}>{`${productDetails.CountInCart} items already in cart.`}</p>
+                                            }
+                                            <div className='d-flex flex-row'>
+                                                <p>Quantity:</p>
+                                                <InputNumber defaultValue={1} min={1} max={productDetails?.AvailableCount}
+                                                             onChange={setFormProductCount}
+                                                             className='d-flex align-items-center'
+                                                             style={{height: '24px'}}/>
+                                                <Button type='primary' className='d-flex align-items-center'
+                                                        onClick={addToCart}
+                                                        style={{height: '24px'}}>Add to Cart</Button>
+                                            </div>
+                                        </div>
+                                }
                             </div>
                         </SideMenu>
                     </div>

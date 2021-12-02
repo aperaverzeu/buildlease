@@ -11,6 +11,14 @@ const PATH = {
             return MainLink + `catalog`;
         return MainLink + `catalog/${categoryId}`;
     },
+    
+    ToOrder: (orderId: number) => {
+        return MainLink + `orders/${orderId}`;
+    },
+    
+    ToHistoricProduct: (productOrderId: number) => {
+        return MainLink + `archived-products/${productOrderId}`;
+    },
 
 }
 

@@ -4,13 +4,14 @@ import { useParams } from "react-router-dom";
 import API from "../../API";
 import PATH from "../../PATH";
 import Filters from "./filters/Filters";
-import Item from "./Item";
 import AttributeFilter from "./requests/AttributeFilter";
 import GetProductsRequest from "./requests/GetProductsRequest";
 import SortRule from "./requests/SortRule";
 import CategoryFilterView from "../views/CategoryFilterView";
 import ProductView from "../views/ProductView";
 import LOGIC from "../../LOGIC";
+
+import ProductCard from "../cards/ProductCard";
 
 import SubHeader from "../layout/SubHeader";
 import SideMenu from "../layout/SideMenu";
@@ -87,7 +88,7 @@ export default function Catalog() {
               }}
           >
             {products?.map(prod =>
-                <Item
+                <ProductCard
                     key={prod.Id}
                     ProductView={prod}
                 />

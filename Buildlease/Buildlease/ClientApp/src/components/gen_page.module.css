@@ -19,7 +19,15 @@ h3 {
 }
 
 a {
-  color: #0366d6;
+  color: #000000;
+}
+
+a:hover {
+  color: #000000;
+}
+
+.link:hover {
+  color: #ff6655;
 }
 
 .boxey {
