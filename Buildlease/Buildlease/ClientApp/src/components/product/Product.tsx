@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {useParams} from "react-router-dom";
 
-import {Breadcrumb, Button} from "antd";
+import {Breadcrumb, Button, message} from "antd";
 import { InputNumber } from 'antd';
 
 // gen layout
@@ -51,7 +51,14 @@ export default function Product({isHistoric}: Props) {
     }, []);
     
     function addToCart() {
-        API.SetProductOrderCount(productId, formProductCount);
+        if (productDetails) {
+            message.loading({content: 'Wait for it...', key: productDetails.Id, duration: 0});
+            Promise
+                .resolve(API.SetProductOrderCount(productDetails.Id, 1))
+                .then(() => {
+                    message.success({content: 'Succesfully added to cart!', key: productDetails.Id});
+                });
+        }
     }
     
     return(
