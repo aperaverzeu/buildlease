@@ -53,7 +53,7 @@ namespace Services
             foreach (var orderView in orderViews)
             {
                 orderView.ProductCount = orderView.ProductOrders.Sum(po => po.Count);
-                orderView.Price = orderView.ProductOrders.Sum(po => po.Price);
+                orderView.Price = orderView.ProductOrders.Sum(po => po.Price.Value);
 
                 // TODO: Remove after testing
                 if (!_db.HistoryOfOrderStatus.Where(e => e.OrderId == orderView.Id).Any())
@@ -76,6 +76,7 @@ namespace Services
             var order = _db.Orders
                 .IncludeProductOrderView()
                 .Where(e => e.CustomerId == userId)
+                .Where(e => e.Status != OrderStatus.Cart)
                 .SingleOrDefault(e => e.Id == orderId);
 
             if (order is null) throw new UnauthorizedAccessException("It's not your order");
@@ -98,7 +99,7 @@ namespace Services
                 StatusHistory = statuses,
             };
 
-            orderFullView.Price = orderFullView.ProductOrders.Sum(po => po.Price);
+            orderFullView.Price = orderFullView.ProductOrders.Sum(po => po.Price.Value);
 
             return orderFullView;
         }

@@ -26,6 +26,10 @@ namespace Services
 
         public void SetProductOrderCount(string userId, int productId, int count)
         {
+            if (count < 0)
+                throw new InvalidOperationException(
+                    "Сount must be non-negative number");
+
             var cart = _db.ValidateAndGetCart(userId);
 
             var productOrder = cart.ProductOrders.SingleOrDefault(e => e.ProductId == productId);
@@ -64,6 +68,10 @@ namespace Services
             if (!order.ProductOrders.Any())
                 throw new InvalidOperationException(
                     $"Your cart is empty");
+
+            if (!order.ProductOrders.Any(po => po.Product.Price == null))
+                throw new InvalidOperationException(
+                    $"There's unavailable products with no price");
 
             if (order.ProductOrders.FirstOrDefault(po => po.Count > _db.GetProductAvailableCount(po.ProductId.Value)) is ProductOrder error)
                 throw new InvalidOperationException(

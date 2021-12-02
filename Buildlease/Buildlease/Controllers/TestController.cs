@@ -513,28 +513,31 @@ namespace Buildlease.Controllers
             };
         }
         */
-        
+        // MakingOrder
+        /*
         [HttpPost("SetProductOrderCount/{productId}/{count}")]
         public void SetProductOrderCount([FromRoute] int productId, [FromRoute] int count)
         {
             if (count < 0) throw new ArgumentException("count < 0");
             return;
         }
-
+        */
+        /*
         [HttpPost("MakeOrderFromCart")]
         public void MakeOrderFromCart()
         {
             if (new Random().Next(2) == 1) throw new ArgumentException("*here will be explanation of error*");
             return;
         }
-
+        */
+        /*
         [HttpPost("DeclineOrder/{orderId}")]
         public void DeclineOrder([FromRoute] int orderId)
         {
             if (orderId <= 0) throw new ArgumentException("*here will be explanation of error*");
             return;
         }
-
+        */
 
         [HttpPost("GetCustomerInfo")]
         public CustomerInfo GetCustomerInfo()
