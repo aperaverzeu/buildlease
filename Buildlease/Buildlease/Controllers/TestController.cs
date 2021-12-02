@@ -275,6 +275,72 @@ namespace Buildlease.Controllers
         [HttpPost("GetHistoryProduct/{productOrderId}")]
         public ProductFullView GetHistoryProduct([FromRoute] int productOrderId) => BuildProductFullView();
 
+        [HttpPost("GetMyOrders")]
+        public OrderView[] GetMyOrders()
+        {
+            return new OrderView[]
+            {
+                new ()
+                {
+                    Id = 13,
+                    Status = OrderStatus.Finished,
+                    OrderAcceptDate = new DateTime(1969, 4, 20),
+                    ProductCount = 155,
+                    Price = 11.68M,
+                    ProductOrders = new ProductOrderView[]
+                    {
+                        new()
+                        {
+                            Name = "Зелёная отвёртка",
+                            ImagePath = "https://i.pinimg.com/originals/43/a3/5a/43a35af2a33785c5be181b68073f0661.gif",
+                        },
+                    },
+                },
+                new ()
+                {
+                    Id = 23,
+                    Status = OrderStatus.InProcess,
+                    OrderAcceptDate = new DateTime(2001, 11, 10),
+                    ProductCount = 546,
+                    Price = 15548.40M,
+                    ProductOrders = new ProductOrderView[]
+                    {
+                        new()
+                        {
+                            Name = "Красная отвёртка",
+                            ImagePath = "https://galamart.ru/images_1000/343ZCH2.jpg",
+                        },
+                        new()
+                        {
+                            Name = "Зелёная отвёртка",
+                            ImagePath = "https://akl.by/media/files/products/6960/882143.jpg",
+                        },
+                        new()
+                        {
+                            Name = "Синяя отвёртка",
+                            ImagePath = "https://image.galacentre.ru/size/1000/3441CH2.jpg",
+                        },
+                    },
+                },
+                new ()
+                {
+                    Id = 69,
+                    Status = OrderStatus.WaitingForApproval,
+                    OrderAcceptDate = DateTime.Now.AddMinutes(-5),
+                    ProductCount = 10,
+                    Price = 100M,
+                    ProductOrders = new ProductOrderView[]
+                    {
+                        new()
+                        {
+                            Name = "Трактор «Беларус»",
+                            ImagePath = "https://amttraktor.ru/image/cache/catalog/123/kupit-traktor-mtz-belarus-82_edited-1000x1000.jpg",
+                        },
+                    },
+                },
+            };
+        }
+
         [HttpPost("GetOrder/{orderId}")]
         public OrderFullView GetOrder([FromRoute] int orderId)
         {
