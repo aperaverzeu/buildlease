@@ -4,13 +4,18 @@ import { useParams } from "react-router-dom";
 import API from "../../API";
 import PATH from "../../PATH";
 import Filters from "./filters/Filters";
-import Item from "./Item";
 import AttributeFilter from "./requests/AttributeFilter";
 import GetProductsRequest from "./requests/GetProductsRequest";
 import SortRule from "./requests/SortRule";
 import CategoryFilterView from "../views/CategoryFilterView";
 import ProductView from "../views/ProductView";
 import LOGIC from "../../LOGIC";
+
+import ProductCard from "../cards/ProductCard";
+
+import SubHeader from "../layout/SubHeader";
+import SideMenu from "../layout/SideMenu";
+import MainContent from "../layout/MainContent";
 
 export default function Catalog() {
 
@@ -60,81 +65,45 @@ export default function Catalog() {
   },[]);
   
   return (
-    <div
-      style={{
-        display: 'flex', 
-        flexDirection: 'column', 
-      }}
-    >
-      <div  
-        style={{
-          display: 'flex', 
-          flexDirection: 'row', 
-          flexWrap: 'nowrap',
-          justifyContent: 'space-between',
-        }}
-      >
+    <>
+      <SubHeader>
         <Breadcrumb>
-          {breadcrumb.map(cat => 
-            <Breadcrumb.Item><a href={PATH.ToCategory(cat.Id)} target="_self">{cat.Name}</a></Breadcrumb.Item>
+          {breadcrumb.map(cat =>
+              <Breadcrumb.Item><a href={PATH.ToCategory(cat.Id)} target="_self">{cat.Name}</a></Breadcrumb.Item>
           )}
-          
+
         </Breadcrumb>
         <Select defaultValue={sortRule} onChange={(newValue) => setSortRule(newValue)}>
           {Object.values(SortRule).map((item => <Select.Option value={item}>{item}</Select.Option>))}
         </Select>
-      </div>
-      <div  
-        style={{
-          display: 'flex', 
-          flexDirection: 'row', 
-          flexWrap: 'nowrap',
-        }}
-      >
-        <div 
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            flexGrow: 0,
-            minWidth: 300, 
-            width: 300, 
-            maxWidth: 300, 
-          }}
-        >
-          {filters && <Filters filtersInfo={filters} filtration={filtration} setFiltration={setFiltration} />}
-        </div>
-        <div 
-          style={{
-            display: 'flex', 
-            flexDirection: 'row', 
-            flexWrap: 'wrap',
-            justifyContent: 'space-evenly',
-            flexGrow: 1,
-            minWidth: 500,
-            width: 1200,
-          }}
-        >
-          {products?.map(prod => 
-            <Item 
-              key={prod.Id}
-              ProductView={prod}
+      </SubHeader>
+      <div className='d-flex flex-row flex-grow-1'>
+        <SideMenu>
+            {filters && <Filters filtersInfo={filters} filtration={filtration} setFiltration={setFiltration} />}
+        </SideMenu>
+        <MainContent>
+          <div className='d-flex flex-row flex-wrap justify-content-evenly flex-grow-1'
+              style={{
+                minWidth: 500,
+              }}
+          >
+            {products?.map(prod =>
+                <ProductCard
+                    key={prod.Id}
+                    ProductView={prod}
+                />
+            )}
+          </div>
+          <div className='d-flex justify-content-center'>
+            <Pagination
+                current={pageNumber}
+                total={42}
+                pageSize={pageSize}
+                onChange={(newValue) => setPageNumber(newValue)}
             />
-          )}
-        </div>
+          </div>
+        </MainContent>
       </div>
-      <div 
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-      >
-        <Pagination 
-          current={pageNumber}
-          total={42}
-          pageSize={pageSize}
-          onChange={(newValue) => setPageNumber(newValue)}
-        />
-      </div>
-    </div>
+    </>
   );
 }

@@ -1,11 +1,21 @@
-import { SubHeader } from "../layout/SubHeader"
+import SubHeader from "../layout/SubHeader";
+import SideMenu from "../layout/SideMenu";
+import MainContent from "../layout/MainContent";
 
-function Profile() {
-    return (
+export default function Profile() {
+    return(
         <>
-            <SubHeader/>
-        </>
-    )
-}
+            <SubHeader>
+                <h1>Your Profile</h1>
+            </SubHeader>
+            <div className='d-flex flex-row flex-grow-1'>
+                <SideMenu>
 
-export default Profile
+                </SideMenu>
+                <MainContent>
+
+                </MainContent>
+            </div>
+        </>
+    );
+}

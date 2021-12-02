@@ -1,4 +1,4 @@
-import { Component, useState } from 'react';
+import { useState } from 'react';
 import { Container } from 'reactstrap';
 import Globals from '../../Globals';
 
@@ -13,6 +13,7 @@ const data = ['Aerial Work Platforms', 'Compaction', 'Lightning', 'Concrete & Ma
 ]
 
 export default function MainPage() {
+    
     const [OK, setOK] = useState<boolean>(Globals.Categories !== undefined);
     if (!OK) Globals.OnCategoriesLoadedListeners!.push(() => setOK(true));
 

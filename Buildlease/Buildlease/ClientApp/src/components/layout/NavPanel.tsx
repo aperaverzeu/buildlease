@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import { Collapse, NavbarToggler, NavItem, NavLink } from 'reactstrap';
-import { StarBorderOutlined as Favorites, NotificationsOutlined as Notifications,
-    ShoppingCartOutlined as Cart, AccountCircleOutlined as Profile , FormatListBulleted as Catalog} from "@material-ui/icons"
+import {
+    ShoppingCartOutlined as Cart, AccountCircleOutlined as Profile, FormatListBulleted as Catalog, History
+} from "@material-ui/icons"
 import { Link } from 'react-router-dom';
 import { LoginMenu } from '../api-authorization/LoginMenu';
 
@@ -44,18 +45,13 @@ export class NavPanel extends Component<NavPanelProps, NavBarState> {
                             </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} className='text-light' to='/favorites'>
-                                <Favorites className={styles.navPanelIcon}/>
-                            </NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink tag={Link} className='text-light' to='/notifications'>
-                                <Notifications className={styles.navPanelIcon}/>
-                            </NavLink>
-                        </NavItem>
-                        <NavItem>
                             <NavLink tag={Link} className='text-light' to='/profile'>
                                 <Profile className={styles.navPanelIcon}/>
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} className='text-light' to='/order-history'>
+                                <History className={styles.navPanelIcon}/>
                             </NavLink>
                         </NavItem>
                         <LoginMenu />
