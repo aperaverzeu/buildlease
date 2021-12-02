@@ -2,7 +2,7 @@
 {
     public enum AttributeType
     {
-        Decimal = 1,
+        Number = 1,
         String = 2,
     }
 }
