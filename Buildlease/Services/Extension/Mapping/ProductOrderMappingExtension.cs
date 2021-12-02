@@ -15,7 +15,7 @@ namespace Services.Extension
     {
         private static ProductOrderView MapToProductOrderView(this ProductOrder obj)
         {
-            if (obj.SerializedProductFullView is null)
+            if (obj.SerializedProductFullView == null)
             {
                 return new ProductOrderView()
                 {

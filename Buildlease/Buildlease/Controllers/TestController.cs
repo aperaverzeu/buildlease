@@ -16,6 +16,7 @@ namespace Buildlease.Controllers
     [Route("api")]
     public class TestController : ControllerBase
     {
+        /*
         [HttpPost("GetAllCategories")]
         public CategoryFullView[] GetAllCategories()
         {
@@ -61,7 +62,8 @@ namespace Buildlease.Controllers
                 },
             };
         }
-
+        */
+        /*
         [HttpPost("GetCategoryFilters/{categoryId}")]
         public CategoryFilterView[] GetCategoryFilters([FromRoute] int categoryId)
         {
@@ -117,7 +119,8 @@ namespace Buildlease.Controllers
                 },
             };
         }
-
+        */
+        /*
         [HttpPost("GetProducts")]
         public ProductView[] GetProducts([FromBody] GetProductsRequest request)
         {
@@ -186,7 +189,8 @@ namespace Buildlease.Controllers
                 }
             };
         }
-
+        */
+        /*
         private ProductFullView BuildProductFullView()
             => new()
             {
@@ -268,12 +272,15 @@ namespace Buildlease.Controllers
                     },
                 },
             };
-
+        */
+        /*
         [HttpPost("GetProduct/{productId}")]
         public ProductFullView GetProduct([FromRoute] int productId) => BuildProductFullView();
-
+        */
+        /*
         [HttpPost("GetHistoryProduct/{productOrderId}")]
         public ProductFullView GetHistoryProduct([FromRoute] int productOrderId) => BuildProductFullView();
+        */
 
         [HttpPost("GetMyOrders")]
         public OrderView[] GetMyOrders()

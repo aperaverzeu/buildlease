@@ -102,5 +102,18 @@ namespace Services
 
             return orderFullView;
         }
+
+        public ProductFullView GetHistoryProduct(string userId, int productOrderId)
+        {
+            ValidateUser(userId);
+
+            var productOrder = _db.ProductOrders
+                .Where(e => e.Order.CustomerId == userId)
+                .Single(e => e.Id == productOrderId);
+
+            var productFullView = Newtonsoft.Json.JsonConvert.DeserializeObject<ProductFullView>(productOrder.SerializedProductFullView);
+
+            return productFullView;
+        }
     }
 }
