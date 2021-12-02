@@ -8,6 +8,7 @@ import CustomerInfo from "../dtos/CustomerInfo";
 
 import API from "../../API";
 
+import {Input, Image} from "antd";
 import styles from '../gen_page.module.css';
 import AddressCard from "../cards/AddressCard";
 
@@ -76,10 +77,7 @@ export default function Profile() {
                                 page == 'addresses' ?
                                     // addresses
                                     <>
-                                        {
-                                            newCustomerData?.DeliveryAddresses.map(addressView =>
-                                                <AddressCard AddressInfo={addressView}/>)
-                                        }
+                                        Блять
                                     </>
                                     :
                                     // payment info
@@ -89,7 +87,7 @@ export default function Profile() {
                         }
                         </div>
                         {
-                            (oldCustomerData != newCustomerData) &&
+                            oldCustomerData != newCustomerData &&
                             <div>
                                 the data is new
                             </div>
