@@ -86,9 +86,9 @@ const API = {
         .then(res => res.data);
   },
   
-  SaveCustomerInfo: async () => {
+  SaveCustomerInfo: async (newCustomerInfo: CustomerInfo) => {
     return axios
-        .post<void>(MainLink + `SaveCustomerInfo`)
+        .post<void>(MainLink + `SaveCustomerInfo`, newCustomerInfo)
         .then(res => res.data);
   },
 
