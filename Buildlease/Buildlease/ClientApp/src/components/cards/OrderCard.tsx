@@ -105,7 +105,9 @@ export default function Item({OrderView, detailsShown}: Props) {
                     margin: '0px',
                 }}>{`$${OrderView.Price.toFixed(2)} total`}</h3>
             </div>
-            <div className='d-flex flex-row'>
+            <div className='d-flex flex-row' style={{
+                width: '200px',
+            }}>
                 <h3 style={{
                     fontWeight: 600,
                     margin: '0px',

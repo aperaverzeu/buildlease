@@ -112,14 +112,20 @@ export default function Product({isHistoric}: Props) {
                                 <h3>Parameters:</h3>
                                 <div className={styles.boxey} style={{
                                     padding: '16px',
+                                    paddingBottom: '4px',
                                 }}>
                                     {productDetails?.Attributes.map(pair =>
-                                        <div className='d-flex flex-row'>
+                                        <div className='d-flex flex-row' style={{
+                                            marginBottom: '12px',
+                                        }}>
                                             <div className='d-flex' style={{flex: 1}}>
-                                                <p>{pair.Name}</p>
+                                                <p style={{
+                                                    margin: '0px',
+                                                }}>{pair.Name}</p>
                                             </div>
                                             <div className='d-flex' style={{flex: 1}}>
                                                 <p style={{
+                                                    margin: '0px',
                                                     fontWeight: 'lighter',
                                                 }}>{pair.Value}</p>
                                             </div>
@@ -140,8 +146,21 @@ export default function Product({isHistoric}: Props) {
                                         }}>
                                             <h2 style={{
                                                 fontWeight: 'bolder',
-                                                margin: '0px'
+                                                margin: '0px',
+                                                marginBottom: '8px',
                                             }}>This page is not up to date</h2>
+                                            <p style={{
+                                                margin: '0px',
+                                                marginBottom: '16px',
+                                                fontStyle: 'lighter italic',
+                                            }}>{`You are viewing the "..." page state as of ...`}</p>
+                                            <a>
+                                                <p className={styles.link} style={{
+                                                    margin: '0px',
+                                                    fontStyle: 'italic',
+                                                    color: '#ff6655',
+                                                }}>Go to the current product page</p>
+                                            </a>
                                         </div>
                                         :
                                         <div className={styles.boxey} style={{
