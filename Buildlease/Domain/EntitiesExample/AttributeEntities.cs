@@ -35,7 +35,7 @@ namespace Domain.EntitiesExample
                     Id = -4,
                     CategoryId = -15,
                     Name = "Lenght",
-                    ValueType = AttributeType.Decimal,
+                    ValueType = AttributeType.Number,
                     UnitName = "metres"
                 },
                 new Attribute()
@@ -43,7 +43,7 @@ namespace Domain.EntitiesExample
                     Id = -5,
                     CategoryId = -13,
                     Name = "Lenght",
-                    ValueType = AttributeType.Decimal,
+                    ValueType = AttributeType.Number,
                     UnitName = "metres"
                 },
                 new Attribute()
@@ -51,7 +51,7 @@ namespace Domain.EntitiesExample
                     Id = -6,
                     CategoryId = -14,
                     Name = "Thickness",
-                    ValueType = AttributeType.Decimal,
+                    ValueType = AttributeType.Number,
                     UnitName = "millimetres"
                 },
                 new Attribute()
@@ -59,7 +59,7 @@ namespace Domain.EntitiesExample
                     Id = -7,
                     CategoryId = -17,
                     Name = "Lenght",
-                    ValueType = AttributeType.Decimal,
+                    ValueType = AttributeType.Number,
                     UnitName = "metres"
                 },
                 new Attribute()
@@ -67,7 +67,7 @@ namespace Domain.EntitiesExample
                     Id = -8,
                     CategoryId = -17,
                     Name = "Thickness",
-                    ValueType = AttributeType.Decimal,
+                    ValueType = AttributeType.Number,
                     UnitName = "centimeter"
                 },
                 new Attribute()
@@ -82,7 +82,7 @@ namespace Domain.EntitiesExample
                     Id = -10,
                     CategoryId = -3,
                     Name = "Power",
-                    ValueType = AttributeType.Decimal,
+                    ValueType = AttributeType.Number,
                     UnitName = "watt"
                 },
                 new Attribute()
@@ -90,7 +90,7 @@ namespace Domain.EntitiesExample
                     Id = -11,
                     CategoryId = -3,
                     Name = "Rotational speed",
-                    ValueType = AttributeType.Decimal,
+                    ValueType = AttributeType.Number,
                     UnitName = "rps"
                 },
                 new Attribute()
@@ -98,7 +98,7 @@ namespace Domain.EntitiesExample
                     Id = -12,
                     CategoryId = -7,
                     Name = "Lenght",
-                    ValueType = AttributeType.Decimal,
+                    ValueType = AttributeType.Number,
                     UnitName = "metres"
                 },
                 new Attribute()
@@ -106,7 +106,7 @@ namespace Domain.EntitiesExample
                     Id = -13,
                     CategoryId = -8,
                     Name = "Width",
-                    ValueType = AttributeType.Decimal,
+                    ValueType = AttributeType.Number,
                     UnitName = "centimetres"
                 },
                 new Attribute()
@@ -114,7 +114,7 @@ namespace Domain.EntitiesExample
                     Id = -14,
                     CategoryId = -2,
                     Name = "Length",
-                    ValueType = AttributeType.Decimal,
+                    ValueType = AttributeType.Number,
                     UnitName = "cm"
                 },
                 new Attribute()
