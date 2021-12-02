@@ -393,7 +393,7 @@ namespace Buildlease.Controllers
                         ProductId = 13,
                         ProductOrderId = 54321,
                         Name = "Saint Tropez",
-                        ImagePath = "https://www.kursivom.ru/wp-content/uploads/2020/11/Army_of_Lovers_20.jpg",
+                        ImagePath = "https://i.ytimg.com/vi/vHMRq5a2zr4/hqdefault.jpg",
                         Count = 22,
                         Price = 280.00M,
                         CategoryPath = new CategoryView[]
@@ -458,7 +458,7 @@ namespace Buildlease.Controllers
                         ProductId = 13,
                         ProductOrderId = -1,
                         Name = "Saint Tropez",
-                        ImagePath = "https://www.kursivom.ru/wp-content/uploads/2020/11/Army_of_Lovers_20.jpg",
+                        ImagePath = "https://i.ytimg.com/vi/vHMRq5a2zr4/hqdefault.jpg",
                         Count = 22,
                         Price = 280.00M,
                         CategoryPath = new CategoryView[]

@@ -16,3 +16,26 @@ html {
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+
+.header {
+  height: 80px;
+  width: 100%;
+  background-color: #002F55;
+}
+
+.wideBar {
+  height: 80px;
+  width: 100%;
+}
+
+.navMenuSection {
+  height: 80px;
+}
+
+.logo {
+  height: 48px;
+}
+
+.navPanelIcon {
+  transform: scale(1.5);
+}
