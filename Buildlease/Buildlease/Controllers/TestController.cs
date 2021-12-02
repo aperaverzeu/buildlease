@@ -187,46 +187,44 @@ namespace Buildlease.Controllers
             };
         }
 
-        [HttpPost("GetProduct/{productId}")]
-        public ProductFullView GetProduct([FromRoute] int productId)
-        {
-            return new ProductFullView
+        private ProductFullView BuildProductFullView() 
+            => new()
             {
-                Id = productId,
+                Id = 42,
                 Name = "Зелёная отвёртка",
-                Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n" + 
+                Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n" +
                               "Из колхозной молодёжи панковал один лишь я\n" +
-                              "Я носил портки из кожи и был грязный, как свинья\n" + 
-                              "Мой папанька на комбайне по три нормы делал в день\n" + 
-                              "А маманька, там, на ферме, сиськи дергаеть весь день\n" + 
-                              "Я ядрёный, как кабан\n\n" + 
-                              "Я имею свой баян\n" + 
-                              "Я на нём панк-рок пистоню\n" + 
-                              "Не найти во мне изъян\n" + 
-                              "Первый парень на весь край\n" + 
-                              "На меня все бабки в лай\n" + 
-                              "А-а-а-ай, ну и няхай!\n\n" + 
-                              "Меня батька бьёть ухватом, а маманька бьёть метлой\n" + 
-                              "Потому что на всю хату я мочу панк-рок в забой\n" + 
-                              "Меня девки презирают за мой выщип шухерной\n" + 
-                              "На меня в селе все лають, говорят: Панкрок долой!\n\n" + 
-                              "Я ядрёный, как кабан\n" + 
-                              "Я имею свой баян\n" + 
-                              "Я на нём панк-рок пистоню\n" + 
-                              "Не найти во мне изъян\n" + 
-                              "Первый парень на весь край\n" + 
-                              "На меня все бабки в лай\n" + 
-                              "А-а-а-ай, ну и няхай! (Соло!)\n\n" + 
-                              "Нахрен брошу всё хозяйство и поеду в город я\n" + 
-                              "За свого меня там примуть, ведь в почёте там свинья\n" + 
-                              "Я на гвоздь повешу лапти и надену свой пянджак\n" + 
-                              "И уеду я от седа на Воронежский пятак\n\n" + 
-                              "Я ядрёный, как кабан\n" + 
-                              "Я имею свой баян\n" + 
-                              "Я на нём панк-рок пистоню\n" + 
-                              "Не найти во мне изъян\n" + 
-                              "Первый парень на весь край\n" + 
-                              "На меня все бабки в лай\n" + 
+                              "Я носил портки из кожи и был грязный, как свинья\n" +
+                              "Мой папанька на комбайне по три нормы делал в день\n" +
+                              "А маманька, там, на ферме, сиськи дергаеть весь день\n" +
+                              "Я ядрёный, как кабан\n\n" +
+                              "Я имею свой баян\n" +
+                              "Я на нём панк-рок пистоню\n" +
+                              "Не найти во мне изъян\n" +
+                              "Первый парень на весь край\n" +
+                              "На меня все бабки в лай\n" +
+                              "А-а-а-ай, ну и няхай!\n\n" +
+                              "Меня батька бьёть ухватом, а маманька бьёть метлой\n" +
+                              "Потому что на всю хату я мочу панк-рок в забой\n" +
+                              "Меня девки презирают за мой выщип шухерной\n" +
+                              "На меня в селе все лають, говорят: Панкрок долой!\n\n" +
+                              "Я ядрёный, как кабан\n" +
+                              "Я имею свой баян\n" +
+                              "Я на нём панк-рок пистоню\n" +
+                              "Не найти во мне изъян\n" +
+                              "Первый парень на весь край\n" +
+                              "На меня все бабки в лай\n" +
+                              "А-а-а-ай, ну и няхай! (Соло!)\n\n" +
+                              "Нахрен брошу всё хозяйство и поеду в город я\n" +
+                              "За свого меня там примуть, ведь в почёте там свинья\n" +
+                              "Я на гвоздь повешу лапти и надену свой пянджак\n" +
+                              "И уеду я от седа на Воронежский пятак\n\n" +
+                              "Я ядрёный, как кабан\n" +
+                              "Я имею свой баян\n" +
+                              "Я на нём панк-рок пистоню\n" +
+                              "Не найти во мне изъян\n" +
+                              "Первый парень на весь край\n" +
+                              "На меня все бабки в лай\n" +
                               "А-а-а-ай, ну и няхай!",
                 ImagePath = "https://i.pinimg.com/originals/43/a3/5a/43a35af2a33785c5be181b68073f0661.gif",
                 TotalCount = 500,
@@ -270,73 +268,12 @@ namespace Buildlease.Controllers
                     },
                 },
             };
-        }
 
-        [HttpPost("GetMyOrders")]
-        public OrderView[] GetMyOrders()
-        {
-            return new OrderView[]
-            {
-                new ()
-                {
-                    Id = 13,
-                    Status = OrderStatus.Finished,
-                    OrderAcceptDate = new DateTime(1969, 4, 20),
-                    ProductCount = 155,
-                    Price = 11.68M,
-                    ProductOrders = new ProductOrderView[]
-                    {
-                        new()
-                        {
-                            Name = "Зелёная отвёртка",
-                            ImagePath = "https://i.pinimg.com/originals/43/a3/5a/43a35af2a33785c5be181b68073f0661.gif",
-                        },
-                    },
-                },
-                new ()
-                {
-                    Id = 23,
-                    Status = OrderStatus.InProcess,
-                    OrderAcceptDate = new DateTime(2001, 11, 10),
-                    ProductCount = 546,
-                    Price = 15548.40M,
-                    ProductOrders = new ProductOrderView[]
-                    {
-                        new()
-                        {
-                            Name = "Красная отвёртка",
-                            ImagePath = "https://galamart.ru/images_1000/343ZCH2.jpg",
-                        },
-                        new()
-                        {
-                            Name = "Зелёная отвёртка",
-                            ImagePath = "https://akl.by/media/files/products/6960/882143.jpg",
-                        },
-                        new()
-                        {
-                            Name = "Синяя отвёртка",
-                            ImagePath = "https://image.galacentre.ru/size/1000/3441CH2.jpg",
-                        },
-                    },
-                },
-                new ()
-                {
-                    Id = 69,
-                    Status = OrderStatus.WaitingForApproval,
-                    OrderAcceptDate = DateTime.Now.AddMinutes(-5),
-                    ProductCount = 10,
-                    Price = 100M,
-                    ProductOrders = new ProductOrderView[]
-                    {
-                        new()
-                        {
-                            Name = "Трактор «Беларус»",
-                            ImagePath = "https://amttraktor.ru/image/cache/catalog/123/kupit-traktor-mtz-belarus-82_edited-1000x1000.jpg",
-                        },
-                    },
-                },
-            };
-        }
+        [HttpPost("GetProduct/{productId}")]
+        public ProductFullView GetProduct([FromRoute] int productId) => BuildProductFullView();
+
+        [HttpPost("GetHistoryProduct/{productOrderId}")]
+        public ProductFullView GetHistoryProduct([FromRoute] int productOrderId) => BuildProductFullView();
 
         [HttpPost("GetOrder/{orderId}")]
         public OrderFullView GetOrder([FromRoute] int orderId)
