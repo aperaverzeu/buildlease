@@ -28,7 +28,13 @@ namespace Persistence.Configurations
             builder .Property(e => e.ValueNumber)
                     .IsRequired(false)
                     .HasDefaultValue(null)
-                    .HasPrecision(10, 5);
+                    .HasPrecision(10, 5)
+                    .HasConversion(new 
+                        Microsoft.EntityFrameworkCore.Storage.ValueConversion.
+                        ValueConverter<decimal, decimal> (
+                            (x) => decimal.Parse(x.ToString("G29")),
+                            (x) => decimal.Parse(x.ToString("G29"))
+                    ));
 
             builder .Property(e => e.ValueString)
                     .IsRequired(false)

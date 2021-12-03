@@ -23,10 +23,14 @@ namespace Services
 
         public void DoTest(string userId)
         {
+            /*
             TestCatalogueService(userId);
             TestOrderService(userId);
             TestCustomerInfoService(userId);
             TestMakingOrderService(userId);
+            */
+            TestCategoryInfoService(userId);
+            TestProductInfoService(userId);
         }
 
         private void TestCatalogueService(string userId)
@@ -109,6 +113,24 @@ namespace Services
                 catch (InvalidOperationException) 
                 { }
             }
+        }
+
+        private void TestCategoryInfoService(string userId)
+        {
+            /*
+            var service = _manager.CategoryInfoService;
+            var info = service.GetCategoryInfo(4);
+            service.SaveCategoryInfo(info);
+            info = service.GetCategoryInfo(4);
+            */
+        }
+
+        private void TestProductInfoService(string userId)
+        {
+            var service = _manager.ProductInfoService;
+            var info = service.GetProductInfo(-13);
+            service.SaveProductInfo(info);
+            info = service.GetProductInfo(-13);
         }
 
         public void RestartDatabase()

@@ -538,7 +538,8 @@ namespace Buildlease.Controllers
             return;
         }
         */
-
+        // CustomerInfo
+        /*
         [HttpPost("GetCustomerInfo")]
         public CustomerInfo GetCustomerInfo()
         {
@@ -585,11 +586,13 @@ namespace Buildlease.Controllers
                 },
             };
         }
-
+        */
+        /*
         [HttpPost("SaveCustomerInfo")]
         public void SaveCustomerInfo([FromBody] CustomerInfo info)
         {
             return;
         }
+        */
     }
 }

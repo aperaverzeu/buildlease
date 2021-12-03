@@ -6,6 +6,6 @@ namespace Presentation.Endpoints
     public static class UserExtension
     {
         public static string GetCurrentUserId(this ControllerBase obj)
-            => obj.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            => obj?.HttpContext?.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
     }
 }
