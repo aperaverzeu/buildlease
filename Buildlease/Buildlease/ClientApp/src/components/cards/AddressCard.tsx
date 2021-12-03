@@ -5,22 +5,10 @@ import styles from '../gen_page.module.css';
 import {ChevronDown, ChevronUp} from "react-bootstrap-icons";
 import {Delete} from "@material-ui/icons";
 
+import {FieldHead} from "../profile/Profile";
+
 const inputStyle = {
     marginBottom: '4px',
-}
-
-interface FieldHeadProps {
-    fieldName: string
-}
-
-function FieldHead({fieldName}: FieldHeadProps) {
-    return(
-        <div style={{
-            width: '100px',
-        }}>
-            {fieldName}
-        </div>
-    );
 }
 
 interface InputSetterProps {
@@ -32,7 +20,7 @@ interface InputSetterProps {
 function InputSetter({fieldName, defValue, setter}: InputSetterProps) {
     return(
         <Input style={inputStyle}
-               addonBefore={<FieldHead fieldName={fieldName}/>}
+               addonBefore={<FieldHead fieldName={fieldName} preWidthPx={100}/>}
                defaultValue={defValue}
                onChange={(data) => setter(data.target.value)}/>
     )

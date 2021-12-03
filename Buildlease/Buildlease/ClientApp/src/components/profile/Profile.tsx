@@ -13,61 +13,63 @@ import styles from '../gen_page.module.css';
 import AddressCard from "../cards/AddressCard";
 
 interface FieldHeadProps {
-    fieldName: string
+    fieldName: string,
+    preWidthPx: number,
 }
 
-export function FieldHead({fieldName}: FieldHeadProps) {
+export function FieldHead({fieldName, preWidthPx}: FieldHeadProps) {
     return(
         <div style={{
-            width: '160px',
+            width: `${preWidthPx}px`,
         }}>
             {fieldName}
         </div>
     );
 }
 
-interface ICardProps {
+interface ImageNameLinkProps {
     newData: any,
     setNewData: any,
-    editedFieldName: string,
+    nameAttrName: string,
+    imagePathAttrName: string,
     imageUrl: string,
     title: string
 }
 
-function Card(props: ICardProps) {
+function ImageNameLink({newData, setNewData, nameAttrName, imagePathAttrName, imageUrl, title}: ImageNameLinkProps) {
     return(
         <>
             <div className='d-flex flex-row'>
                 <div className={`${styles.boxey}`} style={{
                     height: '128px',
                     width: '128px',
-                    backgroundImage: `url(${props.imageUrl})`,
+                    backgroundImage: `url(${imageUrl})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                 }}/>
                 <div style={{marginLeft:10}}>
-                    <h3> {props.title} </h3>
+                    <h3> {title} </h3>
                     {
-                        props.newData && <Input defaultValue={props.newData?.[props.editedFieldName]}
-                                                addonBefore={<FieldHead fieldName={props.editedFieldName}/>}
+                        newData && <Input defaultValue={newData?.[nameAttrName]}
+                                                addonBefore={<FieldHead fieldName='Name' preWidthPx={100}/>}
                                                 onChange={data => {
-                                                    if (props.newData) {
-                                                        const obj = Object.assign({}, props.newData);
-                                                        obj[props.editedFieldName] = data.target.value;
-                                                        props.setNewData(obj);
+                                                    if (newData) {
+                                                        const obj = Object.assign({}, newData);
+                                                        obj[nameAttrName] = data.target.value;
+                                                        setNewData(obj);
                                                     }
                                                 }}
                                                 style={{width: 500}}/>
                     }
                     <div style={{marginTop:10}}>
                         {
-                            props.newData && <Input defaultValue={props.newData?.CompanyImagePath}
-                                                    addonBefore={<FieldHead fieldName="Image link"/>}
+                            newData && <Input defaultValue={newData?.[imagePathAttrName]}
+                                                    addonBefore={<FieldHead fieldName='Image link' preWidthPx={100}/>}
                                                     onChange={data => {
-                                                        if (props.newData) {
-                                                            const obj = Object.assign({}, props.newData);
-                                                            obj.CompanyImagePath = data.target.value;
-                                                            props.setNewData(obj);
+                                                        if (newData) {
+                                                            const obj = Object.assign({}, newData);
+                                                            obj[imagePathAttrName] = data.target.value;
+                                                            setNewData(obj);
                                                         }
                                                     }}
                                                     style={{width: 500}}/>
@@ -155,18 +157,20 @@ export default function Profile() {
                                 // general info
                                 <>
                                     {
-                                        newCustomerData && <Card newData={newCustomerData} setNewData={setNewCustomerData}
-                                                                 editedFieldName={"CompanyName"}
-                                                                 imageUrl={newCustomerData?.CompanyImagePath}
-                                                                 title={"Company name:"}
+                                        newCustomerData && <ImageNameLink newData={newCustomerData} setNewData={setNewCustomerData} 
+                                                                          nameAttrName={'CompanyName'}
+                                                                          imagePathAttrName={'CompanyImagePath'}
+                                                                          imageUrl={newCustomerData?.CompanyImagePath} 
+                                                                          title={"Company name:"}
                                         />
                                     }
                                     <div style={{marginTop: 10}}>
                                         {
-                                            newCustomerData && <Card newData={newCustomerData} setNewData={setNewCustomerData}
-                                                                     editedFieldName={"RepresentativeName"}
-                                                                     imageUrl={newCustomerData?.RepresentativeImagePath}
-                                                                     title={"Representative name:"}
+                                            newCustomerData && <ImageNameLink newData={newCustomerData} setNewData={setNewCustomerData}
+                                                                              nameAttrName={"RepresentativeName"}
+                                                                              imagePathAttrName={'RepresentativeImagePath'}
+                                                                              imageUrl={newCustomerData?.RepresentativeImagePath} 
+                                                                              title={"Representative name:"}
                                             />
                                         }
                                     </div>
@@ -178,7 +182,7 @@ export default function Profile() {
                                             {
                                                 // newCustomerData && <Input defaultValue={newCustomerData?.JuridicalAddres}
                                                 newCustomerData && <Input defaultValue={"TODO"}
-                                                                          addonBefore={<FieldHead fieldName='Registered legal address:'/>}
+                                                                          addonBefore={<FieldHead fieldName='Registered legal address:' preWidthPx={160}/>}
                                                                           onChange={data => {
                                                                               if (newCustomerData) {
                                                                                   const obj = Object.assign({}, newCustomerData);
@@ -191,7 +195,7 @@ export default function Profile() {
                                         </div>
                                         <div className='d-flex flex-row'>
                                             {newCustomerData && <Input defaultValue={newCustomerData?.ContactInfo}
-                                                                       addonBefore={<FieldHead fieldName='Contact information'/>}
+                                                                       addonBefore={<FieldHead fieldName='Contact information' preWidthPx={160}/>}
                                                                        onChange={data => {
                                                                            if (newCustomerData) {
                                                                                const obj = Object.assign({}, newCustomerData);
