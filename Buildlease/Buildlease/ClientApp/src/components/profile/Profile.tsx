@@ -8,7 +8,7 @@ import CustomerInfo from "../dtos/CustomerInfo";
 
 import API from "../../API";
 
-import {Input} from "antd";
+import {Button, Input} from "antd";
 import styles from '../gen_page.module.css';
 import AddressCard from "../cards/AddressCard";
 
@@ -39,6 +39,7 @@ interface ImageNameLinkProps {
 function ImageNameLink({newData, setNewData, nameAttrName, imagePathAttrName, imageUrl, title}: ImageNameLinkProps) {
     return(
         <>
+            <h3> {title} </h3>
             <div className='d-flex flex-row'>
                 <div className={`${styles.boxey}`} style={{
                     height: '128px',
@@ -48,7 +49,6 @@ function ImageNameLink({newData, setNewData, nameAttrName, imagePathAttrName, im
                     backgroundPosition: 'center',
                 }}/>
                 <div style={{marginLeft:10}}>
-                    <h3> {title} </h3>
                     {
                         newData && <Input defaultValue={newData?.[nameAttrName]}
                                                 addonBefore={<FieldHead fieldName='Name' preWidthPx={100}/>}
@@ -125,7 +125,27 @@ export default function Profile() {
     return(
         <>
             <SubHeader>
-                <h1>Your Profile</h1>
+                <h1 style={{
+                    margin: '0px',
+                }}>Your Profile</h1>
+                {
+                    JSON.stringify(oldCustomerData) !== JSON.stringify(newCustomerData) &&
+                    <div className='d-flex flex-row align-items-center'>
+                        <p style={{
+                            fontStyle: 'italic',
+                            margin: '0px',
+                            marginRight: '8px',
+                        }}>There are changes to the info. Would you like to save them?</p>
+                        <Button type='primary'
+                                style={{
+                                    marginRight: '8px',
+                                }}
+                                onClick={() => {
+                                    if (newCustomerData)
+                                        API.SaveCustomerInfo(newCustomerData)
+                                }}>Yes</Button>
+                    </div>
+                }
             </SubHeader>
             <div className='d-flex flex-row flex-grow-1'>
                 <SideMenu>
@@ -161,7 +181,7 @@ export default function Profile() {
                                                                           nameAttrName={'CompanyName'}
                                                                           imagePathAttrName={'CompanyImagePath'}
                                                                           imageUrl={newCustomerData?.CompanyImagePath} 
-                                                                          title={"Company name:"}
+                                                                          title={"Company info:"}
                                         />
                                     }
                                     <div style={{marginTop: 10}}>
@@ -170,7 +190,7 @@ export default function Profile() {
                                                                               nameAttrName={"RepresentativeName"}
                                                                               imagePathAttrName={'RepresentativeImagePath'}
                                                                               imageUrl={newCustomerData?.RepresentativeImagePath} 
-                                                                              title={"Representative name:"}
+                                                                              title={"Representative info:"}
                                             />
                                         }
                                     </div>
@@ -234,12 +254,6 @@ export default function Profile() {
                                     </>
                         }
                         </div>
-                        {
-                            JSON.stringify(oldCustomerData) !== JSON.stringify(newCustomerData) &&
-                            <div>
-                                the data is new
-                            </div>
-                        }
                     </div>
                 </MainContent>
             </div>
