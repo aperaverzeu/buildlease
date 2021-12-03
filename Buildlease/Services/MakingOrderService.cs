@@ -81,7 +81,7 @@ namespace Services
 
             order.SerializedCustomerInfo = 
                 Newtonsoft.Json.JsonConvert.SerializeObject(
-                    _manager.CustomerService.GetCustomerInfo(userId));
+                    _manager.CustomerInfoService.GetCustomerInfo(userId));
 
             foreach (var productOrder in order.ProductOrders)
             {

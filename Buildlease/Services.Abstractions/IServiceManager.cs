@@ -7,6 +7,6 @@
         ICatalogueService CatalogueService { get; }
         IOrderService OrderService { get; }
         IMakingOrderService MakingOrderService { get; }
-        ICustomerService CustomerService { get; }
+        ICustomerInfoService CustomerInfoService { get; }
     }
 }

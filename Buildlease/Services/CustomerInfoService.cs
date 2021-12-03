@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class CustomerService : ICustomerService
+    public class CustomerInfoService : ICustomerInfoService
     {
         private readonly ApplicationDbContext _db;
 
-        public CustomerService(ApplicationDbContext dbContext, IServiceManager manager) => _db = dbContext;
+        public CustomerInfoService(ApplicationDbContext dbContext, IServiceManager manager) => _db = dbContext;
 
         public CustomerInfo GetCustomerInfo(string userId)
         {

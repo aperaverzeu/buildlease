@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Services.Abstractions
 {
-    public interface ICustomerService
+    public interface ICustomerInfoService
     {
         CustomerInfo GetCustomerInfo(string userId);
         void SaveCustomerInfo(CustomerInfo info);

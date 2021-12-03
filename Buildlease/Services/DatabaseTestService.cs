@@ -25,7 +25,7 @@ namespace Services
         {
             TestCatalogueService(userId);
             TestOrderService(userId);
-            TestCustomerService(userId);
+            TestCustomerInfoService(userId);
             TestMakingOrderService(userId);
         }
 
@@ -70,9 +70,9 @@ namespace Services
                 var GetOrder = service.GetOrder(userId, orderId);
             }
         }
-        private void TestCustomerService(string userId)
+        private void TestCustomerInfoService(string userId)
         {
-            var service = _manager.CustomerService;
+            var service = _manager.CustomerInfoService;
 
             var info = service.GetCustomerInfo(userId);
 
