@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class CustomerInfoService : ICustomerInfoService
+    internal sealed class CustomerInfoService : ICustomerInfoService
     {
         private readonly ApplicationDbContext _db;
 
@@ -20,6 +20,8 @@ namespace Services
 
         public CustomerInfo GetCustomerInfo(string userId)
         {
+            if (string.IsNullOrWhiteSpace(userId)) throw new UnauthorizedAccessException();
+
             var customer = _db.Customers
                 .Include(e => e.Addresses)
                 .SingleOrDefault(e => e.UserId == userId);
@@ -38,6 +40,8 @@ namespace Services
 
         public void SaveCustomerInfo(CustomerInfo info)
         {
+            if (string.IsNullOrWhiteSpace(info.UserId)) throw new UnauthorizedAccessException();
+
             var customer = info.MapToCustomer();
             var addresses = ExtractAddresses(info);
 
@@ -47,11 +51,7 @@ namespace Services
             _db.CustomerAddresses.AddRange(addresses);
             _db.SaveChanges();
 
-            var dbCustomer = _db.Customers.Single(e => e.UserId == customer.UserId);
-            dbCustomer.CompanyName = customer.CompanyName;
-            dbCustomer.RepresentativeName = customer.RepresentativeName;
-            dbCustomer.ContactInfo = customer.ContactInfo;
-            _db.Customers.Update(dbCustomer);
+            _db.Customers.Update(customer);
             _db.SaveChanges();
 
             _db.Database.CommitTransaction();
