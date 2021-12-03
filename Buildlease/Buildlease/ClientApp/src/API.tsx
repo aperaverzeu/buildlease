@@ -13,6 +13,7 @@ import OrderView from "./components/views/OrderView";
 import authService from "./components/api-authorization/AuthorizeService";
 
 import CustomerInfo from "./components/dtos/CustomerInfo";
+import CategoryInfo from "./components/dtos/CategoryInfo";
 
 const MainLink = 'https://localhost:5001/api/';
 
@@ -109,6 +110,18 @@ const API = {
         .post<void>(MainLink + `DeclineOrder/${orderId}`)
         .then(res => res.data);
   },
+  
+  // ==========ADMIN====================ADMIN====================ADMIN==========
+  
+  AddCategoryFromAdminPanel: async () => {
+    return axios
+        .post<CategoryInfo>(MainLink + `AddCategory`)
+        .then(res => res.data)
+  }
+  
+  
+  
+  // ==========ADMIN====================ADMIN====================ADMIN==========
   
 }
 
