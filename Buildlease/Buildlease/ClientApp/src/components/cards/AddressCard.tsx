@@ -28,14 +28,15 @@ function InputSetter({fieldName, defValue, setter}: InputSetterProps) {
 
 interface Props {
     AddressInfo: AddressInfo,
-    index: number,
-    count: number,
-    swapper: (i: number, j: number) => void,
-    remover: (i: number) => void,
+    index?: number,
+    count?: number,
+    swapper?: (i: number, j: number) => void,
+    remover?: (i: number) => void,
     setter: () => void,
+    isInList: boolean,
 }
 
-export default function AddressCard({AddressInfo, index, count, swapper, remover, setter}: Props) {
+export default function AddressCard({AddressInfo, index, count, swapper, remover, setter, isInList}: Props) {
     return(
         <div className={`${styles.boxey} d-flex flex-row`} style={{
             padding: '16px',
@@ -51,27 +52,42 @@ export default function AddressCard({AddressInfo, index, count, swapper, remover
                 
                 <Button type='primary' onClick={() => setter()}>Apply</Button>
             </div>
-            <div className='d-flex align-items-center justify-content-end' style={{
-                width: '80px',
-            }}>
-                <div className='h-100 d-flex flex-column justify-content-between'>
-                    <Button type='primary' disabled={index == 0} onClick={() => swapper(index, index-1)} style={{
-                        width: '64px',
-                    }}><ChevronUp/></Button>
-                    <Button type='primary'
-                            danger
-                            className='d-flex justify-content-center align-items-center'
-                            onClick={() => remover(index)}>
-                        <Delete style={{
-                            fontSize: '20px', 
-                            color: '#fff',
-                        }}/>
-                    </Button>
-                    <Button type='primary' disabled={index == count-1} onClick={() => swapper(index, index+1)} style={{
-                        width: '64px',
-                    }}><ChevronDown/></Button>
+            {
+                isInList &&
+                <div className='d-flex align-items-center justify-content-end' style={{
+                    width: '80px',
+                }}>
+                    <div className='h-100 d-flex flex-column justify-content-between'>
+                        <Button type='primary'
+                                disabled={index == 0}
+                                onClick={(swapper && typeof index == "number") ?
+                                    () => swapper(index, index - 1) :
+                                    undefined}
+                                style={{
+                                    width: '64px',
+                        }}><ChevronUp/></Button>
+                        <Button type='primary'
+                                danger
+                                className='d-flex justify-content-center align-items-center'
+                                onClick={(remover && typeof index == "number") ?
+                                    () => remover(index) :
+                                    undefined}>
+                            <Delete style={{
+                                fontSize: '20px',
+                                color: '#fff',
+                            }}/>
+                        </Button>
+                        <Button type='primary'
+                                disabled={(typeof count == "number") ?
+                                    index == count - 1 :
+                                    false}
+                                onClick={(swapper && typeof index == "number") ? () => swapper(index, index + 1) : undefined}
+                                style={{
+                                    width: '64px',
+                                }}><ChevronDown/></Button>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     );
 }

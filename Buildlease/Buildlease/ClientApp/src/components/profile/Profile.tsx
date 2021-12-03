@@ -177,20 +177,19 @@ export default function Profile() {
     
                                     <div style={{marginTop: 30}}>
                                         <h3> Legal information </h3>
-    
-                                        <div className='d-flex flex-row'>
+                                        <div style={{
+                                            maxWidth: '600px',
+                                        }}>
                                             {
-                                                // newCustomerData && <Input defaultValue={newCustomerData?.JuridicalAddres}
-                                                newCustomerData && <Input defaultValue={"TODO"}
-                                                                          addonBefore={<FieldHead fieldName='Registered legal address:' preWidthPx={160}/>}
-                                                                          onChange={data => {
-                                                                              if (newCustomerData) {
-                                                                                  const obj = Object.assign({}, newCustomerData);
-                                                                                  // obj[newCustomerData?.JuridicalAddress = data.target.value;
-                                                                                  setNewCustomerData(obj);
-                                                                              }
-                                                                          }}
-                                                                          style={{width: 500}}/>
+                                                newCustomerData &&
+                                                <AddressCard
+                                                    AddressInfo={newCustomerData.JuridicalAddress}
+                                                    setter={() => {
+                                                        const obj = Object.assign({}, newCustomerData);
+                                                        setNewCustomerData(obj);
+                                                    }}
+                                                    isInList={false}/>
+                                                                          
                                             }
                                         </div>
                                         <div className='d-flex flex-row'>
@@ -220,6 +219,7 @@ export default function Profile() {
                                                          count={newCustomerData?.DeliveryAddresses.length}
                                                          swapper={swap}
                                                          remover={remove}
+                                                         isInList={true}
                                                          setter={() => {
                                                              const obj = Object.assign({}, newCustomerData);
                                                              if (obj) {
