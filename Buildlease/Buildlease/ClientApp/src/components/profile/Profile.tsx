@@ -88,8 +88,8 @@ export default function Profile() {
     // this is probably not the way to do it but this is a prototype
     const [page, setPage] = useState<string>('general');
     
-    let [oldCustomerData, setOldCustomerData] = useState<CustomerInfo | undefined>(undefined);
-    let [newCustomerData, setNewCustomerData] = useState<CustomerInfo | undefined>(undefined);
+    const [oldCustomerData, setOldCustomerData] = useState<CustomerInfo | undefined>(undefined);
+    const [newCustomerData, setNewCustomerData] = useState<CustomerInfo | undefined>(undefined);
     
     function LoadOldCustomerInfo() {
         API.GetProfileDetails()
@@ -143,7 +143,7 @@ export default function Profile() {
                                 }}
                                 onClick={() => {
                                     if (newCustomerData) {
-                                        oldCustomerData = JSON.parse(JSON.stringify(newCustomerData));
+                                        setOldCustomerData(JSON.parse(JSON.stringify(newCustomerData)));
                                         let someKey = Math.random();
                                         message.loading({ content: 'Wait for it...', key: someKey, duration: 0 });
                                         Promise
