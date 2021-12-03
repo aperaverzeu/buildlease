@@ -12,15 +12,9 @@ import {Input} from "antd";
 import styles from '../gen_page.module.css';
 import AddressCard from "../cards/AddressCard";
 
-// this is probably not the way to do it but this is a prototype
-const subpages = [
-    'general',
-    'addresses',
-    'payment',
-];
-
 export default function Profile() {
-    
+
+    // this is probably not the way to do it but this is a prototype
     const [page, setPage] = useState<string>('general');
     
     const [oldCustomerData, setOldCustomerData] = useState<CustomerInfo | undefined>(undefined);
@@ -29,8 +23,8 @@ export default function Profile() {
     function LoadOldCustomerInfo() {
         API.GetProfileDetails()
             .then(res => {
-                setOldCustomerData(res);
-                setNewCustomerData(res);
+                setOldCustomerData(JSON.parse(JSON.stringify(res)));
+                setNewCustomerData(JSON.parse(JSON.stringify(res)));
             })
     }
     
@@ -39,15 +33,12 @@ export default function Profile() {
     }, []);
     
     function swap(i: number, j: number) {
-        console.log(newCustomerData);
         const obj = Object.assign({}, newCustomerData);
         if (obj) {
             const tmp = obj.DeliveryAddresses[i];
             obj.DeliveryAddresses[i] = obj.DeliveryAddresses[j];
             obj.DeliveryAddresses[j] = tmp;
-            obj.DeliveryAddresses = [];
             setNewCustomerData(obj);
-            console.log(newCustomerData);
         }
     }
     
@@ -131,11 +122,18 @@ export default function Profile() {
                                     // addresses
                                     <>
                                         {newCustomerData?.DeliveryAddresses.map((addressInfo, index) =>
-                                            <AddressCard AddressInfo={addressInfo}
+                                            <AddressCard key={Math.random()}
+                                                         AddressInfo={addressInfo}
                                                          index={index}
                                                          count={newCustomerData?.DeliveryAddresses.length}
                                                          swapper={swap}
-                                                         remover={remove}/>)}
+                                                         remover={remove}
+                                                         setter={() => {
+                                                             const obj = Object.assign({}, newCustomerData);
+                                                             if (obj) {
+                                                                 setNewCustomerData(obj);
+                                                             }
+                                                         }}/>)}
                                     </>
                                     :
                                     // payment info
@@ -145,7 +143,7 @@ export default function Profile() {
                         }
                         </div>
                         {
-                            oldCustomerData != newCustomerData &&
+                            JSON.stringify(oldCustomerData) !== JSON.stringify(newCustomerData) &&
                             <div>
                                 the data is new
                             </div>
