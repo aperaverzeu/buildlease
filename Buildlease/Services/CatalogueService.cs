@@ -56,12 +56,12 @@ namespace Services
 
         public CategoryFilterView[] GetCategoryFilters(int categoryId)
         {
-            var cats = _db.Categories
+            var path = _db.Categories
                 .GetPathFromRoot(categoryId)
                 .Select(e => e.Id);
 
             var atts = _db.Attributes
-                .Where(e => cats.Contains(e.CategoryId))
+                .Where(e => path.Contains(e.CategoryId))
                 .Select(e => new CategoryFilterView()
                 {
                     Id = e.Id,
@@ -93,6 +93,28 @@ namespace Services
                     .Max(e => e.ValueNumber)
                     ?? null;
             }
+
+            var subtree = _db.Categories
+                .GetSubtree(categoryId)
+                .Select(e => e.Id)
+                .ToArray();
+
+            var priceAttribute = new CategoryFilterView()
+            {
+                Id = 0,
+                Name = "Price",
+                MaxValue =
+                    _db.Products
+                    .Where(e => subtree.Contains(e.CategoryId))
+                    .Where(e => e.Price != null)
+                    .Max(e => e.Price),
+            };
+
+            atts = atts
+                .Where(att => att.Values is not null || att.MinValue.HasValue)
+                .Where(att => att.Values is not null || att.MinValue != att.MaxValue)
+                .Prepend(priceAttribute)
+                .ToArray();
 
             return atts;
         }
@@ -135,7 +157,7 @@ namespace Services
             return view;
         }
 
-        public ProductView[] GetProducts(GetProductsRequest request, string userId)
+        private IQueryable<Product> BuildMainQuery(GetProductsRequest request)
         {
             var subtree = _db.Categories
                 .GetSubtree(request.CategoryId)
@@ -152,6 +174,13 @@ namespace Services
                         .Where(e =>
                             e.Name.Contains(word) ||
                             e.Description.Contains(word));
+            }
+
+            if (request.MaxPrice.HasValue)
+            {
+                query = query
+                    .Where(e => e.Price != null)
+                    .Where(e => e.Price.Value <= request.MaxPrice);
             }
 
             foreach (var filter in request.Filters)
@@ -172,23 +201,32 @@ namespace Services
                     query = query.Where(prod =>
                         filter.ValueStringAllowed.Contains(
                             prod.ProductAttributes
-                            .Single(attr => attr.Id == filter.AttributeId)
+                            .Single(attr => attr.AttributeId == filter.AttributeId)
                             .ValueString));
             }
+
+            return query;
+        }
+
+        public int GetProductsCount(GetProductsRequest request) => BuildMainQuery(request).Count();
+
+        public ProductView[] GetProducts(GetProductsRequest request, string userId)
+        {
+            var query = BuildMainQuery(request);
 
             switch (request.OrderByRule)
             {
                 case SortRule.PriceAscending:
                     query = query
-                        .Where(e => e.Price != null)
-                        .OrderBy(e => e.Price)
+                        .OrderByDescending(e => e.Price != null)
+                        .ThenBy(e => e.Price)
                         .ThenBy(e => e.Id);
                     break;
 
                 case SortRule.PriceDescending:
                     query = query
-                        .Where(e => e.Price != null)
-                        .OrderByDescending(e => e.Price)
+                        .OrderByDescending(e => e.Price != null)
+                        .ThenByDescending(e => e.Price)
                         .ThenBy(e => e.Id);
                     break;
 
