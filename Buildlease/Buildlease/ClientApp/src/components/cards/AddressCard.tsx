@@ -9,10 +9,10 @@ const inputStyle = {
 }
 
 interface FieldHeadProps {
-    fieldName: string,
+    fieldName: string
 }
 
-function FieldHead({fieldName}: FieldHeadProps) {
+export function FieldHead({fieldName}: FieldHeadProps) {
     return(
         <div style={{
             width: '100px',
