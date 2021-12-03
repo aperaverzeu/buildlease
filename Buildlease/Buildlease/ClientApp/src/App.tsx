@@ -40,6 +40,7 @@ export default function App() {
                                 '/cart',
                                 '/profile',
                                 '/order-history',
+                                '/admin/products/:stringProductId',
                                 '/admin',
                                 // to be continued...
                                 `${ApplicationPaths.ApiAuthorizationPrefix}`
