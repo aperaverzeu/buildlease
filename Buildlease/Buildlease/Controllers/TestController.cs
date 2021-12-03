@@ -579,5 +579,11 @@ namespace Buildlease.Controllers
         {
             return;
         }
+
+        [HttpPost("SaveProductInfo")]
+        public void SaveProductInfo([FromBody] ProductInfo info)
+        {
+            return;
+        }
     }
 }

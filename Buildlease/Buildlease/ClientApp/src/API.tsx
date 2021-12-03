@@ -14,6 +14,7 @@ import authService from "./components/api-authorization/AuthorizeService";
 
 import CustomerInfo from "./components/dtos/CustomerInfo";
 import CategoryInfo from "./components/dtos/CategoryInfo";
+import ProductInfo from "./components/dtos/ProductInfo";
 
 const MainLink = 'https://localhost:5001/api/';
 
@@ -117,9 +118,13 @@ const API = {
     return axios
         .post<CategoryInfo>(MainLink + `AddCategory`)
         .then(res => res.data)
+  },
+  
+  SaveProductInfo: async (newProductInfo: ProductInfo) => {
+    return axios
+        .post<ProductInfo>(MainLink + 'SaveProductInfo', newProductInfo, await AxiosTokenConfig())
+        .then(res => res.data);
   }
-  
-  
   
   // ==========ADMIN====================ADMIN====================ADMIN==========
   
