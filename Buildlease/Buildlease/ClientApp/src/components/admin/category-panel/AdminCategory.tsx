@@ -1,20 +1,15 @@
 import SubHeader from "../../layout/SubHeader";
 import MainContent from "../../layout/MainContent";
 import SideMenu from "../../layout/SideMenu";
-import {Button, Input} from "antd";
+import {Button, Input, Space} from "antd";
 import {useEffect, useState} from "react";
 import API from "../../../API";
 import CategoryFullView from "../../views/CategoryFullView";
 import CategoryTreeSelect from "../CategoryTreeSelect";
 
 export default function AdminCategory() {
-    const [category, setCategoryValue] = useState<CategoryFullView | undefined>(undefined);
+    const [categoryId, setCategoryIdValue] = useState<number | undefined>(undefined);
     const [productCategories, setProductCategories] = useState<CategoryFullView[] | undefined>(undefined);
-
-    function onChangeSetCategoryValue() {
-        setCategoryValue(category);
-    }
-
 
     function LoadProductCategories() {
         API.GetAllCategories()
@@ -32,27 +27,57 @@ export default function AdminCategory() {
             </SubHeader>
             <div className='d-flex flex-row flex-grow-1'>
                 <SideMenu className="d-flex justify-content-around justify-content-between">
-
-                    <CategoryTreeSelect onSelect={() => category?.Id}/>
-
-                    <div>
-                        {category?.Name}
-                        <span>Name:</span>
-                    </div>
-                    <Input/>
-                    <div>
-                        <span>ImageLink:</span>
-                    </div>
-                    <Input/>
-                    <Button type="primary" size="large">
-                        Save Categories
-                    </Button>
+                    <Space direction="vertical" size={25}>
+                        <div>
+                            <span>Category:</span>
+                            <CategoryTreeSelect onSelect={category => setCategoryIdValue(category)}/>
+                        </div>
+                        <div>
+                            <span>Name:</span>
+                            <Input/>
+                        </div>
+                        <div>
+                            <span>ImageLink:</span>
+                            <Input/>
+                        </div>
+                        <Button type="primary" style={{width: "15rem", height: "3rem", fontSize: "17px"}}>
+                            Save Category
+                        </Button>
+                        <Button type="primary" style={{width: "15rem", height: "3rem", fontSize: "17px"}}>
+                            Delete Category
+                        </Button>
+                    </Space>
                 </SideMenu>
                 <MainContent>
-                    {productCategories?.map(category => <div>{`${category?.Name}`}</div>)}
-                    {productCategories?.map(category => <div>{`${category?.ProductCount}`}</div>)}
-                    {productCategories?.map(category => <div>{`${category?.DefaultImagePath}`}</div>)}
-                    {productCategories?.map(category => <div>{`${category?.ParentId}`}</div>)}
+                    <Space direction="vertical" size={25} style={{width: "70%", marginLeft: "10rem"}}>
+                        <div>
+                            <span>ImageLink:</span>
+                            <Input
+                                placeholder={`${productCategories?.find(category => category.Id === categoryId)?.ParentId}`}>
+                            </Input>
+                        </div>
+                        <div>
+                            <span>ImageLink:</span>
+                            <Input
+                                placeholder={`${productCategories?.find(category => category.Id === categoryId)?.Name}`}>
+                            </Input>
+                        </div>
+                        <div>
+                            <span>ImageLink:</span>
+                            <Input
+                                placeholder={`${productCategories?.find(category => category.Id === categoryId)?.DefaultImagePath}`}>
+                            </Input>
+                        </div>
+                        <div>
+                            <span>ImageLink:</span>
+                            <Input
+                                placeholder={`${productCategories?.find(category => category.Id === categoryId)?.ProductCount}`}>
+                            </Input>
+                        </div>
+                        <Button type="primary" style={{width: "15rem", height: "3rem", fontSize: "17px"}}>
+                            Save attribute
+                        </Button>
+                    </Space>
                 </MainContent>
             </div>
         </>
