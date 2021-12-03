@@ -20,7 +20,7 @@ import MainContent from "../layout/MainContent";
 export default function Catalog() {
 
   const { stringCategoryId } = useParams<{stringCategoryId?: string | undefined}>();
-  const categoryId: number = (stringCategoryId && +stringCategoryId) || 0;
+  const categoryId: number = (stringCategoryId && +stringCategoryId) || LOGIC.GetRootCategoryId();
 
   const breadcrumb = LOGIC.GetBreadcrumb(categoryId);
 

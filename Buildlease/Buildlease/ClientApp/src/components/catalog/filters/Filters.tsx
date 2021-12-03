@@ -17,7 +17,9 @@ export default function Filters({filtersInfo, filtration, setFiltration}: Filter
         flexDirection: 'column',
       }}
     >
-      {filtersInfo.map(filter => {
+      {filtersInfo
+          .filter(filter => filter.Values || (filter.MinValue && filter.MaxValue))
+          .map(filter => {
         if (filter.Values && (filter.UnitName || filter.MinValue || filter.MaxValue)) throw 'Undefined multi type filter';
         if (!filter.Values && !(filter.UnitName && filter.MinValue && filter.MaxValue)) throw 'Undefined none type filter';
         return <Item 

@@ -37,7 +37,9 @@ export default function Order() {
     return(
         <>
             <SubHeader>
-                <h1>{`Order #${orderDetails?.Id}, placed ${LOGIC.GetUserFriendlyDateRepr(orderDetails?.StatusHistory[0].Date)}`}</h1>
+                <h1 style={{
+                    margin: '0px',
+                }}>{`Order #${orderDetails?.Id}, placed ${LOGIC.GetUserFriendlyDateRepr(orderDetails?.StatusHistory[0].Date)}`}</h1>
             </SubHeader>
             <div className='d-flex flex-row flex-grow-1'>
                 <SideMenu>

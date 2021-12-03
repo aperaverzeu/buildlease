@@ -27,7 +27,9 @@ export default function OrderHistory() {
     return(
         <>
             <SubHeader>
-                <h1>Your Order History:</h1>
+                <h1 style={{
+                    margin: '0px',
+                }}>Your Order History:</h1>
             </SubHeader>
             <div className='d-flex flex-row flex-grow-1'>
                 <SideMenu>
