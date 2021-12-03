@@ -12,6 +12,8 @@ namespace Domain.Models
         public string CompanyName { get; set; }
         public string RepresentativeName { get; set; }
         public string ContactInfo { get; set; }
+        public string CompanyImagePath { get; set; }
+        public string RepresentativeImagePath { get; set; }
 
         public IEnumerable<Order> Orders { get; set; }
         public IEnumerable<Address> Addresses { get; set; }

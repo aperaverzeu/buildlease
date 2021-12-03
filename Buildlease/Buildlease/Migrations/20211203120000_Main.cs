@@ -219,9 +219,11 @@ namespace Buildlease.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    CompanyName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    RepresentativeName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
-                    ContactInfo = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true)
+                    CompanyName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, defaultValue: ""),
+                    RepresentativeName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, defaultValue: ""),
+                    ContactInfo = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false, defaultValue: ""),
+                    CompanyImagePath = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false, defaultValue: ""),
+                    RepresentativeImagePath = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false, defaultValue: "")
                 },
                 constraints: table =>
                 {
@@ -288,11 +290,11 @@ namespace Buildlease.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     CustomerId = table.Column<string>(type: "text", nullable: false),
                     Priority = table.Column<int>(type: "integer", nullable: false),
-                    PostalCode = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
-                    City = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Street = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Building = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Office = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                    PostalCode = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false, defaultValue: ""),
+                    City = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, defaultValue: ""),
+                    Street = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, defaultValue: ""),
+                    Building = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, defaultValue: ""),
+                    Office = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false, defaultValue: "")
                 },
                 constraints: table =>
                 {

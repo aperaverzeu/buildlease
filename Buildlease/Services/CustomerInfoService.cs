@@ -22,9 +22,7 @@ namespace Services
         {
             if (string.IsNullOrWhiteSpace(userId)) throw new UnauthorizedAccessException();
 
-            var customer = _db.Customers
-                .Include(e => e.Addresses)
-                .SingleOrDefault(e => e.UserId == userId);
+            var customer = _db.Customers.SingleOrDefault(e => e.UserId == userId);
 
             if (customer is null)
             {
@@ -32,6 +30,10 @@ namespace Services
                 _db.Customers.Add(customer);
                 _db.SaveChanges();
             }
+
+            customer = _db.Customers
+               .Include(e => e.Addresses)
+               .Single(e => e.UserId == userId);
 
             var info = customer.MapToCustomerInfo();
 

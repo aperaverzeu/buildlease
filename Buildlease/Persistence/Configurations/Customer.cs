@@ -19,19 +19,29 @@ namespace Persistence.Configurations
                     .IsRequired();
 
             builder .Property(e => e.CompanyName)
-                    .IsRequired(false)
-                    .HasDefaultValue(null)
+                    .IsRequired()
+                    .HasDefaultValue(string.Empty)
                     .HasMaxLength(100);
 
             builder .Property(e => e.RepresentativeName)
-                    .IsRequired(false)
-                    .HasDefaultValue(null)
+                    .IsRequired()
+                    .HasDefaultValue(string.Empty)
                     .HasMaxLength(100);
 
             builder .Property(e => e.ContactInfo)
-                    .IsRequired(false)
-                    .HasDefaultValue(null)
+                    .IsRequired()
+                    .HasDefaultValue(string.Empty)
                     .HasMaxLength(1000);
+
+            builder.Property(e => e.CompanyImagePath)
+                    .IsRequired()
+                    .HasDefaultValue(string.Empty)
+                    .HasMaxLength(500);
+
+            builder.Property(e => e.RepresentativeImagePath)
+                    .IsRequired()
+                    .HasDefaultValue(string.Empty)
+                    .HasMaxLength(500);
 
             builder .HasOne(c => c.ApplicationUser)
                     .WithOne()

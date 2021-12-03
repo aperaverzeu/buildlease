@@ -27,22 +27,27 @@ namespace Persistence.Configurations
 
             builder .Property(e => e.PostalCode)
                     .IsRequired()
+                    .HasDefaultValue(string.Empty)
                     .HasMaxLength(20);
 
             builder .Property(e => e.City)
                     .IsRequired()
+                    .HasDefaultValue(string.Empty)
                     .HasMaxLength(100);
 
             builder .Property(e => e.Street)
                     .IsRequired()
+                    .HasDefaultValue(string.Empty)
                     .HasMaxLength(100);
 
             builder .Property(e => e.Building)
                     .IsRequired()
+                    .HasDefaultValue(string.Empty)
                     .HasMaxLength(100);
 
             builder .Property(e => e.Office)
                     .IsRequired()
+                    .HasDefaultValue(string.Empty)
                     .HasMaxLength(100);
 
             builder .HasOne<Customer>(a => a.Customer)

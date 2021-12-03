@@ -25,6 +25,8 @@ namespace Services.Extension.Mapping
                     .OrderBy(e => e.Priority)
                     .MapToAddressInfo()
                     .ToArray(),
+                CompanyImagePath = customer.CompanyImagePath,
+                RepresentativeImagePath = customer.RepresentativeImagePath,
             };
 
         public static CustomerInfo MapToCustomerInfo(this Customer customer)
@@ -39,6 +41,8 @@ namespace Services.Extension.Mapping
                 CompanyName = info.CompanyName,
                 ContactInfo = info.ContactInfo,
                 RepresentativeName = info.RepresentativeName,
+                CompanyImagePath = info.CompanyImagePath,
+                RepresentativeImagePath = info.RepresentativeImagePath,
             };
     }
 }

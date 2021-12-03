@@ -13,11 +13,11 @@ namespace Services.Extension.Mapping
         public static AddressInfo MapToAddressInfo(this Address obj)
             => new()
             {
-                Building = obj.Building,
-                City = obj.City,
-                Office = obj.Office,
-                PostalCode = obj.PostalCode,
-                Street = obj.Street,
+                Building = obj.Building ?? "",
+                City = obj.City ?? "",
+                Office = obj.Office ?? "",
+                PostalCode = obj.PostalCode ?? "",
+                Street = obj.Street ?? "",
             };
 
         public static IEnumerable<AddressInfo> MapToAddressInfo(this IEnumerable<Address> objs)
@@ -27,11 +27,11 @@ namespace Services.Extension.Mapping
         public static Address MapToAddress(this AddressInfo obj)
             => new()
             {
-                Building = obj.Building,
-                City = obj.City,
-                Office = obj.Office,
-                PostalCode = obj.PostalCode,
-                Street = obj.Street,
+                Building = obj.Building ?? "",
+                City = obj.City ?? "",
+                Office = obj.Office ?? "",
+                PostalCode = obj.PostalCode ?? "",
+                Street = obj.Street ?? "",
 
                 CustomerId = null,
                 Priority = -1,
