@@ -49,8 +49,8 @@ export default function AddressCard({AddressInfo, index, count, swapper, remover
                 <InputSetter fieldName='Street' defValue={AddressInfo.Street} setter={(s: string) => { AddressInfo.Street = s }}/>
                 <InputSetter fieldName='Building' defValue={AddressInfo.Building} setter={(s: string) => { AddressInfo.Building = s }}/>
                 <InputSetter fieldName='Office' defValue={AddressInfo.Office} setter={(s: string) => { AddressInfo.Office = s }}/>
-                
-                <Button type='primary' onClick={() => setter()}>Apply</Button>
+
+                { /* <Button type='primary' onClick={() => setter()}>Apply</Button> */ }
             </div>
             {
                 isInList &&

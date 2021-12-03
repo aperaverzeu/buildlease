@@ -5,10 +5,11 @@ import SideMenu from "../layout/SideMenu";
 import MainContent from "../layout/MainContent";
 
 import CustomerInfo from "../dtos/CustomerInfo";
+import AddressInfo from "../dtos/AddressInfo";
 
 import API from "../../API";
 
-import {Button, Input} from "antd";
+import {Button, Input, message} from "antd";
 import styles from '../gen_page.module.css';
 import AddressCard from "../cards/AddressCard";
 
@@ -87,8 +88,8 @@ export default function Profile() {
     // this is probably not the way to do it but this is a prototype
     const [page, setPage] = useState<string>('general');
     
-    const [oldCustomerData, setOldCustomerData] = useState<CustomerInfo | undefined>(undefined);
-    const [newCustomerData, setNewCustomerData] = useState<CustomerInfo | undefined>(undefined);
+    let [oldCustomerData, setOldCustomerData] = useState<CustomerInfo | undefined>(undefined);
+    let [newCustomerData, setNewCustomerData] = useState<CustomerInfo | undefined>(undefined);
     
     function LoadOldCustomerInfo() {
         API.GetProfileDetails()
@@ -129,20 +130,28 @@ export default function Profile() {
                     margin: '0px',
                 }}>Your Profile</h1>
                 {
-                    JSON.stringify(oldCustomerData) !== JSON.stringify(newCustomerData) &&
+                    // JSON.stringify(oldCustomerData) !== JSON.stringify(newCustomerData) &&
                     <div className='d-flex flex-row align-items-center'>
                         <p style={{
                             fontStyle: 'italic',
                             margin: '0px',
                             marginRight: '8px',
-                        }}>There are changes to the info. Would you like to save them?</p>
+                        }}>Would you like to save the changes?</p>
                         <Button type='primary'
                                 style={{
                                     marginRight: '8px',
                                 }}
                                 onClick={() => {
-                                    if (newCustomerData)
-                                        API.SaveCustomerInfo(newCustomerData)
+                                    if (newCustomerData) {
+                                        oldCustomerData = JSON.parse(JSON.stringify(newCustomerData));
+                                        let someKey = Math.random();
+                                        message.loading({ content: 'Wait for it...', key: someKey, duration: 0 });
+                                        Promise
+                                            .resolve(API.SaveCustomerInfo(newCustomerData))
+                                            .then(() => {
+                                                message.success({ content: 'Changes applied!', key: someKey });
+                                            });
+                                    }
                                 }}>Yes</Button>
                     </div>
                 }
@@ -196,7 +205,7 @@ export default function Profile() {
                                     </div>
     
                                     <div style={{marginTop: 30}}>
-                                        <h3> Legal information </h3>
+                                        <h3> Juridical address: </h3>
                                         <div style={{
                                             maxWidth: '600px',
                                         }}>
@@ -212,26 +221,42 @@ export default function Profile() {
                                                                           
                                             }
                                         </div>
-                                        <div className='d-flex flex-row'>
-                                            {newCustomerData && <Input defaultValue={newCustomerData?.ContactInfo}
-                                                                       addonBefore={<FieldHead fieldName='Contact information' preWidthPx={160}/>}
-                                                                       onChange={data => {
-                                                                           if (newCustomerData) {
-                                                                               const obj = Object.assign({}, newCustomerData);
-                                                                               obj.ContactInfo = data.target.value;
-                                                                               setNewCustomerData(obj);
-                                                                           }
-                                                                       }}
-                                                                       style={{width: 500}}/>
-                                            }
-                                        </div>
+                                        <h3>Contact info:</h3>
+                                        {newCustomerData && <Input.TextArea defaultValue={newCustomerData?.ContactInfo}
+                                                                            rows={4}
+                                                                            onChange={data => {
+                                                                                if (newCustomerData) {
+                                                                                    const obj = Object.assign({}, newCustomerData);
+                                                                                    obj.ContactInfo = data.target.value;
+                                                                                    setNewCustomerData(obj);
+                                                                                }
+                                                                            }} 
+                                                                            style={{width: 500}}/>
+                                        }
     
                                     </div>
                                 </>
                                 :
                                 page == 'addresses' ?
                                     // addresses
-                                    <>
+                                    <div className='d-flex flex-column justify-content-center'>
+                                        <Button type='primary'
+                                                style={{
+                                                    marginBottom: '16px',
+                                                }}
+                                                onClick={() => {
+                                                    let newAddressInfo : AddressInfo = {
+                                                        PostalCode: '',
+                                                        City: '',
+                                                        Street: '',
+                                                        Building: '',
+                                                        Office: '',
+                                                    };
+                                                    newCustomerData?.DeliveryAddresses.unshift(newAddressInfo);
+                                                    const obj = Object.assign({}, newCustomerData);
+                                                    setNewCustomerData(obj);
+                                                }}
+                                        >Add new delivery address</Button>
                                         {newCustomerData?.DeliveryAddresses.map((addressInfo, index) =>
                                             <AddressCard key={Math.random()}
                                                          AddressInfo={addressInfo}
@@ -246,7 +271,7 @@ export default function Profile() {
                                                                  setNewCustomerData(obj);
                                                              }
                                                          }}/>)}
-                                    </>
+                                    </div>
                                     :
                                     // payment info
                                     <>
