@@ -12,8 +12,76 @@ import {Input} from "antd";
 import styles from '../gen_page.module.css';
 import AddressCard from "../cards/AddressCard";
 
-export default function Profile() {
+interface FieldHeadProps {
+    fieldName: string
+}
 
+export function FieldHead({fieldName}: FieldHeadProps) {
+    return(
+        <div style={{
+            width: '160px',
+        }}>
+            {fieldName}
+        </div>
+    );
+}
+
+interface ICardProps {
+    newData: any,
+    setNewData: any,
+    editedFieldName: string,
+    imageUrl: string,
+    title: string
+}
+
+function Card(props: ICardProps) {
+    return(
+        <>
+            <div className='d-flex flex-row'>
+                <div className={`${styles.boxey}`} style={{
+                    height: '128px',
+                    width: '128px',
+                    backgroundImage: `url(${props.imageUrl})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                }}/>
+                <div style={{marginLeft:10}}>
+                    <h3> {props.title} </h3>
+                    {
+                        props.newData && <Input defaultValue={props.newData?.[props.editedFieldName]}
+                                                addonBefore={<FieldHead fieldName={props.editedFieldName}/>}
+                                                onChange={data => {
+                                                    if (props.newData) {
+                                                        const obj = Object.assign({}, props.newData);
+                                                        obj[props.editedFieldName] = data.target.value;
+                                                        props.setNewData(obj);
+                                                    }
+                                                }}
+                                                style={{width: 500}}/>
+                    }
+                    <div style={{marginTop:10}}>
+                        {
+                            props.newData && <Input defaultValue={props.newData?.CompanyImagePath}
+                                                    addonBefore={<FieldHead fieldName="Image link"/>}
+                                                    onChange={data => {
+                                                        if (props.newData) {
+                                                            const obj = Object.assign({}, props.newData);
+                                                            obj.CompanyImagePath = data.target.value;
+                                                            props.setNewData(obj);
+                                                        }
+                                                    }}
+                                                    style={{width: 500}}/>
+                        }
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+
+}
+
+export default function Profile() {
+    
     // this is probably not the way to do it but this is a prototype
     const [page, setPage] = useState<string>('general');
     
@@ -33,12 +101,14 @@ export default function Profile() {
     }, []);
     
     function swap(i: number, j: number) {
+        console.log(newCustomerData);
         const obj = Object.assign({}, newCustomerData);
         if (obj) {
             const tmp = obj.DeliveryAddresses[i];
             obj.DeliveryAddresses[i] = obj.DeliveryAddresses[j];
             obj.DeliveryAddresses[j] = tmp;
             setNewCustomerData(obj);
+            console.log(newCustomerData);
         }
     }
     
@@ -84,37 +154,55 @@ export default function Profile() {
                             page == 'general' ?
                                 // general info
                                 <>
-                                    <div className='d-flex flex-row'>
-                                        <div className={`${styles.boxey}`} style={{
-                                            height: '128px',
-                                            width: '128px',
-                                            backgroundImage: `url(${newCustomerData?.CompanyImagePath})`,
-                                            backgroundSize: 'cover',
-                                            backgroundPosition: 'center',
-                                        }}/>
-                                        <div style={{marginLeft:10}}>
-                                            <h3> Company name: </h3>
+                                    {
+                                        newCustomerData && <Card newData={newCustomerData} setNewData={setNewCustomerData}
+                                                                 editedFieldName={"CompanyName"}
+                                                                 imageUrl={newCustomerData?.CompanyImagePath}
+                                                                 title={"Company name:"}
+                                        />
+                                    }
+                                    <div style={{marginTop: 10}}>
+                                        {
+                                            newCustomerData && <Card newData={newCustomerData} setNewData={setNewCustomerData}
+                                                                     editedFieldName={"RepresentativeName"}
+                                                                     imageUrl={newCustomerData?.RepresentativeImagePath}
+                                                                     title={"Representative name:"}
+                                            />
+                                        }
+                                    </div>
+    
+                                    <div style={{marginTop: 30}}>
+                                        <h3> Legal information </h3>
+    
+                                        <div className='d-flex flex-row'>
                                             {
-                                                newCustomerData && <Input defaultValue={newCustomerData?.CompanyName} 
+                                                // newCustomerData && <Input defaultValue={newCustomerData?.JuridicalAddres}
+                                                newCustomerData && <Input defaultValue={"TODO"}
+                                                                          addonBefore={<FieldHead fieldName='Registered legal address:'/>}
                                                                           onChange={data => {
                                                                               if (newCustomerData) {
                                                                                   const obj = Object.assign({}, newCustomerData);
-                                                                                  obj.CompanyName = data.target.value;
+                                                                                  // obj[newCustomerData?.JuridicalAddress = data.target.value;
                                                                                   setNewCustomerData(obj);
                                                                               }
-                                                                          }}/> 
-                                            }
-                                            {
-                                                newCustomerData && <Input defaultValue={newCustomerData?.CompanyImagePath} 
-                                                                          onChange={data => {
-                                                                              if (newCustomerData) {
-                                                                                  const obj = Object.assign({}, newCustomerData);
-                                                                                  obj.CompanyImagePath = data.target.value;
-                                                                                  setNewCustomerData(obj);
-                                                                              }
-                                                                          }}/>
+                                                                          }}
+                                                                          style={{width: 500}}/>
                                             }
                                         </div>
+                                        <div className='d-flex flex-row'>
+                                            {newCustomerData && <Input defaultValue={newCustomerData?.ContactInfo}
+                                                                       addonBefore={<FieldHead fieldName='Contact information'/>}
+                                                                       onChange={data => {
+                                                                           if (newCustomerData) {
+                                                                               const obj = Object.assign({}, newCustomerData);
+                                                                               obj.ContactInfo = data.target.value;
+                                                                               setNewCustomerData(obj);
+                                                                           }
+                                                                       }}
+                                                                       style={{width: 500}}/>
+                                            }
+                                        </div>
+    
                                     </div>
                                 </>
                                 :

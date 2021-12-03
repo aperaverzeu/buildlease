@@ -10,7 +10,7 @@ const inputStyle = {
 }
 
 interface FieldHeadProps {
-    fieldName: string,
+    fieldName: string
 }
 
 function FieldHead({fieldName}: FieldHeadProps) {
