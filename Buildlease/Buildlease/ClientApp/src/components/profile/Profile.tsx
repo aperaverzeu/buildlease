@@ -38,6 +38,27 @@ export default function Profile() {
         LoadOldCustomerInfo();
     }, []);
     
+    function swap(i: number, j: number) {
+        console.log(newCustomerData);
+        const obj = Object.assign({}, newCustomerData);
+        if (obj) {
+            const tmp = obj.DeliveryAddresses[i];
+            obj.DeliveryAddresses[i] = obj.DeliveryAddresses[j];
+            obj.DeliveryAddresses[j] = tmp;
+            obj.DeliveryAddresses = [];
+            setNewCustomerData(obj);
+            console.log(newCustomerData);
+        }
+    }
+    
+    function remove(i: number) {
+        const obj = Object.assign({}, newCustomerData);
+        if (obj) {
+            obj.DeliveryAddresses.splice(i, 1);
+            setNewCustomerData(obj);
+        }
+    }
+    
     return(
         <>
             <SubHeader>
@@ -86,8 +107,10 @@ export default function Profile() {
                                                 newCustomerData && <Input defaultValue={newCustomerData?.CompanyName} 
                                                                           onChange={data => {
                                                                               if (newCustomerData) {
-                                                                                  newCustomerData.CompanyName = data.target.value;
-                                                                                  console.log(newCustomerData.CompanyName)}
+                                                                                  const obj = Object.assign({}, newCustomerData);
+                                                                                  obj.CompanyName = data.target.value;
+                                                                                  setNewCustomerData(obj);
+                                                                              }
                                                                           }}/> 
                                             }
                                             {
@@ -96,7 +119,6 @@ export default function Profile() {
                                                                               if (newCustomerData) {
                                                                                   const obj = Object.assign({}, newCustomerData);
                                                                                   obj.CompanyImagePath = data.target.value;
-                                                                                  console.log(obj.CompanyImagePath);
                                                                                   setNewCustomerData(obj);
                                                                               }
                                                                           }}/>
@@ -108,7 +130,12 @@ export default function Profile() {
                                 page == 'addresses' ?
                                     // addresses
                                     <>
-                                        {newCustomerData?.DeliveryAddresses.map(addressInfo => <AddressCard AddressInfo={addressInfo}/>)}
+                                        {newCustomerData?.DeliveryAddresses.map((addressInfo, index) =>
+                                            <AddressCard AddressInfo={addressInfo}
+                                                         index={index}
+                                                         count={newCustomerData?.DeliveryAddresses.length}
+                                                         swapper={swap}
+                                                         remover={remove}/>)}
                                     </>
                                     :
                                     // payment info

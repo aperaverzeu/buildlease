@@ -24,9 +24,13 @@ function FieldHead({fieldName}: FieldHeadProps) {
 
 interface Props {
     AddressInfo: AddressInfo,
+    index: number,
+    count: number,
+    swapper: (i: number, j: number) => void,
+    remover: (i: number) => void,
 }
 
-export default function AddressCard({AddressInfo}: Props) {
+export default function AddressCard({AddressInfo, index, count, swapper, remover}: Props) {
     return(
         <div className={`${styles.boxey} d-flex flex-row`} style={{
             padding: '16px',
@@ -44,11 +48,11 @@ export default function AddressCard({AddressInfo}: Props) {
                 width: '80px',
             }}>
                 <div className='d-flex flex-column'>
-                    <Button type='primary' style={{
+                    <Button type='primary' disabled={index == 0} onClick={() => swapper(index, index-1)} style={{
                         width: '64px',
                         marginBottom: '8px',
                     }}><ChevronUp/></Button>
-                    <Button type='primary' style={{
+                    <Button type='primary' disabled={index == count-1} onClick={() => swapper(index, index+1)} style={{
                         width: '64px',
                     }}><ChevronDown/></Button>
                 </div>
