@@ -47,11 +47,7 @@ namespace Services
             _db.CustomerAddresses.AddRange(addresses);
             _db.SaveChanges();
 
-            var dbCustomer = _db.Customers.Single(e => e.UserId == customer.UserId);
-            dbCustomer.CompanyName = customer.CompanyName;
-            dbCustomer.RepresentativeName = customer.RepresentativeName;
-            dbCustomer.ContactInfo = customer.ContactInfo;
-            _db.Customers.Update(dbCustomer);
+            _db.Customers.Update(customer);
             _db.SaveChanges();
 
             _db.Database.CommitTransaction();
