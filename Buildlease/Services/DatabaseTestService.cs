@@ -43,14 +43,14 @@ namespace Services
 
             var GetProducts = service.GetProducts(new GetProductsRequest()
             {
-                CategoryId = -1,
+                CategoryId = 1,
                 OrderByRule = SortRule.Default,
                 SkipCount = 10,
                 TakeCount = 10,
             }, userId);
             GetProducts = service.GetProducts(new GetProductsRequest()
             {
-                CategoryId = -2,
+                CategoryId = 2,
                 OrderByRule = SortRule.PriceAscending,
                 SkipCount = 0,
                 TakeCount = 1,

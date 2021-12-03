@@ -7,5 +7,6 @@ namespace Services.Abstractions
         OrderView[] GetMyOrders(string userId);
         OrderFullView GetOrder(string userId, int orderId);
         CartFullView GetMyCart(string userId);
+        ProductFullView GetHistoryProduct(string userId, int productOrderId);
     }
 }

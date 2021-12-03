@@ -12,28 +12,28 @@ namespace Domain.EntitiesExample
                 new Attribute()
                 {
                     Id = -1,
-                    CategoryId = -10,
+                    CategoryId = 10,
                     Name = "Material",
                     ValueType = AttributeType.String,
                 },
                 new Attribute()
                 {
                     Id = -2,
-                    CategoryId = -11,
+                    CategoryId = 11,
                     Name = "Metal",
                     ValueType = AttributeType.String,
                 },
                 new Attribute()
                 {
                     Id = -3,
-                    CategoryId = -12,
+                    CategoryId = 12,
                     Name = "Tree",
                     ValueType = AttributeType.String,
                 },
                 new Attribute()
                 {
                     Id = -4,
-                    CategoryId = -15,
+                    CategoryId = 15,
                     Name = "Lenght",
                     ValueType = AttributeType.Number,
                     UnitName = "metres"
@@ -41,7 +41,7 @@ namespace Domain.EntitiesExample
                 new Attribute()
                 {
                     Id = -5,
-                    CategoryId = -13,
+                    CategoryId = 13,
                     Name = "Lenght",
                     ValueType = AttributeType.Number,
                     UnitName = "metres"
@@ -49,7 +49,7 @@ namespace Domain.EntitiesExample
                 new Attribute()
                 {
                     Id = -6,
-                    CategoryId = -14,
+                    CategoryId = 14,
                     Name = "Thickness",
                     ValueType = AttributeType.Number,
                     UnitName = "millimetres"
@@ -57,7 +57,7 @@ namespace Domain.EntitiesExample
                 new Attribute()
                 {
                     Id = -7,
-                    CategoryId = -17,
+                    CategoryId = 17,
                     Name = "Lenght",
                     ValueType = AttributeType.Number,
                     UnitName = "metres"
@@ -65,7 +65,7 @@ namespace Domain.EntitiesExample
                 new Attribute()
                 {
                     Id = -8,
-                    CategoryId = -17,
+                    CategoryId = 17,
                     Name = "Thickness",
                     ValueType = AttributeType.Number,
                     UnitName = "centimeter"
@@ -73,14 +73,14 @@ namespace Domain.EntitiesExample
                 new Attribute()
                 {
                     Id = -9,
-                    CategoryId = -2,
+                    CategoryId = 2,
                     Name = "Material",
                     ValueType = AttributeType.String
                 },
                 new Attribute()
                 {
                     Id = -10,
-                    CategoryId = -3,
+                    CategoryId = 3,
                     Name = "Power",
                     ValueType = AttributeType.Number,
                     UnitName = "watt"
@@ -88,7 +88,7 @@ namespace Domain.EntitiesExample
                 new Attribute()
                 {
                     Id = -11,
-                    CategoryId = -3,
+                    CategoryId = 3,
                     Name = "Rotational speed",
                     ValueType = AttributeType.Number,
                     UnitName = "rps"
@@ -96,7 +96,7 @@ namespace Domain.EntitiesExample
                 new Attribute()
                 {
                     Id = -12,
-                    CategoryId = -7,
+                    CategoryId = 7,
                     Name = "Lenght",
                     ValueType = AttributeType.Number,
                     UnitName = "metres"
@@ -104,7 +104,7 @@ namespace Domain.EntitiesExample
                 new Attribute()
                 {
                     Id = -13,
-                    CategoryId = -8,
+                    CategoryId = 8,
                     Name = "Width",
                     ValueType = AttributeType.Number,
                     UnitName = "centimetres"
@@ -112,7 +112,7 @@ namespace Domain.EntitiesExample
                 new Attribute()
                 {
                     Id = -14,
-                    CategoryId = -2,
+                    CategoryId = 2,
                     Name = "Length",
                     ValueType = AttributeType.Number,
                     UnitName = "cm"
@@ -120,7 +120,7 @@ namespace Domain.EntitiesExample
                 new Attribute()
                 {
                     Id = -15,
-                    CategoryId = -6,
+                    CategoryId = 6,
                     Name = "Material",
                     ValueType = AttributeType.String,
                 },

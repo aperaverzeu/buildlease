@@ -154,6 +154,28 @@ namespace Services
                             e.Description.Contains(word));
             }
 
+            foreach (var filter in request.Filters)
+            {
+                if (filter.ValueNumberLowerBound.HasValue)
+                    query = query.Where(prod =>
+                        prod.ProductAttributes.SingleOrDefault(attr => attr.AttributeId == filter.AttributeId) != null &&
+                        prod.ProductAttributes.Single(attr => attr.AttributeId == filter.AttributeId)
+                        .ValueNumber >= filter.ValueNumberLowerBound.Value);
+
+                if (filter.ValueNumberUpperBound.HasValue)
+                    query = query.Where(prod =>
+                        prod.ProductAttributes.SingleOrDefault(attr => attr.AttributeId == filter.AttributeId) != null &&
+                        prod.ProductAttributes.Single(attr => attr.AttributeId == filter.AttributeId)
+                        .ValueNumber <= filter.ValueNumberUpperBound.Value);
+
+                if (filter.ValueStringAllowed is not null && filter.ValueStringAllowed.Any())
+                    query = query.Where(prod =>
+                        filter.ValueStringAllowed.Contains(
+                            prod.ProductAttributes
+                            .Single(attr => attr.Id == filter.AttributeId)
+                            .ValueString));
+            }
+
             switch (request.OrderByRule)
             {
                 case SortRule.PriceAscending:

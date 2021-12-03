@@ -15,7 +15,7 @@ namespace Services.Extension
     {
         private static ProductOrderView MapToProductOrderView(this ProductOrder obj)
         {
-            if (obj.SerializedProductFullView is null)
+            if (obj.SerializedProductFullView == null)
             {
                 return new ProductOrderView()
                 {
@@ -23,7 +23,7 @@ namespace Services.Extension
                     Count = obj.Count,
                     Name = obj.Product.Name,
                     ImagePath = obj.Product.ImagePath,
-                    Price = obj.Product.Price.Value,
+                    Price = obj.Product.Price,
                     Attributes = obj.Product.GetProductAttributeViews(),
                 };
             }
@@ -36,7 +36,7 @@ namespace Services.Extension
                     Count = obj.Count,
                     Name = product.Name,
                     ImagePath = product.ImagePath,
-                    Price = product.Price.Value,
+                    Price = product.Price,
                     Attributes = product.Attributes,
                 };
             }

@@ -16,6 +16,8 @@ namespace Buildlease.Controllers
     [Route("api")]
     public class TestController : ControllerBase
     {
+        // Catalogue
+        /*
         [HttpPost("GetAllCategories")]
         public CategoryFullView[] GetAllCategories()
         {
@@ -61,7 +63,8 @@ namespace Buildlease.Controllers
                 },
             };
         }
-
+        */
+        /*
         [HttpPost("GetCategoryFilters/{categoryId}")]
         public CategoryFilterView[] GetCategoryFilters([FromRoute] int categoryId)
         {
@@ -117,7 +120,8 @@ namespace Buildlease.Controllers
                 },
             };
         }
-
+        */
+        /*
         [HttpPost("GetProducts")]
         public ProductView[] GetProducts([FromBody] GetProductsRequest request)
         {
@@ -186,7 +190,8 @@ namespace Buildlease.Controllers
                 }
             };
         }
-
+        */
+        /*
         private ProductFullView BuildProductFullView()
             => new()
             {
@@ -268,13 +273,17 @@ namespace Buildlease.Controllers
                     },
                 },
             };
-
+        */
+        /*
         [HttpPost("GetProduct/{productId}")]
         public ProductFullView GetProduct([FromRoute] int productId) => BuildProductFullView();
-
+        */
+        /*
         [HttpPost("GetHistoryProduct/{productOrderId}")]
         public ProductFullView GetHistoryProduct([FromRoute] int productOrderId) => BuildProductFullView();
-
+        */
+        // Order
+        /*
         [HttpPost("GetMyOrders")]
         public OrderView[] GetMyOrders()
         {
@@ -340,7 +349,8 @@ namespace Buildlease.Controllers
                 },
             };
         }
-
+        */
+        /*
         [HttpPost("GetOrder/{orderId}")]
         public OrderFullView GetOrder([FromRoute] int orderId)
         {
@@ -436,7 +446,8 @@ namespace Buildlease.Controllers
                 }
             };
         }
-
+        */
+        /*
         [HttpPost("GetMyCart")]
         public CartFullView GetMyCart()
         {
@@ -501,29 +512,32 @@ namespace Buildlease.Controllers
                 }
             };
         }
-
-
+        */
+        // MakingOrder
+        /*
         [HttpPost("SetProductOrderCount/{productId}/{count}")]
         public void SetProductOrderCount([FromRoute] int productId, [FromRoute] int count)
         {
             if (count < 0) throw new ArgumentException("count < 0");
             return;
         }
-
+        */
+        /*
         [HttpPost("MakeOrderFromCart")]
         public void MakeOrderFromCart()
         {
             if (new Random().Next(2) == 1) throw new ArgumentException("*here will be explanation of error*");
             return;
         }
-
+        */
+        /*
         [HttpPost("DeclineOrder/{orderId}")]
         public void DeclineOrder([FromRoute] int orderId)
         {
             if (orderId <= 0) throw new ArgumentException("*here will be explanation of error*");
             return;
         }
-
+        */
 
         [HttpPost("GetCustomerInfo")]
         public CustomerInfo GetCustomerInfo()
