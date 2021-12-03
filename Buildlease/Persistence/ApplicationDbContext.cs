@@ -23,6 +23,7 @@ namespace Persistence
             IOptions<OperationalStoreOptions> operationalStoreOptions)
             : base(options, operationalStoreOptions)
         {
+            Database.Migrate();
         }
 
         /// <summary> This method is called only once after program start </summary>
@@ -34,6 +35,19 @@ namespace Persistence
             {
                 builder.ApplyConfigurationsFromAssembly(asm);
             }
+
+            builder .Entity<Category>()
+                    .HasData(new Category 
+                    { 
+                        Id = -42,
+                        ParentId = -42,
+                        Name = "All",
+                    });
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseNpgsql(options => options.MigrationsAssembly("Buildlease"));
         }
     }
 }
