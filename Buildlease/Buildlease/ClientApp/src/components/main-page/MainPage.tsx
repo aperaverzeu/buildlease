@@ -16,7 +16,6 @@ export default function MainPage() {
     
     const [OK, setOK] = useState<boolean>(Globals.Categories !== undefined);
     if (!OK) Globals.OnCategoriesLoadedListeners!.push(() => setOK(true));
-
     return (
         <>
             <BigHeader />
@@ -24,7 +23,7 @@ export default function MainPage() {
             <Container className='d-flex flex-column justify-content-center'>
                 {OK ?
                     <>
-                        <CategoryBar categories={data}/>
+                        <CategoryBar categories={Globals.Categories}/>
                     </>
                 :
                     <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>
