@@ -23,12 +23,10 @@ namespace Services
 
         public void DoTest(string userId)
         {
-            /*
             TestCatalogueService(userId);
             TestOrderService(userId);
             TestCustomerInfoService(userId);
             TestMakingOrderService(userId);
-            */
             TestCategoryInfoService(userId);
             TestProductInfoService(userId);
         }
@@ -117,12 +115,10 @@ namespace Services
 
         private void TestCategoryInfoService(string userId)
         {
-            /*
             var service = _manager.CategoryInfoService;
             var info = service.GetCategoryInfo(4);
             service.SaveCategoryInfo(info);
             info = service.GetCategoryInfo(4);
-            */
         }
 
         private void TestProductInfoService(string userId)
