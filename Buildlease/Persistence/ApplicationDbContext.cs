@@ -8,8 +8,6 @@ namespace Persistence
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
-        public DbSet<TestModel> TestModels { get; set; }
-
         public DbSet<Attribute> Attributes { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Address> CustomerAddresses { get; set; }
@@ -18,7 +16,6 @@ namespace Persistence
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductAttribute> ProductAttributes { get; set; }
         public DbSet<ProductOrder> ProductOrders { get; set; }
-
         public DbSet<HistoryOfOrderStatus> HistoryOfOrderStatus { get; set; }
 
         public ApplicationDbContext(

@@ -54,12 +54,7 @@ namespace Services
             {
                 orderView.ProductCount = orderView.ProductOrders.Sum(po => po.Count);
                 orderView.Price = orderView.ProductOrders.Sum(po => po.Price.Value);
-
-                // TODO: Remove after testing
-                if (!_db.HistoryOfOrderStatus.Where(e => e.OrderId == orderView.Id).Any())
-                    orderView.OrderAcceptDate = DateTime.UtcNow;
-                else
-
+                
                 orderView.OrderAcceptDate =
                     _db.HistoryOfOrderStatus
                     .Where(e => e.OrderId == orderView.Id)
