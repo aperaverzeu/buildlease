@@ -8,10 +8,11 @@ import CustomerInfo from "../dtos/CustomerInfo";
 
 import API from "../../API";
 
-import {Input, Image} from "antd";
+import {Input} from "antd";
 import styles from '../gen_page.module.css';
 import AddressCard from "../cards/AddressCard";
 
+// this is probably not the way to do it but this is a prototype
 const subpages = [
     'general',
     'addresses',
@@ -71,25 +72,35 @@ export default function Profile() {
                             page == 'general' ?
                                 // general info
                                 <>
-                                    <div  className='d-flex flex-row'>
+                                    <div className='d-flex flex-row'>
                                         <div className={`${styles.boxey}`} style={{
                                             height: '128px',
                                             width: '128px',
                                             backgroundImage: `url(${newCustomerData?.CompanyImagePath})`,
                                             backgroundSize: 'cover',
                                             backgroundPosition: 'center',
-                                            // marginRight: '8px',
                                         }}/>
                                         <div style={{marginLeft:10}}>
-                                            <h6> Company name: </h6>
-                                            <Input value={newCustomerData?.CompanyName}
-                                                   onKeyPress={event => {
-                                                       if (event.key == 'Enter') {
-                                                           // setNewCustomerData()
-                                                       }
-                                                   }}
-                                            />
-                                            <Input value={newCustomerData?.CompanyImagePath}/>
+                                            <h3> Company name: </h3>
+                                            {
+                                                newCustomerData && <Input defaultValue={newCustomerData?.CompanyName} 
+                                                                          onChange={data => {
+                                                                              if (newCustomerData) {
+                                                                                  newCustomerData.CompanyName = data.target.value;
+                                                                                  console.log(newCustomerData.CompanyName)}
+                                                                          }}/> 
+                                            }
+                                            {
+                                                newCustomerData && <Input defaultValue={newCustomerData?.CompanyImagePath} 
+                                                                          onChange={data => {
+                                                                              if (newCustomerData) {
+                                                                                  const obj = Object.assign({}, newCustomerData);
+                                                                                  obj.CompanyImagePath = data.target.value;
+                                                                                  console.log(obj.CompanyImagePath);
+                                                                                  setNewCustomerData(obj);
+                                                                              }
+                                                                          }}/>
+                                            }
                                         </div>
                                     </div>
                                 </>
@@ -97,12 +108,12 @@ export default function Profile() {
                                 page == 'addresses' ?
                                     // addresses
                                     <>
-                                        {oldCustomerData?.DeliveryAddresses.map(addressInfo => <AddressCard AddressInfo={addressInfo}/>)}
+                                        {newCustomerData?.DeliveryAddresses.map(addressInfo => <AddressCard AddressInfo={addressInfo}/>)}
                                     </>
                                     :
                                     // payment info
                                     <>
-                                        Нахуй
+                                        На payment option, что иронично, бюджет не выделили.
                                     </>
                         }
                         </div>
