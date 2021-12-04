@@ -1,5 +1,5 @@
 import { TreeSelect } from "antd";
-import Globals from "../../Globals";
+import CategoryFullView from "../views/CategoryFullView";
 
 interface CategoryTreeNode {
   categoryId: number,
@@ -9,14 +9,15 @@ interface CategoryTreeNode {
 }
 
 interface Props {
+  categories: CategoryFullView[] | undefined,
   onSelect: (selectedCategoryId: number) => void,
 }
 
-export default function CategoryTreeSelect({onSelect}: Props) {
+export default function CategoryTreeSelect({categories, onSelect}: Props) {
 
-  if (Globals.Categories === undefined) return <></>;
+  if (categories === undefined) return <></>;
 
-  const root = Globals.Categories[0];
+  const root = categories[0];
 
   const categoriesTreeData: CategoryTreeNode[] = [{
     categoryId: root.Id,
@@ -26,7 +27,7 @@ export default function CategoryTreeSelect({onSelect}: Props) {
   }];
 
   function FillChildren(vertex: CategoryTreeNode): void {
-    const children = Globals.Categories!
+    const children = categories!
       .filter(c => c.ParentId === vertex.categoryId)
       .filter(c => c.ParentId !== c.Id);
 

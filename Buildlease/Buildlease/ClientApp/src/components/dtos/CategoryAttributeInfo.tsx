@@ -1,6 +1,11 @@
+enum ValueType {
+    Number = 1,
+    String = 2,
+}
+
 export default interface CategoryAttributeInfo {
-    Id: string,
+    Id: number,
     Name: string
-    AttributeType: string,
+    AttributeType: ValueType,
     UnitName: string
 }

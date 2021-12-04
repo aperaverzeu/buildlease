@@ -1,7 +1,7 @@
 import SubHeader from "../../layout/SubHeader";
 import MainContent from "../../layout/MainContent";
 import SideMenu from "../../layout/SideMenu";
-import {Button, Input, Space} from "antd";
+import {Button, Input, message, Space} from "antd";
 import {useEffect, useState} from "react";
 import API from "../../../API";
 import CategoryFullView from "../../views/CategoryFullView";
@@ -15,14 +15,18 @@ export default function AdminCategory() {
     
     const [categoryId, setCategoryIdValue] = useState<number | undefined>(undefined);
     const [productCategories, setProductCategories] = useState<CategoryFullView[] | undefined>(undefined);
+    
+    const [categoryInfo, setCategoryInfo] = useState<CategoryInfo | undefined>(undefined);
 
-    function LoadProductCategories() {
+    function LoadCategories() {
+        setProductCategories(undefined);
         API.GetAllCategories()
-            .then(res => setProductCategories(res))
+            .then(res => setProductCategories(res));
     }
 
     useEffect(() => {
-        LoadProductCategories();
+        LoadCategories();
+        setCategoryIdValue(LOGIC.GetRootCategoryId());
     }, [])
 
     return (
@@ -48,63 +52,91 @@ export default function AdminCategory() {
                                     margin: '0px',
                                     marginBottom: '4px',
                                 }}>Select category to modify:</h3>
-                                <CategoryTreeSelect onSelect={category => setCategoryIdValue(category)}/>
+                                <CategoryTreeSelect categories={productCategories} onSelect={category => {
+                                    setCategoryIdValue(category);
+                                }}/>
                             </div>
                             <Button type="primary"
                                     danger
-                                    className='w-100'>
+                                    className='w-100'
+                                    onClick={() => {
+                                        if (categoryId) {
+                                            const someKey = Math.random();
+                                            message.loading({ content: 'Wait for it...', key: someKey, duration: 0 });
+                                            Promise
+                                                .resolve(API.DeleteCategory(categoryId)
+                                                    .then(() => LoadCategories())
+                                                    .then(() => {
+                                                        message.success({ content: 'Category removed', key: someKey });
+                                                    }));
+                                        }
+                                    }}>
                                 Remove
                             </Button>
                         </Space>
-                        <Space direction="vertical"
-                               className='w-100'
-                               size={16}>
-                            <h3 style={{
-                                margin: '0px',
-                            }}>Add child category:</h3>
-                            <div>
-                                <Input addonBefore='Name'/>
-                            </div>
-                            <Button type="primary"
-                                    className='w-100'
-                                    onClick={() => {
-                                        
-                                    }}>
-                                Add child
-                            </Button>
-                        </Space>
+                        <Button type="primary"
+                                className='w-100'
+                                onClick={() => {
+                                    if (categoryId) {
+                                        const someKey = Math.random();
+                                        message.loading({ content: 'Wait for it...', key: someKey, duration: 0 });
+                                        Promise
+                                            .resolve(API.CreateSubcategory(categoryId)
+                                                .then(() => LoadCategories())
+                                                .then(() => {
+                                                    message.success({ content: 'New category added', key: someKey });
+                                                }));
+                                    }
+                                }}>
+                            Add child category
+                        </Button>
                     </Space>
                 </SideMenu>
                 <MainContent>
-                    <Space direction="vertical" size={25} style={{width: "70%", marginLeft: "10rem"}}>
-                        <div>
-                            <span>ImageLink:</span>
-                            <Input
-                                placeholder={`${productCategories?.find(category => category.Id === categoryId)?.ParentId}`}>
-                            </Input>
-                        </div>
-                        <div>
-                            <span>ImageLink:</span>
-                            <Input
-                                placeholder={`${productCategories?.find(category => category.Id === categoryId)?.Name}`}>
-                            </Input>
-                        </div>
-                        <div>
-                            <span>ImageLink:</span>
-                            <Input
-                                placeholder={`${productCategories?.find(category => category.Id === categoryId)?.DefaultImagePath}`}>
-                            </Input>
-                        </div>
-                        <div>
-                            <span>ImageLink:</span>
-                            <Input
-                                placeholder={`${productCategories?.find(category => category.Id === categoryId)?.ProductCount}`}>
-                            </Input>
-                        </div>
-                        <Button type="primary" style={{width: "15rem", height: "3rem", fontSize: "17px"}}>
-                            Save attribute
-                        </Button>
-                    </Space>
+                    {
+                        productCategories &&
+                        <Space direction="vertical" size={25} style={{width: "70%", marginLeft: "10rem"}}>
+                            <div>
+                                <Input addonBefore='Name'
+                                       placeholder={`${productCategories?.find(category => category.Id === categoryId)?.Name}`}
+                                       onChange={data => {
+                                           const obj = Object.assign({}, categoryInfo);
+                                           obj.Name = data.target.value;
+                                           setCategoryInfo(obj);
+                                       }}>
+                                </Input>
+                            </div>
+                            <div>
+                                <Input addonBefore='Default image link'
+                                       placeholder={`${productCategories?.find(category => category.Id === categoryId)?.DefaultImagePath}`}
+                                       onChange={data => {
+                                           const obj = Object.assign({}, categoryInfo);
+                                           obj.ImageLink = data.target.value;
+                                           setCategoryInfo(obj);
+                                       }}>
+                                </Input>
+                            </div>
+                            <Button type="primary"
+                                    style={{
+                                        width: "15rem",
+                                        height: "3rem",
+                                        fontSize: "17px"}}
+                                    onClick={() => {
+                                        if (categoryInfo) {
+                                            const someKey = Math.random();
+                                            message.loading({ content: 'Wait for it...', key: someKey, duration: 0 });
+                                            Promise
+                                                .resolve(API.SaveCategoryInfo(categoryInfo)
+                                                    .then(() => LoadCategories())
+                                                    .then(() => {
+                                                        message.success({ content: 'Changes applied', key: someKey });
+                                                    }));
+                                        }
+                                    }}>
+                                Save changes
+                            </Button>
+                        </Space>
+                    }
                 </MainContent>
             </div>
         </>
