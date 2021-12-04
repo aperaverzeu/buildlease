@@ -23,7 +23,7 @@ namespace Presentation.Endpoints.ProductInfo
         {
             try
             {
-                _serviceManager.AdminService.EnsureUserIsAdmin(this.GetCurrentUserId());
+                // _serviceManager.AdminService.EnsureUserIsAdmin(this.GetCurrentUserId());
                 return new OkObjectResult(_serviceManager.ProductInfoService.GetProductInfo(productId));
             }
             catch (InvalidOperationException ex)
