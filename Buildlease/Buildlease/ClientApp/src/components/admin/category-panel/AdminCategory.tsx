@@ -68,7 +68,7 @@ export default function AdminCategory() {
                             <Button type="primary"
                                     className='w-100'
                                     onClick={() => {
-                                        // API.CreateSubcategory(LOGIC.GetRootCategoryId());
+                                        
                                     }}>
                                 Add child
                             </Button>

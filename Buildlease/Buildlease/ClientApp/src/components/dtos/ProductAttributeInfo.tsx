@@ -1,9 +1,8 @@
 export default interface ProductAttributeInfo {
-    productAttributeId: string,
-    productAttributeCategoryAttributeId: string,
-    productAttributeName: string,
-    productAttributeValueType: string,
-    productAttributeUnitName: string,
-    productAttributeExistingStringValues: string[],
-    productAttributeValue: string
+    AttributeId: string,
+    Name: string,
+    ValueType: string,
+    UnitName: string,
+    ExistingStringValues: string[],
+    Value: string
 }

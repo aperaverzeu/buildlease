@@ -1,6 +1,6 @@
 export default interface CategoryAttributeInfo {
-    categoryAttributeId: string,
-    categoryAttributeName: string
-    categoryAttributeValueType: string,
-    categoryAttributeUnitName: string
+    Id: string,
+    Name: string
+    AttributeType: string,
+    UnitName: string
 }
