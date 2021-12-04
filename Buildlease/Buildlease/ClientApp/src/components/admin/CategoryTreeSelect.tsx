@@ -49,10 +49,10 @@ export default function CategoryTreeSelect({onSelect}: Props) {
         style={{
           width: "100%"
         }}
-      // @ts-ignore
-      treeData={categoriesTreeData}
-      treeDefaultExpandAll={true}
-      onSelect={(value, option) => onSelect(option.categoryId)}
+        // @ts-ignore
+        treeData={categoriesTreeData}
+        treeDefaultExpandAll={true}
+        onSelect={(value, option) => onSelect(option.categoryId)}
     />
   );
 }

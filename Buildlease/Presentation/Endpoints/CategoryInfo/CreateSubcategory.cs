@@ -23,7 +23,7 @@ namespace Presentation.Endpoints.CategoryInfo
         {
             try
             {
-                _serviceManager.AdminService.EnsureUserIsAdmin(this.GetCurrentUserId());
+                // _serviceManager.AdminService.EnsureUserIsAdmin(this.GetCurrentUserId());
                 _serviceManager.CategoryInfoService.CreateSubcategory(categoryId);
                 return new OkResult();
             }
