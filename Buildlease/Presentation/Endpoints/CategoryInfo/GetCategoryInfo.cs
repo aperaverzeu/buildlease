@@ -23,7 +23,7 @@ namespace Presentation.Endpoints.CategoryInfo
         {
             try
             {
-                // _serviceManager.AdminService.EnsureUserIsAdmin(this.GetCurrentUserId());
+                _serviceManager.AdminService.EnsureUserIsAdmin(this.GetCurrentUserId());
                 return new OkObjectResult(_serviceManager.CategoryInfoService.GetCategoryInfo(categoryId));
             }
             catch (InvalidOperationException ex)
