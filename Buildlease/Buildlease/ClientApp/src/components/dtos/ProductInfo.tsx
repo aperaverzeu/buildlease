@@ -6,5 +6,7 @@ export default interface ProductInfo {
     productName: string,
     productDescription: string,
     productImageLink: string,
+    productTotalCount: string,
+    productPrice: string | undefined,
     productAttributes: ProductAttributeInfo[]
 }
