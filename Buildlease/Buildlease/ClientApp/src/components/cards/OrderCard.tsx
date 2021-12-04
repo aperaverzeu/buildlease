@@ -11,7 +11,7 @@ interface Props {
     detailsShown: boolean,
 }
 
-export default function Item({OrderView, detailsShown}: Props) {
+export default function OrderCard({OrderView, detailsShown}: Props) {
     
     const [showDetails, setShowDetails] = useState<boolean>(false);
     

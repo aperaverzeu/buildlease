@@ -2,8 +2,9 @@ import styles from '../gen_page.module.css';
 import mainStyles from './main_page.module.css'
 import { ChevronRightRounded as Icon} from "@material-ui/icons"
 import CategoryFullView from "../views/CategoryFullView";
+
 import PATH from "../../PATH";
-import {Redirect} from "react-router-dom";
+import LOGIC from "../../LOGIC";
 
 interface Props {
     categories: CategoryFullView[] | undefined
@@ -17,7 +18,7 @@ export default function CategoryBar(props: Props) {
             </div>
             <div className={mainStyles.categoryGridContainer}>
                 {/*todo: add links*/}
-                {props.categories?.filter(c => c.ParentId === 0 && c.Id !== 0).map(category => (
+                {props.categories?.filter(c => c.ParentId === LOGIC.GetRootCategoryId() && c.Id !== LOGIC.GetRootCategoryId()).map(category => (
                     <div className={'d-flex flex-row align-items-center'}>
                         <Icon className={mainStyles.chevronStyle}/>
                         <a href={PATH.ToCategory(category.Id)}>

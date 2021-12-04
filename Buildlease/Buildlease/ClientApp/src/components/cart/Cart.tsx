@@ -25,7 +25,9 @@ export default function Cart() {
     return(
         <>
             <SubHeader>
-                <h1>Your Cart:</h1>
+                <h1 style={{
+                    margin: '0px',
+                }}>Your Cart:</h1>
             </SubHeader>
             <div className='d-flex flex-row flex-grow-1'>
                 <SideMenu>
