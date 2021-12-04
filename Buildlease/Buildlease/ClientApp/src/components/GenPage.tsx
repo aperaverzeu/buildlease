@@ -16,11 +16,12 @@ import Profile from './profile/Profile';
 import Product from "./product/Product";
 import Order from "./order/Order";
 import Admin from "./admin/Admin";
+import OrderHistory from "./order-history/OrderHistory";
+import AdminProduct from "./admin/product-panel/AdminProduct";
+import AdminCategory from "./admin/category-panel/AdminCategory";
 
 // styles (do we need em here tho?)
 import './gen_page.module.css';
-import OrderHistory from "./order-history/OrderHistory";
-import AdminProduct from "./admin/product-panel/AdminProduct";
 
 export default function GenPage() {
 
@@ -39,7 +40,9 @@ export default function GenPage() {
                     <Route path='/catalog/:stringCategoryId?' component={Catalog}/>
                     <Route path='/products/:stringProductId' component={() => <Product isHistoric={false}/>}/>
                     <Route path='/archived-products/:stringProductOrderId' component={() => <Product isHistoric={true}/>}/>
+                    <AuthorizeRoute path='/admin/products/add' component={AdminProduct}/>
                     <AuthorizeRoute path='/admin/products/:stringProductId' component={AdminProduct}/>
+                    <AuthorizeRoute path='/admin/categories' component={AdminCategory}/>
                     <AuthorizeRoute path='/admin' component={Admin}/>
                 </Switch>
                 :
