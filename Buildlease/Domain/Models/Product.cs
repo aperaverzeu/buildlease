@@ -1,4 +1,6 @@
-﻿namespace Domain.Models
+﻿using System.Collections.Generic;
+
+namespace Domain.Models
 {
     public class Product
     {
@@ -9,5 +11,9 @@
         public string ImagePath { get; set; }
         public int TotalCount { get; set; }
         public decimal? Price { get; set; }
+
+        public Category Category { get; set; }
+        public IEnumerable<ProductAttribute> ProductAttributes { get; set; }
+        public IEnumerable<ProductOrder> ProductOrders { get; set; }
     }
 }

@@ -20,6 +20,14 @@ var orderStatusStrings: { [orderStatus: string]: string } = {
 
 const LOGIC = {
 
+    GetRootCategoryId: (): number => {
+        const id = Globals.Categories?.find(cat => cat.Id == cat.ParentId)?.Id;
+        if (id === undefined)
+            throw 'Root category id is undefined.';
+        else
+            return id;
+    },
+    
     GetCategoryById: (categoryId: number): CategoryFullView => {
         if (Globals.Categories === undefined) throw "Categories aren't loaded";
         const result = Globals.Categories.find(cat => cat.Id == categoryId);

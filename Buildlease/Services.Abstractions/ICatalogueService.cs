@@ -7,7 +7,8 @@ namespace Services.Abstractions
     {
         CategoryFullView[] GetAllCategories();
         CategoryFilterView[] GetCategoryFilters(int categoryId);
-        ProductView[] GetProducts(GetProductsRequest request);
-        ProductFullView GetProduct(int productId);
+        int GetProductsCount(GetProductsRequest request);
+        ProductView[] GetProducts(GetProductsRequest request, string userId);
+        ProductFullView GetProduct(int productId, string userId);
     }
 }
