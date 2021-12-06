@@ -1,4 +1,4 @@
-import CategoryAttributeInfo from "./CategoryAttributeInfo";
+import { CategoryAttributeInfo } from "./CategoryAttributeInfo";
 
 export default interface CategoryInfo {
     Id: number,

@@ -1,11 +1,11 @@
-enum ValueType {
+export enum AttributeType {
     Number = 1,
     String = 2,
 }
 
-export default interface CategoryAttributeInfo {
+export interface CategoryAttributeInfo {
     Id: number,
     Name: string
-    AttributeType: ValueType,
+    ValueType: AttributeType,
     UnitName: string
 }

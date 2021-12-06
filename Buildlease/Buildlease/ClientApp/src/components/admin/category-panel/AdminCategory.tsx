@@ -10,13 +10,12 @@ import MainContent from "../../layout/MainContent";
 import SideMenu from "../../layout/SideMenu";
 import CategoryTreeSelect from "../CategoryTreeSelect";
 
-import {Button, Input, message, Space} from "antd";
+import {Button, Input, message, Select, Space} from "antd";
 
-import CategoryFullView from "../../views/CategoryFullView";
 import CategoryInfo from "../../dtos/CategoryInfo";
+import {CategoryAttributeInfo, AttributeType} from "../../dtos/CategoryAttributeInfo";
 
 import API from "../../../API";
-import PATH from "../../../PATH";
 import LOGIC from "../../../LOGIC";
 import Globals from "../../../Globals";
 
@@ -145,6 +144,61 @@ export default function AdminCategory() {
                                        }}>
                                 </Input>
                             </div>
+                            <Space direction="vertical" size={16}>
+                                <Button onClick={() => {
+                                    const obj = Object.assign({}, categoryInfo);
+                                    const newAttr: CategoryAttributeInfo = {
+                                        Id: 0,
+                                        Name: 'new attribute',
+                                        ValueType: AttributeType.Number,
+                                        UnitName: 'unit',
+                                    };
+                                    obj.Attributes.push(newAttr);
+                                    setCategoryInfo(obj);
+                                }}>
+                                    Add new category attribute
+                                </Button>
+                                {
+                                    categoryInfo.Attributes.map(
+                                        (attr, index) =>
+                                            <Space direction='horizontal' size={4}>
+                                                <Input defaultValue={attr.Name} onChange={data => {
+                                                    const obj = Object.assign({}, categoryInfo);
+                                                    obj.Attributes[index].Name = data.target.value;
+                                                    setCategoryInfo(obj);
+                                                }}/>
+                                                <Select style={{
+                                                    width: '100px',
+                                                }}
+                                                        defaultValue={`${attr.ValueType}`}
+                                                        onChange={data => {
+                                                            if (data) {
+                                                                const obj = Object.assign({}, categoryInfo);
+                                                                // @ts-ignore
+                                                                obj.Attributes[index].ValueType = data;
+                                                                setCategoryInfo(obj);
+                                                            }
+                                                }}>
+                                                    <Select value={`${AttributeType.Number}`}>Number</Select>
+                                                    <Select value={`${AttributeType.String}`}>String</Select>
+                                                </Select>
+                                                <Input defaultValue={attr.UnitName} onChange={newVal => {
+                                                    const obj = Object.assign({}, categoryInfo);
+                                                    obj.Attributes[index].UnitName = newVal.target.value;
+                                                    setCategoryInfo(obj);
+                                                }}/>
+                                                <Button danger
+                                                        onClick={() => {
+                                                            const obj = Object.assign({}, categoryInfo);
+                                                            obj.Attributes.splice(index, 1);
+                                                            setCategoryInfo(obj);
+                                                        }}>
+                                                    Remove
+                                                </Button>
+                                            </Space>
+                                    )
+                                }
+                            </Space>
                             <Button type="primary"
                                     style={{
                                         width: "15rem",
