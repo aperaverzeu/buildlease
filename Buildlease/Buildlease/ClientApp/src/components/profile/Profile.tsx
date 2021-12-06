@@ -180,28 +180,28 @@ export default function Profile() {
                     <div className='h-100 d-flex flex-column justify-content-between' style={{
                         padding: '24px',
                     }}>
+                        {newCustomerData &&
                         <div>
-                        {
-                            page == 'general' ?
+                            {page == 'general' ?
                                 // general info
                                 <>
-                                    {
-                                        newCustomerData && <ImageNameLink newData={newCustomerData} setNewData={setNewCustomerData} 
-                                                                          nameAttrName={'CompanyName'}
-                                                                          imagePathAttrName={'CompanyImagePath'}
-                                                                          imageUrl={newCustomerData?.CompanyImagePath} 
-                                                                          title={"Company info:"}
-                                        />
-                                    }
+                                    <ImageNameLink 
+                                        newData={newCustomerData} 
+                                        setNewData={setNewCustomerData} 
+                                        nameAttrName={'CompanyName'}
+                                        imagePathAttrName={'CompanyImagePath'}
+                                        imageUrl={newCustomerData.CompanyImagePath} 
+                                        title={"Company info:"}
+                                    />
                                     <div style={{marginTop: 10}}>
-                                        {
-                                            newCustomerData && <ImageNameLink newData={newCustomerData} setNewData={setNewCustomerData}
-                                                                              nameAttrName={"RepresentativeName"}
-                                                                              imagePathAttrName={'RepresentativeImagePath'}
-                                                                              imageUrl={newCustomerData?.RepresentativeImagePath} 
-                                                                              title={"Representative info:"}
-                                            />
-                                        }
+                                        <ImageNameLink 
+                                            newData={newCustomerData} 
+                                            setNewData={setNewCustomerData}
+                                            nameAttrName={"RepresentativeName"}
+                                            imagePathAttrName={'RepresentativeImagePath'}
+                                            imageUrl={newCustomerData.RepresentativeImagePath} 
+                                            title={"Representative info:"}
+                                        />
                                     </div>
     
                                     <div style={{marginTop: 30}}>
@@ -209,8 +209,7 @@ export default function Profile() {
                                         <div style={{
                                             maxWidth: '600px',
                                         }}>
-                                            {
-                                                newCustomerData &&
+                                            {newCustomerData.JuridicalAddress ?
                                                 <AddressCard
                                                     AddressInfo={newCustomerData.JuridicalAddress}
                                                     setter={() => {
@@ -218,25 +217,40 @@ export default function Profile() {
                                                         setNewCustomerData(obj);
                                                     }}
                                                     isInList={false}/>
-                                                                          
+                                                :
+                                                <Button
+                                                    onClick={() => {
+                                                        const obj = Object.assign({}, newCustomerData);
+                                                        obj.JuridicalAddress = {
+                                                            PostalCode: "", 
+                                                            City: "", 
+                                                            Street: "", 
+                                                            Building: "", 
+                                                            Office: "", 
+                                                        };
+                                                        setNewCustomerData(obj);
+                                                    }}
+                                                >
+                                                    Add juridical address
+                                                </Button>              
                                             }
                                         </div>
                                         <h3>Contact info:</h3>
-                                        {newCustomerData && <Input.TextArea defaultValue={newCustomerData?.ContactInfo}
-                                                                            rows={4}
-                                                                            onChange={data => {
-                                                                                if (newCustomerData) {
-                                                                                    const obj = Object.assign({}, newCustomerData);
-                                                                                    obj.ContactInfo = data.target.value;
-                                                                                    setNewCustomerData(obj);
-                                                                                }
-                                                                            }} 
-                                                                            style={{width: 500}}/>
-                                        }
-    
+                                        <Input.TextArea 
+                                            defaultValue={newCustomerData.ContactInfo}
+                                            rows={4}
+                                            onChange={data => {
+                                                if (newCustomerData) {
+                                                    const obj = Object.assign({}, newCustomerData);
+                                                    obj.ContactInfo = data.target.value;
+                                                    setNewCustomerData(obj);
+                                                }
+                                            }} 
+                                            style={{width: 500}}
+                                        />
                                     </div>
                                 </>
-                                :
+                            :
                                 page == 'addresses' ?
                                     // addresses
                                     <div className='d-flex flex-column justify-content-center'>
@@ -252,16 +266,16 @@ export default function Profile() {
                                                         Building: '',
                                                         Office: '',
                                                     };
-                                                    newCustomerData?.DeliveryAddresses.unshift(newAddressInfo);
+                                                    newCustomerData.DeliveryAddresses.unshift(newAddressInfo);
                                                     const obj = Object.assign({}, newCustomerData);
                                                     setNewCustomerData(obj);
                                                 }}
                                         >Add new delivery address</Button>
-                                        {newCustomerData?.DeliveryAddresses.map((addressInfo, index) =>
+                                        {newCustomerData.DeliveryAddresses.map((addressInfo, index) =>
                                             <AddressCard key={Math.random()}
                                                          AddressInfo={addressInfo}
                                                          index={index}
-                                                         count={newCustomerData?.DeliveryAddresses.length}
+                                                         count={newCustomerData.DeliveryAddresses.length}
                                                          swapper={swap}
                                                          remover={remove}
                                                          isInList={true}
@@ -277,8 +291,9 @@ export default function Profile() {
                                     <>
                                         На payment option, что иронично, бюджет не выделили.
                                     </>
-                        }
+                            }
                         </div>
+                        }
                     </div>
                 </MainContent>
             </div>
