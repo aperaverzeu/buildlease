@@ -1,3 +1,8 @@
+/*
+* Ok, so this code is terrible but it works.
+* It is to be revisited to be optimized maybe, but for now this is what we get.
+* */
+
 import {useEffect, useState} from "react";
 
 import SubHeader from "../../layout/SubHeader";
@@ -59,7 +64,7 @@ export default function AdminCategory() {
                                 {
                                     categoryId &&
                                     <CategoryTreeSelect
-                                        currentId={categoryId}
+                                        currentId={`${categoryId==LOGIC.GetRootCategoryId() ? `${categoryId}` : `${Globals.Categories?.find(c => c.Id == categoryId)?.ParentId}-${categoryId}`}`}
                                         onSelect={newCategoryId => {
                                             const someKey = Math.random();
                                             message.loading({ content: 'Pulling selected category info...', key: someKey, duration: 0 });

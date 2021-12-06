@@ -11,7 +11,7 @@ interface CategoryTreeNode {
 }
 
 interface Props {
-  currentId: number,
+  currentId: string,
   onSelect: (selectedCategoryId: number) => void,
 }
 
@@ -25,7 +25,7 @@ export default function CategoryTreeSelect({currentId, onSelect}: Props) {
     categoryId: root.Id,
     //key: root.Id,
     title: root.Name,
-    value: root.Name,
+    value: `${root.Id}`,
     children: undefined,
   }];
 
