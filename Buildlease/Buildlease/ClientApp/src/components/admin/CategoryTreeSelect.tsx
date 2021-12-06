@@ -4,16 +4,18 @@ import Globals from "../../Globals";
 
 interface CategoryTreeNode {
   categoryId: number,
+  //key: number,
   title: string,
   value: string,
-  children: CategoryTreeNode[] | null,
+  children: CategoryTreeNode[] | undefined,
 }
 
 interface Props {
+  currentId: number,
   onSelect: (selectedCategoryId: number) => void,
 }
 
-export default function CategoryTreeSelect({onSelect}: Props) {
+export default function CategoryTreeSelect({currentId, onSelect}: Props) {
 
   if (Globals.Categories === undefined) return <></>;
 
@@ -21,9 +23,10 @@ export default function CategoryTreeSelect({onSelect}: Props) {
 
   const categoriesTreeData: CategoryTreeNode[] = [{
     categoryId: root.Id,
+    //key: root.Id,
     title: root.Name,
-    value: '0-' + root.Id,
-    children: null,
+    value: root.Name,
+    children: undefined,
   }];
 
   function FillChildren(vertex: CategoryTreeNode): void {
@@ -35,11 +38,14 @@ export default function CategoryTreeSelect({onSelect}: Props) {
     vertex.children = children.map(c => {
       const obj: CategoryTreeNode = {
         categoryId: c.Id,
+        //key: c.Id,
         title: c.Name,
-        value: vertex.title + '-' + c.Id,
-        children: null,
+        value: c.ParentId+'-'+c.Id,
+        children: undefined,
       };
+      
       FillChildren(obj);
+      
       return obj;
     });
   }
@@ -47,14 +53,11 @@ export default function CategoryTreeSelect({onSelect}: Props) {
   FillChildren(categoriesTreeData[0])
 
   return (
-    <TreeSelect 
-        style={{
-          width: "100%"
-        }}
-        // @ts-ignore
-        treeData={categoriesTreeData}
-        treeDefaultExpandAll={true}
-        onSelect={(value, option) => onSelect(option.categoryId)}
+    <TreeSelect className='w-100'
+                defaultValue={currentId} 
+                treeData={categoriesTreeData} 
+                treeDefaultExpandAll={true} 
+                onSelect={(value, option) => onSelect(option.categoryId)}
     />
   );
 }

@@ -18,18 +18,19 @@ import Globals from "../../../Globals";
 export default function AdminCategory() {
     
     const [categoryId, setCategoryId] = useState<number | undefined>(undefined);
-    const [currentCategory, setCurrentCategory] = useState<CategoryFullView | undefined>(undefined);
     const [categoryInfo, setCategoryInfo] = useState<CategoryInfo | undefined>(undefined);
 
-    function ReloadAndCheckoutCategories(newCategoryId: number) {
+    function CheckoutToNewCategory(newCategoryId: number) {
         API.GetAllCategories()
             .then(res => Globals.Categories = res)
-            .then(() => setCategoryId(0))
-            .then(() => setCategoryId(newCategoryId));
+            .then(() => setCategoryId(undefined))
+            .then(() => setCategoryId(newCategoryId))
+            .then(() => API.GetCategoryInfo(newCategoryId))
+            .then(res => setCategoryInfo(res));
     }
 
     useEffect(() => {
-        ReloadAndCheckoutCategories(LOGIC.GetRootCategoryId());
+        CheckoutToNewCategory(LOGIC.GetRootCategoryId());
     }, [])
 
     return (
@@ -55,21 +56,23 @@ export default function AdminCategory() {
                                     margin: '0px',
                                     marginBottom: '4px',
                                 }}>Select category to modify:</h3>
-                                <CategoryTreeSelect
-                                    onSelect={newCategoryId => {
-                                        setCategoryId(newCategoryId);
-                                        const currentCat = Globals.Categories?.find(category => category.Id === newCategoryId);
-                                        setCurrentCategory(currentCat);
-                                        if (currentCat) {
-                                            const obj: CategoryInfo = {
-                                                Id: currentCat.Id,
-                                                Name: currentCat.Name,
-                                                ImageLink: currentCat.DefaultImagePath,
-                                                Attributes: [],
-                                            };
-                                            setCategoryInfo(obj);
-                                    }
-                                }}/>
+                                {
+                                    categoryId &&
+                                    <CategoryTreeSelect
+                                        currentId={categoryId}
+                                        onSelect={newCategoryId => {
+                                            const someKey = Math.random();
+                                            message.loading({ content: 'Pulling selected category info...', key: someKey, duration: 0 });
+                                            Promise
+                                                .resolve(API.GetCategoryInfo(newCategoryId)
+                                                    .then(res => setCategoryInfo(res))
+                                                    .then(() => setCategoryId(newCategoryId))
+                                                    .then(() => CheckoutToNewCategory(newCategoryId))
+                                                    .then(() => {
+                                                        message.success({ content: 'The info pulled.', key: someKey });
+                                                    }));
+                                        }}/>
+                                }
                             </div>
                             <Button type="primary"
                                     danger
@@ -80,7 +83,10 @@ export default function AdminCategory() {
                                             message.loading({ content: 'Wait for it...', key: someKey, duration: 0 });
                                             Promise
                                                 .resolve(API.DeleteCategory(categoryId)
-                                                    .then(() => ReloadAndCheckoutCategories(LOGIC.GetRootCategoryId()))
+                                                    .then(() => API.GetCategoryInfo(LOGIC.GetRootCategoryId()))
+                                                    .then(res => setCategoryInfo(res))
+                                                    .then(() => setCategoryId(LOGIC.GetRootCategoryId()))
+                                                    .then(() => CheckoutToNewCategory(LOGIC.GetRootCategoryId()))
                                                     .then(() => {
                                                         message.success({ content: 'Category removed', key: someKey });
                                                     }));
@@ -97,7 +103,10 @@ export default function AdminCategory() {
                                         message.loading({ content: 'Wait for it...', key: someKey, duration: 0 });
                                         Promise
                                             .resolve(API.CreateSubcategory(categoryId)
-                                                .then(() => ReloadAndCheckoutCategories(categoryId))
+                                                .then(() => API.GetCategoryInfo(categoryId))
+                                                .then(res => setCategoryInfo(res))
+                                                .then(() => setCategoryId(categoryId))
+                                                .then(() => CheckoutToNewCategory(categoryId))
                                                 .then(() => {
                                                     message.success({ content: 'New category added', key: someKey });
                                                 }));
@@ -109,10 +118,11 @@ export default function AdminCategory() {
                 </SideMenu>
                 <MainContent>
                     {
+                        (categoryInfo && categoryId) &&
                         <Space direction="vertical" size={25} style={{width: "70%", marginLeft: "10rem"}}>
                             <div>
                                 <Input addonBefore='Name'
-                                       placeholder={`${currentCategory?.Name}`}
+                                       defaultValue={`${categoryInfo.Name}`}
                                        onChange={data => {
                                            const obj = Object.assign({}, categoryInfo);
                                            obj.Name = data.target.value;
@@ -122,7 +132,7 @@ export default function AdminCategory() {
                             </div>
                             <div>
                                 <Input addonBefore='Default image link'
-                                       placeholder={`${currentCategory?.DefaultImagePath}`}
+                                       placeholder={`${categoryInfo.ImageLink}`}
                                        onChange={data => {
                                            const obj = Object.assign({}, categoryInfo);
                                            obj.ImageLink = data.target.value;
@@ -136,16 +146,14 @@ export default function AdminCategory() {
                                         height: "3rem",
                                         fontSize: "17px"}}
                                     onClick={() => {
-                                        if (categoryInfo) {
-                                            const someKey = Math.random();
-                                            message.loading({ content: 'Wait for it...', key: someKey, duration: 0 });
-                                            Promise
-                                                .resolve(API.SaveCategoryInfo(categoryInfo)
-                                                    .then(() => ReloadAndCheckoutCategories(categoryInfo.Id))
-                                                    .then(() => {
-                                                        message.success({ content: 'Changes applied', key: someKey });
-                                                    }));
-                                        }
+                                        const someKey = Math.random();
+                                        message.loading({ content: 'Pushing new category info...', key: someKey, duration: 0 });
+                                        Promise
+                                            .resolve(API.SaveCategoryInfo(categoryInfo)
+                                                .then(() => CheckoutToNewCategory(categoryInfo.Id))
+                                                .then(() => {
+                                                    message.success({ content: 'Changes applied', key: someKey });
+                                                }));
                                     }}>
                                 Save changes
                             </Button>
