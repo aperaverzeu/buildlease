@@ -10,7 +10,7 @@ export default function Admin() {
         <>
             <Switch>
                 <AuthorizeRoute path='/admin/main' component={AdminMain}/>
-                <AuthorizeRoute path='/admin/products/:productStringId' component={AdminProduct}/>
+                <AuthorizeRoute path='/admin/products/:productStringId?' component={AdminProduct}/>
                 <AuthorizeRoute path='/admin/categories' component={AdminCategory}/>
             </Switch>
         </>
