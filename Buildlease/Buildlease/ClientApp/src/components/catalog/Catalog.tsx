@@ -16,6 +16,7 @@ import ProductCard from "../cards/ProductCard";
 import SubHeader from "../layout/SubHeader";
 import SideMenu from "../layout/SideMenu";
 import MainContent from "../layout/MainContent";
+import Globals from "../../Globals";
 
 export default function Catalog() {
 
@@ -77,10 +78,30 @@ export default function Catalog() {
           {Object.values(SortRule).map((item => <Select.Option value={item}>{item}</Select.Option>))}
         </Select>
       </SubHeader>
+      
       <div className='d-flex flex-row flex-grow-1'>
+        
         <SideMenu>
+          {Globals.Categories && 
+           Globals.Categories
+              ?.filter(category => category.ParentId === categoryId && category.Id !== categoryId)
+              .length > 0 &&
+            <div>
+              Select subcategory
+              {Globals.Categories
+                  ?.filter(category => category.ParentId === categoryId && category.Id !== categoryId)
+                  .map(
+                      category =>
+                          <div>
+                            <a href={PATH.ToCategory(category.Id)}> {category.Name} </a>
+                          </div>
+                  )
+              }
+            </div>
+          }
             {filters && <Filters filtersInfo={filters} filtration={filtration} setFiltration={setFiltration} />}
         </SideMenu>
+        
         <MainContent>
           <div className='d-flex flex-row flex-wrap justify-content-evenly flex-grow-1'
               style={{
@@ -94,7 +115,7 @@ export default function Catalog() {
                 />
             )}
           </div>
-          <div className='d-flex justify-content-center'>
+          <div className='d-flex justify-content-center' style={{marginBottom: 10}}>
             <Pagination
                 current={pageNumber}
                 total={42}
@@ -103,6 +124,7 @@ export default function Catalog() {
             />
           </div>
         </MainContent>
+        
       </div>
     </>
   );

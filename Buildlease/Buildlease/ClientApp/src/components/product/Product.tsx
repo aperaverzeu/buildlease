@@ -56,7 +56,7 @@ export default function Product({isHistoric}: Props) {
             Promise
                 .resolve(API.SetProductOrderCount(productDetails.Id, formProductCount))
                 .then(() => {
-                    message.success({content: 'Succesfully added to cart!', key: productDetails.Id});
+                    message.success({content: 'Successfully added to cart!', key: productDetails.Id});
                 });
         }
     }

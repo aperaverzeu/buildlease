@@ -3,6 +3,7 @@ import { useState } from 'react';
 import API from '../../API';
 import PATH from '../../PATH';
 import ProductView from '../views/ProductView';
+import styles from "../gen_page.module.css";
 
 interface ItemProps {
     ProductView: ProductView,
@@ -19,17 +20,22 @@ export default function ProductCard({ProductView}: ItemProps) {
                  width: 400,
                  maxWidth: 400,
                  height: 160,
-                 border: 'solid',
+                 border: '1px solid #000',
+                 borderRadius: '8px'
              }}
         >
             <div
                 style={{
-                    width: 130,
+                    width: 150,
+                    minWidth: 150,
+                    maxWidth: 150,
+                    margin: '8',
                     height: '100%',
                     backgroundImage: `url(${ProductView.ImagePath || 'https://www.meme-arsenal.com/memes/d076c825ca4c7745b32e6fa9867ff806.jpg'})`,
                     backgroundSize: 'contain',
                     backgroundRepeat: 'no-repeat',
                     backgroundPosition: 'center',
+                    borderRight: '1px solid #000'
                 }}
             />
 
@@ -53,7 +59,7 @@ export default function ProductCard({ProductView}: ItemProps) {
                                 Promise
                                     .resolve(API.SetProductOrderCount(ProductView.Id, 1))
                                     .then(() => {
-                                        message.success({ content: 'Succesfully added to cart!', key: ProductView.Id });
+                                        message.success({ content: 'Successfully added to cart!', key: ProductView.Id });
                                         setIsAdded(true);
                                     });
                             }}
