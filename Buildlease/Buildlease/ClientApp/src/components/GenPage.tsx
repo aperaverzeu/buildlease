@@ -40,8 +40,7 @@ export default function GenPage() {
                     <Route path='/catalog/:stringCategoryId?' component={Catalog}/>
                     <Route path='/products/:stringProductId' component={() => <Product isHistoric={false}/>}/>
                     <Route path='/archived-products/:stringProductOrderId' component={() => <Product isHistoric={true}/>}/>
-                    <AuthorizeRoute path='/admin/products/add' component={AdminProduct}/>
-                    <AuthorizeRoute path='/admin/products/:stringProductId' component={AdminProduct}/>
+                    <AuthorizeRoute path='/admin/products/:stringProductId?' component={AdminProduct}/>
                     <AuthorizeRoute path='/admin/categories' component={AdminCategory}/>
                     <AuthorizeRoute path='/admin' component={Admin}/>
                 </Switch>

@@ -63,7 +63,7 @@ export default function AdminCategory() {
                                 {
                                     categoryId &&
                                     <CategoryTreeSelect
-                                        currentId={`${categoryId==LOGIC.GetRootCategoryId() ? `${categoryId}` : `${Globals.Categories?.find(c => c.Id == categoryId)?.ParentId}-${categoryId}`}`}
+                                        currentId={categoryId==LOGIC.GetRootCategoryId() ? `${categoryId}` : `${Globals.Categories?.find(c => c.Id == categoryId)?.ParentId}-${categoryId}`}
                                         onSelect={newCategoryId => {
                                             const someKey = Math.random();
                                             message.loading({ content: 'Pulling selected category info...', key: someKey, duration: 0 });

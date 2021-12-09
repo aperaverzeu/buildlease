@@ -40,8 +40,7 @@ export default function App() {
                                 '/cart',
                                 '/profile',
                                 '/order-history',
-                                '/admin/products/add',
-                                '/admin/products/:stringProductId',
+                                '/admin/products/:stringProductId?',
                                 '/admin/categories',
                                 '/admin',
                                 // to be continued...
