@@ -58,7 +58,7 @@ namespace Services
             return info;
         }
 
-        public void SaveProductInfo(ProductInfo info)
+        public int SaveProductInfo(ProductInfo info)
         {
             var product = info.MapToProduct();
 
@@ -91,6 +91,8 @@ namespace Services
 
             _db.SaveChanges();
             _db.Database.CommitTransaction();
+            
+            return GetProductInfo(product.Id).Id;
         }
 
         public void DeleteProduct(int productId)

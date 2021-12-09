@@ -24,7 +24,7 @@ export default function AdminProduct() {
 
     function LoadProductDetails() {
         if (productId != 0) {
-            API.GetProductDetails(productId)
+            API.GetProductInfo(productId)
                 .then(res => {
                     setOldProductDetails(JSON.parse(JSON.stringify(res)));
                     setNewProductDetails(JSON.parse(JSON.stringify(res)));
@@ -79,6 +79,9 @@ export default function AdminProduct() {
                                         message.loading({ content: 'Product...', key: someKey, duration: 0 });
                                         Promise
                                             .resolve(API.SaveProductInfo(newProductDetails)
+                                                .then((res) => {
+                                                    console.log(res);
+                                                })
                                                 .then(() => {
                                                     message.success({ content: 'Done.', key: someKey });
                                                 }));
@@ -155,7 +158,8 @@ export default function AdminProduct() {
                             width: '600px',
                         }}>
                             {
-                                // to add attributes
+                                productId != 0 &&
+                                    <>ya like jazz?</>
                             }
                         </div>
                     </div>

@@ -159,7 +159,7 @@ const API = {
   
   GetProductInfo: async (productId: number) => {
     return axios
-        .post<ProductInfo>(MainLink + `GetProductInfo/${productId}`)
+        .post<ProductInfo>(MainLink + `GetProductInfo/${productId}`, {}, await AxiosTokenConfig())
         .then(res => res.data);
   },
   
