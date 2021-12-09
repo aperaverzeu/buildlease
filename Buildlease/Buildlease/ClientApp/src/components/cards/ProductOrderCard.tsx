@@ -1,25 +1,45 @@
 import ProductOrderView from "../views/ProductOrderView";
 
 import styles from '../gen_page.module.css';
-import {Breadcrumb, InputNumber} from "antd";
+import {Breadcrumb, InputNumber, message} from "antd";
 
 import PATH from "../../PATH";
 import LOGIC from "../../LOGIC";
 import {Delete} from "@material-ui/icons";
+import API from "../../API";
+import {useState} from "react";
+import CartFullView from "../views/CartFullView";
 
 interface Props {
     ProductOrderView: ProductOrderView,
     isInteractive: boolean,
+    setCartState: any
 }
 
-export default function ProductOrderCard({ProductOrderView, isInteractive}: Props) {
+export default function ProductOrderCard({ProductOrderView, isInteractive, setCartState}: Props) {
     
     function removeFromCart() {
-        alert(`removed ${ProductOrderView.Name}`);
+        message.loading({ content: 'Wait for it...', key: ProductOrderView.ProductId, duration: 0 });
+
+        ProductOrderView.ProductId != null &&
+        Promise
+            .resolve(API.SetProductOrderCount(ProductOrderView.ProductId, 0))
+            .then(() => API.GetCartDetails())
+            .then(res => setCartState(res))
+            .then(() => {
+                message.success({ content: 'Done!', key: ProductOrderView.ProductId });
+            });
     }
     
     function countChanged(value: number) {
-        alert(`${ProductOrderView.Name}'s count is now ${value}`);
+        message.loading({ content: 'Wait for it...', key: ProductOrderView.ProductId, duration: 0 });
+
+        ProductOrderView.ProductId != null && 
+        Promise
+            .resolve(API.SetProductOrderCount(ProductOrderView.ProductId, value))
+            .then(() => {
+                message.success({ content: 'Done!', key: ProductOrderView.ProductId });
+            });
     }
     
     return(
@@ -60,7 +80,9 @@ export default function ProductOrderCard({ProductOrderView, isInteractive}: Prop
                         </a>
                         <p style={{fontSize: '14px'}}>{LOGIC.GetShortDescription(ProductOrderView.Attributes)}</p>
                     </div>
-                    <h3 style={{fontWeight: 'lighter'}}>{`$${ProductOrderView.Price.toFixed(2)}${ProductOrderView.Count > 1 ? ` × ${ProductOrderView.Count} = $${(ProductOrderView.Price*ProductOrderView.Count).toFixed(2)}` : ``} per day`}</h3>
+                    <h3 style={{fontWeight: 'lighter'}}>{`$${ProductOrderView.Price}${ProductOrderView.Count > 1 ? ` × ${ProductOrderView.Count} = $${(ProductOrderView.Price*ProductOrderView.Count).toFixed(2)}` : ``} per day`}</h3>
+                    {/*TODO: Replace above line with commented one in production*/}
+                    {/*<h3 style={{fontWeight: 'lighter'}}>{`$${ProductOrderView.Price.toFixed(2)}${ProductOrderView.Count > 1 ? ` × ${ProductOrderView.Count} = $${(ProductOrderView.Price*ProductOrderView.Count).toFixed(2)}` : ``} per day`}</h3>*/}
                 </div>
                 { isInteractive &&
                     <div className='d-flex align-items-center'>

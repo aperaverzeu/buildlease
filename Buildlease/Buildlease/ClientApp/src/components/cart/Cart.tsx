@@ -42,7 +42,14 @@ export default function Cart() {
                                 margin: '0px',
                                 marginBottom: '16px',
                             }}>Actions:</h2>
-                            <Button block>Remove all</Button>
+                            <Button block onClick={(smth) => {cartDetails?.ProductOrders.map(productOrder1 =>
+                                productOrder1.ProductId != null &&
+                                API.SetProductOrderCount(productOrder1.ProductId, 0));
+                                API.GetCartDetails()
+                                    .then(res => setCartDetails(res));
+                            }
+                            }>
+                                Remove all</Button>
                         </div>
                         <div style={{
                             margin: '0px',
@@ -59,6 +66,9 @@ export default function Cart() {
                         </div>
                         <div>
                             <h2>Status:</h2>
+                            {
+                                
+                            }
                             <div style={{padding: '8px'}}>
                                 <p style={{margin: 0}}>{`${cartDetails?.ProductOrders.map(productOrder => productOrder.Count).reduce((a, b) => a+b, 0)} unit(s) of ${cartDetails?.ProductOrders.length} product(s) ordered;`}</p>
                                 <p style={{margin: 0}}>{`Total price: $${cartDetails?.ProductOrders.map(productOrder => productOrder.Price*productOrder.Count).reduce((a, b) => a+b, 0)};`}</p>
@@ -72,7 +82,8 @@ export default function Cart() {
                     }}>
                         {
                             cartDetails?.ProductOrders.map(productOrder =>
-                                <ProductOrderCard ProductOrderView={productOrder} isInteractive={true}/>)
+                                <ProductOrderCard ProductOrderView={productOrder} isInteractive={true} 
+                                                  setCartState={setCartDetails}/>)
                         }
                     </div>
                 </MainContent>
