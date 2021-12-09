@@ -100,6 +100,7 @@ export default function Catalog() {
               }
             </div>
           }
+          
             {filters && <Filters filtersInfo={filters} filtration={filtration} setFiltration={setFiltration} />}
         </SideMenu>
         
