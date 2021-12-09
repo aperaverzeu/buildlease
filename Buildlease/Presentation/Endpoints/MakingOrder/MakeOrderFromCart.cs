@@ -20,11 +20,11 @@ namespace Presentation.Endpoints.MakingOrder
         public MakeOrderFromCart(IServiceManager serviceManager) => _serviceManager = serviceManager;
 
         [HttpPost("MakeOrderFromCart")]
-        public override ActionResult Handle([FromRoute] MakeOrderFromCartRequest request)
+        public override ActionResult Handle([FromBody] MakeOrderFromCartRequest request)
         {
             try
             {
-                _serviceManager.MakingOrderService.MakeOrderFromCart(this.GetCurrentUserId(), request.startDate, request.finishDate);
+                _serviceManager.MakingOrderService.MakeOrderFromCart(this.GetCurrentUserId(), request.StartDate, request.FinishDate);
             }
             catch (InvalidOperationException ex)
             {
@@ -35,7 +35,7 @@ namespace Presentation.Endpoints.MakingOrder
     }
     public class MakeOrderFromCartRequest
     {
-        public DateTime startDate { get; set; }
-        public DateTime finishDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime FinishDate { get; set; }
     }
 }
