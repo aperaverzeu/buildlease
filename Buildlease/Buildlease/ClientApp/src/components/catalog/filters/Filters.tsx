@@ -18,10 +18,10 @@ export default function Filters({filtersInfo, filtration, setFiltration}: Filter
       }}
     >
       {filtersInfo
-          .filter(filter => filter.Values || (filter.MinValue && filter.MaxValue))
+          .filter(filter => filter.Values || (typeof filter.MinValue == "number" && typeof filter.MaxValue == "number") || filter.Id == 0) // the last one for the price filter
           .map(filter => {
-        if (filter.Values && (filter.UnitName || filter.MinValue || filter.MaxValue)) throw 'Undefined multi type filter';
-        if (!filter.Values && !(filter.UnitName && filter.MinValue && filter.MaxValue)) throw 'Undefined none type filter';
+        if (filter.Values && (filter.UnitName || typeof filter.MinValue == 'number' || typeof filter.MaxValue == 'number')) throw 'Undefined multi type filter';
+        if (!filter.Values && !(filter.UnitName && typeof filter.MinValue == "number" && typeof filter.MaxValue == 'number') && filter.Id != 0) throw 'Undefined none type filter';
         return <Item 
           key={filter.Id}
           CategoryFilterView={filter} 
