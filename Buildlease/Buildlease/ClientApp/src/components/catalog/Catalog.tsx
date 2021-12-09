@@ -38,7 +38,8 @@ export default function Catalog() {
   function BuildRequestObject(): GetProductsRequest {
     const obj: GetProductsRequest = {
       CategoryId: categoryId,
-      Filters: filtration,
+      Filters: filtration.length != 0 ? filtration.filter(filter => filter.AttributeId != 0) : filtration,
+      MaxPrice: filtration.length != 0 ? filtration.filter(filter => filter.AttributeId == 0)[0].ValueNumberUpperBound : null,
       OrderByRule: sortRule,
       SkipCount: (pageNumber - 1) * pageSize,
       TakeCount: pageSize,
@@ -84,7 +85,7 @@ export default function Catalog() {
         <SideMenu>
           {Globals.Categories && 
            Globals.Categories
-              ?.filter(category => category.ParentId === categoryId && category.Id !== categoryId)
+              .filter(category => category.ParentId === categoryId && category.Id !== categoryId)
               .length > 0 &&
             <div>
               Select subcategory
