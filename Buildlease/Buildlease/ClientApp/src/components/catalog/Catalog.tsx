@@ -1,4 +1,4 @@
-import { Breadcrumb, Pagination, Select, } from "antd";
+import { Breadcrumb, Button, Input, Pagination, Select, } from "antd";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import API from "../../API";
@@ -21,14 +21,18 @@ import Globals from "../../Globals";
 export default function Catalog() {
 
   const { stringCategoryId } = useParams<{stringCategoryId?: string | undefined}>();
-  const categoryId: number = (stringCategoryId && +stringCategoryId) || LOGIC.GetRootCategoryId();
+  const categoryId: number = (stringCategoryId && +stringCategoryId) || 0;
+  const childCategories = Globals.Categories!.filter(c => c.ParentId === categoryId && c.ParentId !== c.Id);
 
   const breadcrumb = LOGIC.GetBreadcrumb(categoryId);
 
+  const [productCount, setProductCount] = useState<number>(0);
   const [products, setProducts] = useState<ProductView[] | undefined>(undefined);
   const [filters, setFilters] = useState<CategoryFilterView[] | undefined>(undefined);
 
   const [filtration, setFiltration] = useState<AttributeFilter[]>([]);
+  const [maxPrice, setMaxPrice] = useState<number | null>(null);
+  const [keywords, setKeywords] = useState<string[]>([]);
 
   const [pageNumber, setPageNumber] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(10);
@@ -38,8 +42,9 @@ export default function Catalog() {
   function BuildRequestObject(): GetProductsRequest {
     const obj: GetProductsRequest = {
       CategoryId: categoryId,
-      Filters: filtration.length != 0 ? filtration.filter(filter => filter.AttributeId != 0) : filtration,
-      MaxPrice: filtration.length != 0 ? filtration.filter(filter => filter.AttributeId == 0)[0].ValueNumberUpperBound : null,
+      KeyWords: keywords,
+      Filters: filtration,
+      MaxPrice: maxPrice,
       OrderByRule: sortRule,
       SkipCount: (pageNumber - 1) * pageSize,
       TakeCount: pageSize,
@@ -47,15 +52,25 @@ export default function Catalog() {
     return obj;
   }
 
+  function LoadProductsCount() {
+    API.GetProductsCount(BuildRequestObject())
+      .then(res => setProductCount(res));
+  }
+
   function LoadProducts() {
     API.GetProducts(BuildRequestObject())
       .then(res => setProducts(res));
   }
 
-  useEffect(() => {
+  function ReloadProducts() {
+    LoadProductsCount();
     setPageNumber(1);
     LoadProducts();
-  }, [filtration, sortRule, pageSize]);
+  }
+
+  useEffect(() => {
+    ReloadProducts();
+  }, [sortRule]);
 
   useEffect(() => {
     LoadProducts();
@@ -79,31 +94,21 @@ export default function Catalog() {
           {Object.values(SortRule).map((item => <Select.Option value={item}>{item}</Select.Option>))}
         </Select>
       </SubHeader>
-      
       <div className='d-flex flex-row flex-grow-1'>
-        
         <SideMenu>
-          {Globals.Categories && 
-           Globals.Categories
-              .filter(category => category.ParentId === categoryId && category.Id !== categoryId)
-              .length > 0 &&
             <div>
-              Select subcategory
-              {Globals.Categories
-                  ?.filter(category => category.ParentId === categoryId && category.Id !== categoryId)
-                  .map(
-                      category =>
-                          <div>
-                            <a href={PATH.ToCategory(category.Id)}> {category.Name} </a>
-                          </div>
-                  )
-              }
+              {childCategories?.length &&
+              <>
+                <h2>Subcategories:</h2>
+                {childCategories.map(c => 
+                  <a href={PATH.ToCategory(c.Id)} target="_self">{c.Name}</a>
+                )}
+              </>}
             </div>
-          }
-          
-            {filters && <Filters filtersInfo={filters} filtration={filtration} setFiltration={setFiltration} />}
+            <Input placeholder='Search words' onChange={(value) => setKeywords(value.target.value.split(' '))} />
+            {filters && <Filters filtersInfo={filters} filtration={filtration} setFiltration={setFiltration} setMaxPrice={setMaxPrice} />}
+            <Button type='primary' onClick={() => ReloadProducts()}>Apply filters</Button>
         </SideMenu>
-        
         <MainContent>
           <div className='d-flex flex-row flex-wrap justify-content-evenly flex-grow-1'
               style={{
@@ -117,16 +122,15 @@ export default function Catalog() {
                 />
             )}
           </div>
-          <div className='d-flex justify-content-center' style={{marginBottom: 10}}>
+          <div className='d-flex justify-content-center'>
             <Pagination
                 current={pageNumber}
-                total={42}
+                total={productCount}
                 pageSize={pageSize}
                 onChange={(newValue) => setPageNumber(newValue)}
             />
           </div>
         </MainContent>
-        
       </div>
     </>
   );

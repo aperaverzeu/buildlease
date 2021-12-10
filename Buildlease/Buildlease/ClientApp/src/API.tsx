@@ -38,6 +38,12 @@ const API = {
         .post<CategoryFilterView[]>(MainLink + `GetCategoryFilters/${categoryId}`, {}, await AxiosTokenConfig())
         .then(res => res.data);
   },
+  
+  GetProductsCount: async (info: GetProductsRequest) => {
+    return axios
+      .post<number>(MainLink + 'GetProductsCount', info)
+      .then(res => res.data);
+  },
 
   // corresponds to backend's "GetProduct"
   GetProductDetails: async (productId: number) => {
