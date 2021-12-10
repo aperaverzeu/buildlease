@@ -21,7 +21,7 @@ import Globals from "../../Globals";
 export default function Catalog() {
 
   const { stringCategoryId } = useParams<{stringCategoryId?: string | undefined}>();
-  const categoryId: number = (stringCategoryId && +stringCategoryId) || 0;
+  const categoryId: number = (stringCategoryId && +stringCategoryId) || LOGIC.GetRootCategoryId();
   const childCategories = Globals.Categories!.filter(c => c.ParentId === categoryId && c.ParentId !== c.Id);
 
   const breadcrumb = LOGIC.GetBreadcrumb(categoryId);
@@ -122,7 +122,7 @@ export default function Catalog() {
                 />
             )}
           </div>
-          <div className='d-flex justify-content-center'>
+          <div className='d-flex justify-content-center style={{marginBottom: 10}}'>
             <Pagination
                 current={pageNumber}
                 total={productCount}
