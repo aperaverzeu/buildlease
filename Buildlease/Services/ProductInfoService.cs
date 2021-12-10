@@ -62,10 +62,12 @@ namespace Services
         {
             var product = info.MapToProduct();
 
-            var availableAttributes = _db.GetAllAvailableAttributes(product.CategoryId);
+            var availableAttributes = _db.GetAllAvailableAttributes(product.CategoryId).ToArray();
+            var availableAttributesIds = availableAttributes.Select(e => e.Id).ToArray();
 
             var attributes = info.Attributes
-                .Where(e => e.Value != null)
+                .Where(e => availableAttributesIds.Contains(e.AttributeId))
+                .Where(e => !string.IsNullOrWhiteSpace(e.Value))
                 .Select(e => new { 
                     e.AttributeId, 
                     e.Value,

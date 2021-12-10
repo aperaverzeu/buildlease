@@ -1,10 +1,10 @@
 import {AttributeType} from "./CategoryAttributeInfo";
 
 export default interface ProductAttributeInfo {
-    AttributeId: string,
+    AttributeId: number,
     Name: string,
     ValueType: AttributeType,
-    UnitName: string,
-    ExistingStringValues: string[],
-    Value: string
+    UnitName: string | null,
+    ExistingStringValues: string[] | null,
+    Value: string | null,
 }

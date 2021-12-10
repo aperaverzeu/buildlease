@@ -1,11 +1,11 @@
 export enum AttributeType {
-    Number = 1,
-    String = 2,
+    Number = 'Number',
+    String = 'String',
 }
 
 export interface CategoryAttributeInfo {
     Id: number,
     Name: string
     ValueType: AttributeType,
-    UnitName: string
+    UnitName: string | null,
 }
