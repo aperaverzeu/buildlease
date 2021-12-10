@@ -77,6 +77,9 @@ namespace Services
                 throw new InvalidOperationException(
                     $"There's only {_db.GetProductAvailableCount(error.ProductId.Value)} available items of {_db.Products.Single(e => e.Id == error.ProductId).Name}");
 
+            order.StartDate = startDate.Date;
+            order.FinishDate = finishDate.Date;
+
             order.Status = OrderStatus.WaitingForApproval;
 
             order.SerializedCustomerInfo = 
