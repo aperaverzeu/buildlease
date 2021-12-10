@@ -1,5 +1,5 @@
-﻿import { Button, message } from 'antd';
-import { useState } from 'react';
+﻿import {Button, message, Space} from 'antd';
+import {useState} from 'react';
 import API from '../../API';
 import PATH from '../../PATH';
 import ProductView from '../views/ProductView';
@@ -17,11 +17,12 @@ export default function ProductCard({ProductView}: ItemProps) {
         <div className='d-flex flex-row flex-nowrap'
              style={{
                  minWidth: 400,
-                 width: 400,
-                 maxWidth: 400,
+                 width: 475,
+                 maxWidth: 500,
                  height: 160,
                  border: '1px solid #000',
-                 borderRadius: '8px'
+                 borderRadius: '8px',
+                 margin: "0.5rem 0.5rem 0",
              }}
         >
             <div
@@ -44,37 +45,52 @@ export default function ProductCard({ProductView}: ItemProps) {
                      margin: 10,
                  }}
             >
-                <div style={{fontSize: 16, fontWeight: 'bold'}}>{ProductView.Name}</div>
-                <div style={{fontSize: 12, fontWeight: 'lighter'}}>{ProductView.AvailableCount}/{ProductView.TotalCount} available</div>
-                <div style={{fontSize: 20, fontWeight: 'lighter'}}>{ProductView.Price ? `$${ProductView.Price} per day` : 'Price is unknown'}</div>
-                <div className='d-flex flex-row flex-nowrap justify-content-between'>
-                    {isAdded ?
-                        <Button disabled>
-                            Already in cart
-                        </Button>
-                        :
+                <Space direction={"vertical"} size={6}>
+                    <div style={{fontSize: 16, fontWeight: 'bold'}}>{ProductView.Name}</div>
+                    <div style={{
+                        fontSize: 12,
+                        fontWeight: 'lighter'
+                    }}>{ProductView.AvailableCount}/{ProductView.TotalCount} available
+                    </div>
+                    <div style={{
+                        fontSize: 18,
+                        fontWeight: 'lighter'
+                    }}>{ProductView.Price ? `$${ProductView.Price} per day` : 'Price is unknown'}</div>
+                    <div className='d-flex flex-row flex-nowrap justify-content-between' style={{
+                        alignItems: "center",
+                        marginTop: "0.5rem"
+                    }}>
+                        {isAdded ?
+                            <Button shape={"round"} disabled>
+                                Already in cart
+                            </Button>
+                            :
+                            <Button shape={"round"}
+                                    onClick={() => {
+                                        message.loading({content: 'Wait for it...', key: ProductView.Id, duration: 0});
+                                        Promise
+                                            .resolve(API.SetProductOrderCount(ProductView.Id, 1))
+                                            .then(() => {
+                                                message.success({
+                                                    content: 'Successfully added to cart!',
+                                                    key: ProductView.Id
+                                                });
+                                                setIsAdded(true);
+                                            });
+                                    }}
+                            >
+                                Add to cart
+                            </Button>
+                        }
                         <Button
-                            onClick={() => {
-                                message.loading({ content: 'Wait for it...', key: ProductView.Id, duration: 0 });
-                                Promise
-                                    .resolve(API.SetProductOrderCount(ProductView.Id, 1))
-                                    .then(() => {
-                                        message.success({ content: 'Successfully added to cart!', key: ProductView.Id });
-                                        setIsAdded(true);
-                                    });
-                            }}
+                            type='link'
+                            href={PATH.ToProduct(ProductView.Id)}
+                            target='_blank'
                         >
-                            Add to cart
+                            View details
                         </Button>
-                    }
-                    <Button
-                        type='link'
-                        href={PATH.ToProduct(ProductView.Id)}
-                        target='_blank'
-                    >
-                        View details
-                    </Button>
-                </div>
+                    </div>
+                </Space>
             </div>
         </div>
     );
