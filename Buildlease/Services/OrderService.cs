@@ -92,6 +92,8 @@ namespace Services
             {
                 Id = order.Id,
                 Status = order.Status,
+                StartDate = order.StartDate.Value,
+                FinishDate = order.FinishDate.Value,
                 ProductOrders = order.ExtractProductOrderView().ToArray(),
                 StatusHistory = statuses,
             };
