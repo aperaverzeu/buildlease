@@ -15,8 +15,6 @@ namespace Services.Extension
         {
             if (userId is null) return null;
 
-            db.Database.BeginTransaction();
-
             var carts = db.Orders
                 .Where(e => e.CustomerId == userId)
                 .Where(e => e.Status == OrderStatus.Cart);
@@ -35,8 +33,6 @@ namespace Services.Extension
                 .IncludeProductOrderView()
                 .Where(e => e.CustomerId == userId)
                 .Single(e => e.Status == OrderStatus.Cart);
-
-            db.Database.CommitTransaction();
 
             var deletedProducts = cart.ProductOrders.Where(e => e.ProductId == null);
 
