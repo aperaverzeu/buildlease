@@ -68,7 +68,7 @@ const LOGIC = {
         
         return mmddyy + ', ' + hhmm;
     },
-
+    
 }
 
 export default LOGIC;

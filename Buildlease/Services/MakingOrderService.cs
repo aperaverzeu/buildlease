@@ -26,6 +26,10 @@ namespace Services
 
         public void SetProductOrderCount(string userId, int productId, int count)
         {
+            if (userId is null) 
+                throw new UnauthorizedAccessException(
+                    $"You must login first");
+
             if (count < 0)
                 throw new InvalidOperationException(
                     "Сount must be non-negative number");
@@ -56,6 +60,10 @@ namespace Services
 
         public void MakeOrderFromCart(string userId, DateTime startDate, DateTime finishDate)
         {
+            if (userId is null)
+                throw new UnauthorizedAccessException(
+                    $"You must login first");
+
             if (startDate.AddDays(NecessaryPeriodBetweenCreatingAndSigningOrderInDays) <= DateTime.UtcNow || 
                 startDate.AddDays(MinimumLeasePeriodInDays) > finishDate)
                 throw new InvalidOperationException(
@@ -69,15 +77,13 @@ namespace Services
                 throw new InvalidOperationException(
                     $"Your cart is empty");
 
-            if (!order.ProductOrders.Any(po => po.Product.Price == null))
+            if (order.ProductOrders.Any(po => po.Product.Price == null))
                 throw new InvalidOperationException(
                     $"There's unavailable products with no price");
 
             if (order.ProductOrders.FirstOrDefault(po => po.Count > _db.GetProductAvailableCount(po.ProductId.Value)) is ProductOrder error)
                 throw new InvalidOperationException(
                     $"There's only {_db.GetProductAvailableCount(error.ProductId.Value)} available items of {_db.Products.Single(e => e.Id == error.ProductId).Name}");
-
-            order.Status = OrderStatus.WaitingForApproval;
 
             order.SerializedCustomerInfo = 
                 Newtonsoft.Json.JsonConvert.SerializeObject(
@@ -89,6 +95,17 @@ namespace Services
                     Newtonsoft.Json.JsonConvert.SerializeObject(
                         _manager.CatalogueService.GetProduct(productOrder.ProductId.Value, userId));
             }
+
+            order.StartDate = startDate.Date;
+            order.FinishDate = finishDate.Date;
+
+            order.Status = OrderStatus.WaitingForApproval;
+            _db.HistoryOfOrderStatus.Add(new HistoryOfOrderStatus()
+            {
+                OrderId = order.Id,
+                Date = DateTime.UtcNow,
+                NewStatus = order.Status,
+            });
 
             _db.SaveChanges();
             _db.Database.CommitTransaction();

@@ -22,6 +22,12 @@ interface StringItemProps {
   OnChange: (Values: string[]) => void,
 }
 
+interface PriceItemProps {
+    MaxValue: number,
+    
+    OnChange: (MaxValue: number) => void,
+}
+
 function NumberItem({UnitName, MinValue, MaxValue, OnChange}: NumberItemProps) {
   
   const [valueRange, setValueRange] = useState<[number, number]>([MinValue, MaxValue]);
@@ -93,6 +99,36 @@ function StringItem({Values, OnChange}: StringItemProps) {
   );
 }
 
+function PriceItem({MaxValue, OnChange}: PriceItemProps) {
+    
+    const [maxValue, setMaxValue] = useState<number>(MaxValue);
+    
+    useEffect(() => {
+        OnChange(MaxValue);
+    }, [maxValue]);
+    
+    return(
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+            }}
+        >
+            <Slider
+                max={maxValue}
+                step={0.01}
+                defaultValue={maxValue}
+                onAfterChange={(value) => setMaxValue(value)}
+            />
+            <InputNumber
+                min={0}
+                max={MaxValue}
+                value={maxValue}
+                onChange={(newValue) => setMaxValue(newValue)} />
+        </div>
+    );
+}
+
 export default function Item({CategoryFilterView, OnFilterChange}: ItemProps) {
 
   return (
@@ -116,7 +152,7 @@ export default function Item({CategoryFilterView, OnFilterChange}: ItemProps) {
           })}
         />
       }
-      { CategoryFilterView.UnitName && CategoryFilterView.MinValue && CategoryFilterView.MaxValue &&
+      { (CategoryFilterView.UnitName && typeof CategoryFilterView.MinValue == 'number' && typeof CategoryFilterView.MaxValue == 'number') &&
         <NumberItem 
           UnitName={CategoryFilterView.UnitName} 
           MinValue={CategoryFilterView.MinValue}
@@ -128,6 +164,17 @@ export default function Item({CategoryFilterView, OnFilterChange}: ItemProps) {
             ValueStringAllowed: null,
           })}
         />
+      }
+      {
+          (CategoryFilterView.Id == 0 && typeof CategoryFilterView.MaxValue == 'number') &&
+              <PriceItem
+                  MaxValue={CategoryFilterView.MaxValue}
+                  OnChange={MaxValue => OnFilterChange({
+                      AttributeId: CategoryFilterView.Id,
+                      ValueNumberLowerBound: null,
+                      ValueNumberUpperBound: MaxValue,
+                      ValueStringAllowed: null,
+                  })}/>
       }
     </div>
   );

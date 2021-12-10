@@ -71,7 +71,8 @@ export default function Order() {
                     }}>
                         {
                             orderDetails?.ProductOrders.map(productOrder =>
-                                <ProductOrderCard ProductOrderView={productOrder} isInteractive={false}/>)
+                                <ProductOrderCard ProductOrderView={productOrder} isInteractive={false}
+                                                  setCartState={undefined}/>)
                         }
                     </div>
                 </MainContent>

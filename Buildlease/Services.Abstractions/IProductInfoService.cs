@@ -10,7 +10,7 @@ namespace Services.Abstractions
     public interface IProductInfoService
     {
         ProductInfo GetProductInfo(int productId);
-        void SaveProductInfo(ProductInfo info);
+        int SaveProductInfo(ProductInfo info);
         void DeleteProduct(int productId);
     }
 }

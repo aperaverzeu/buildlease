@@ -46,6 +46,8 @@ namespace Services
                 {
                     Id = e.Id,
                     Status = e.Status,
+                    StartDate = e.StartDate.Value,
+                    FinishDate = e.FinishDate.Value,
                     ProductOrders = e.ExtractProductOrderView().ToArray(),
                 })
                 .ToArray();
@@ -53,7 +55,7 @@ namespace Services
             foreach (var orderView in orderViews)
             {
                 orderView.ProductCount = orderView.ProductOrders.Sum(po => po.Count);
-                orderView.Price = orderView.ProductOrders.Sum(po => po.Price.Value);
+                orderView.Price = orderView.ProductOrders.Sum(po => po.Price.Value) * orderView.FinishDate.Subtract(orderView.StartDate).Days;
                 
                 orderView.OrderAcceptDate =
                     _db.HistoryOfOrderStatus
@@ -90,6 +92,8 @@ namespace Services
             {
                 Id = order.Id,
                 Status = order.Status,
+                StartDate = order.StartDate.Value,
+                FinishDate = order.FinishDate.Value,
                 ProductOrders = order.ExtractProductOrderView().ToArray(),
                 StatusHistory = statuses,
             };

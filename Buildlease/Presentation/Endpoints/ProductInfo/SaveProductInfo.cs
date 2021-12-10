@@ -13,19 +13,18 @@ namespace Presentation.Endpoints.ProductInfo
     [Route("api")]
     public class SaveProductInfo : BaseEndpoint
         .WithRequest<DTOs.ProductInfo>
-        .WithoutResponse
+        .WithResponse<int>
     {
         private readonly IServiceManager _serviceManager;
         public SaveProductInfo(IServiceManager serviceManager) => _serviceManager = serviceManager;
 
         [HttpPost("SaveProductInfo")]
-        public override ActionResult Handle([FromBody] DTOs.ProductInfo info)
+        public override ActionResult<int> Handle([FromBody] DTOs.ProductInfo info)
         {
             try
             {
                 _serviceManager.AdminService.EnsureUserIsAdmin(this.GetCurrentUserId());
-                _serviceManager.ProductInfoService.SaveProductInfo(info);
-                return new OkResult();
+                return new OkObjectResult(_serviceManager.ProductInfoService.SaveProductInfo(info));
             }
             catch (InvalidOperationException ex)
             {
