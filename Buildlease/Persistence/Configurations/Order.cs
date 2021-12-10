@@ -30,6 +30,14 @@ namespace Persistence.Configurations
                     .HasDefaultValue(null)
                     .HasMaxLength(int.MaxValue);
 
+            builder .Property(e => e.StartDate)
+                    .IsRequired(false)
+                    .HasDefaultValue(null);
+
+            builder .Property(e => e.FinishDate)
+                    .IsRequired(false)
+                    .HasDefaultValue(null);
+
             builder .HasOne<Customer>(o => o.Customer)
                     .WithMany(c => c.Orders)
                     .HasForeignKey(o => o.CustomerId)

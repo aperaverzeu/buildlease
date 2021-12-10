@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Domain.Models
 {
@@ -8,6 +9,8 @@ namespace Domain.Models
         public string CustomerId { get; set; }
         public OrderStatus Status { get; set; }
         public string SerializedCustomerInfo { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? FinishDate { get; set; }
 
         public Customer Customer { get; set; }
         public IEnumerable<ProductOrder> ProductOrders { get; set; }
