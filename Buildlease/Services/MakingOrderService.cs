@@ -26,6 +26,10 @@ namespace Services
 
         public void SetProductOrderCount(string userId, int productId, int count)
         {
+            if (userId is null) 
+                throw new UnauthorizedAccessException(
+                    $"You must login first");
+
             if (count < 0)
                 throw new InvalidOperationException(
                     "Сount must be non-negative number");
@@ -56,6 +60,10 @@ namespace Services
 
         public void MakeOrderFromCart(string userId, DateTime startDate, DateTime finishDate)
         {
+            if (userId is null)
+                throw new UnauthorizedAccessException(
+                    $"You must login first");
+
             if (startDate.AddDays(NecessaryPeriodBetweenCreatingAndSigningOrderInDays) <= DateTime.UtcNow || 
                 startDate.AddDays(MinimumLeasePeriodInDays) > finishDate)
                 throw new InvalidOperationException(

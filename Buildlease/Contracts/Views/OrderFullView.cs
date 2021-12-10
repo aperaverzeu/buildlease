@@ -11,6 +11,8 @@ namespace Contracts.Views
         public int Id { get; set; }
         public StatusChangeView[] StatusHistory { get; set; }
         public OrderStatus Status { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime FinishDate { get; set; }
         public decimal Price { get; set; }
         public ProductOrderView[] ProductOrders { get; set; }
     }
