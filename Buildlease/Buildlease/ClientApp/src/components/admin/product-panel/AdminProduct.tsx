@@ -9,10 +9,10 @@ import ProductInfo from "../../dtos/ProductInfo";
 import API from "../../../API";
 import LOGIC from "../../../LOGIC";
 
-import {Button, Checkbox, Input, InputNumber, message, Space} from "antd";
+import {AutoComplete, Button, Checkbox, Input, InputNumber, message, Select, Space} from "antd";
 import CategoryTreeSelect from "../CategoryTreeSelect";
 import Globals from "../../../Globals";
-import {AttributeType, CategoryAttributeInfo} from "../../dtos/CategoryAttributeInfo";
+import {AttributeType} from "../../dtos/CategoryAttributeInfo";
 
 export default function AdminProduct() {
     
@@ -31,13 +31,13 @@ export default function AdminProduct() {
                 });
         } else {
             const obj: ProductInfo = {
-                Id: '0',
-                CategoryId: `${LOGIC.GetRootCategoryId()}`,
+                Id: 0,
+                CategoryId: LOGIC.GetRootCategoryId(),
                 Name: 'New product',
                 Description: 'No description.',
                 ImageLink: 'No image link',
-                TotalCount: '0',
-                Price: undefined,
+                TotalCount: 0,
+                Price: null,
                 Attributes: [],
             };
             setOldProductDetails(JSON.parse(JSON.stringify(obj)));
@@ -58,10 +58,10 @@ export default function AdminProduct() {
                         <div style={{
                             width: '320px',
                         }}>
-                            <CategoryTreeSelect currentId={newProductDetails.CategoryId==`${LOGIC.GetRootCategoryId()}` ?
+                            <CategoryTreeSelect currentId={newProductDetails.CategoryId==LOGIC.GetRootCategoryId() ?
                                 `${LOGIC.GetRootCategoryId()}`
                                 :
-                                `${Globals.Categories?.find(c => `${c.Id}` == newProductDetails.CategoryId)?.ParentId}-${newProductDetails.CategoryId}`}
+                                `${Globals.Categories?.find(c => c.Id == newProductDetails.CategoryId)?.ParentId}-${newProductDetails.CategoryId}`}
                                                 onSelect={newCategoryId => {
                                                     const obj = JSON.parse(JSON.stringify(newProductDetails));
                                                     obj.CategoryId = newCategoryId;
@@ -105,35 +105,36 @@ export default function AdminProduct() {
                                                setNewProductDetails(obj);
                                            }}/>
                                     <Space direction='horizontal' size={8}>
-                                        <Checkbox defaultChecked={false}
+                                        <Checkbox defaultChecked={newProductDetails.Price != null}
                                                   onChange={(data) => {
                                                       const obj = Object.assign({}, newProductDetails);
                                                       if (data.target.checked) {
-                                                          obj.Price = '0';
+                                                          obj.Price = 0;
                                                       } else {
-                                                          obj.Price = undefined;
+                                                          obj.Price = null;
                                                       }
                                                       setNewProductDetails(obj);
                                         }}>There's a price</Checkbox>
                                         <InputNumber stringMode
                                                      addonBefore='Price'
                                                      addonAfter='$'
-                                                     disabled={newProductDetails.Price == undefined}
-                                                     min='0.01'
-                                                     max='1000000' // just so that there's a maximum
-                                                     step='0.01'
-                                                     defaultValue={newProductDetails.Price ? newProductDetails.Price : '1'}
+                                                     disabled={newProductDetails.Price == null}
+                                                     min={0.01}
+                                                     max={1000000} // just so that there's a maximum
+                                                     step={0.01}
+                                                     defaultValue={newProductDetails.Price ? newProductDetails.Price : 1}
                                                      onChange={(data) => {
                                                          const obj = Object.assign({}, newProductDetails);
-                                                         obj.Price = `${Number(data)}`;
+                                                         obj.Price = Number(data);
                                                          setNewProductDetails(obj);
                                                      }}/>
                                     </Space>
-                                    <Input addonBefore='Total count'
-                                           defaultValue={newProductDetails.TotalCount}
+                                    <InputNumber addonBefore='Total count'
+                                                 precision={1} 
+                                                 defaultValue={newProductDetails.TotalCount}
                                            onChange={(data) => {
                                                const obj = Object.assign({}, newProductDetails);
-                                               obj.TotalCount = data.target.value;
+                                               obj.TotalCount = data;
                                                setNewProductDetails(obj);
                                            }}/>
                                     <Input addonBefore='Image path'
@@ -154,12 +155,45 @@ export default function AdminProduct() {
                                 </Space>
                             }
                         </MainContent>
-                        <div style={{
+                        <div className='d-flex flex-column' style={{
                             width: '600px',
                         }}>
                             {
                                 productId != 0 &&
-                                    <>ya like jazz?</>
+                                newProductDetails.Attributes.map(attr => (
+                                    attr.ValueType === AttributeType.String ?
+                                        <div className='w-100 d-flex align-items-center' style={{
+                                            marginBottom: '16px',
+                                        }}>
+                                            <p style={{margin: 0,
+                                                marginRight: '8px',
+                                            }}>{attr.Name}</p>
+                                            <AutoComplete className='d-flex flex-grow-1'
+                                                defaultValue={attr.Value ?? ""}
+                                                options={
+                                                    newProductDetails!.Attributes.find(a => a.AttributeId == attr.AttributeId)!.ExistingStringValues!
+                                                        .map(sv => ({ value: sv }))
+                                                }
+                                                onChange={val => {
+                                                    const obj = Object.assign({}, newProductDetails);
+                                                    obj!.Attributes.find(a => a.AttributeId == attr.AttributeId)!.Value = val;
+                                                    setNewProductDetails(obj);
+                                                }}/>
+                                        </div>
+                                        :
+                                        <InputNumber
+                                            style={{
+                                                marginBottom: '8px',
+                                            }}
+                                            addonBefore={attr.Name} 
+                                            addonAfter={attr.UnitName}
+                                            defaultValue={attr.Value ?? ''}
+                                            onChange={val => {
+                                                const obj = Object.assign({}, newProductDetails);
+                                                obj!.Attributes.find(a => a.AttributeId == attr.AttributeId)!.Value = val;
+                                                setNewProductDetails(obj);
+                                            }}/>
+                                ))
                             }
                         </div>
                     </div>

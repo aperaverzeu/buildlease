@@ -1,12 +1,12 @@
 import ProductAttributeInfo from "./ProductAttributeInfo";
 
 export default interface ProductInfo {
-    Id: string,
-    CategoryId: string,
+    Id: number,
+    CategoryId: number,
     Name: string,
     Description: string,
     ImageLink: string,
-    TotalCount: string,
-    Price: string | undefined,
-    Attributes: ProductAttributeInfo[]
+    TotalCount: number,
+    Price: number | null,
+    Attributes: ProductAttributeInfo[],
 }

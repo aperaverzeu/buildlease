@@ -182,7 +182,7 @@ export default function AdminCategory() {
                                                     <Select value={`${AttributeType.Number}`}>Number</Select>
                                                     <Select value={`${AttributeType.String}`}>String</Select>
                                                 </Select>
-                                                <Input defaultValue={attr.UnitName} onChange={newVal => {
+                                                <Input defaultValue={attr.UnitName ?? ""} onChange={newVal => {
                                                     const obj = Object.assign({}, categoryInfo);
                                                     obj.Attributes[index].UnitName = newVal.target.value;
                                                     setCategoryInfo(obj);
