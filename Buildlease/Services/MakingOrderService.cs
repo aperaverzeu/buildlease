@@ -87,7 +87,10 @@ namespace Services
                     Newtonsoft.Json.JsonConvert.SerializeObject(
                         _manager.CatalogueService.GetProduct(productOrder.ProductId.Value, userId));
             }
-            
+
+            order.StartDate = startDate.Date;
+            order.FinishDate = finishDate.Date;
+
             order.Status = OrderStatus.WaitingForApproval;
             _db.HistoryOfOrderStatus.Add(new HistoryOfOrderStatus()
             {
