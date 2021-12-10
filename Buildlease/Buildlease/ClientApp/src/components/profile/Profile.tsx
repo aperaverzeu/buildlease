@@ -170,10 +170,6 @@ export default function Profile() {
                             color: page == 'addresses' ? '#ff6655' : '#000',
                             cursor: 'pointer',
                         }} onClick={() => setPage('addresses')}>Addresses</h3>
-                        <h3 style={{
-                            color: page == 'payment' ? '#ff6655' : '#000',
-                            cursor: 'pointer',
-                        }} onClick={() => setPage('payment')}>Payment option</h3>
                     </div>
                 </SideMenu>
                 <MainContent>
@@ -251,7 +247,6 @@ export default function Profile() {
                                     </div>
                                 </>
                             :
-                                page == 'addresses' ?
                                     // addresses
                                     <div className='d-flex flex-column justify-content-center'>
                                         <Button type='primary'
@@ -286,11 +281,6 @@ export default function Profile() {
                                                              }
                                                          }}/>)}
                                     </div>
-                                    :
-                                    // payment info
-                                    <>
-                                        На payment option, что иронично, бюджет не выделили.
-                                    </>
                             }
                         </div>
                         }
