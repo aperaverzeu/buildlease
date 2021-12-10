@@ -14,6 +14,8 @@ import {Redirect, useHistory} from "react-router-dom";
 import PATH from "../../PATH";
 
 export default function Cart() {
+
+    const history = useHistory();
     
     const [cartDetails, setCartDetails] = useState<CartFullView | undefined>(undefined);
     const [startDate, setStartDate] = useState<Date>(new Date(0));
@@ -88,19 +90,31 @@ export default function Cart() {
                             </div>
                         </div>
                         <Button block type='primary' onClick={() => {
-                            if (startDate.getUTCMilliseconds() == 0 && finishDate.getUTCMilliseconds() == 0) {
-                                message.error("Fill in the start & finish date!")
-                            } else if (startDate.getUTCMilliseconds() == 0) {
-                                message.error("Fill in the start date!")
-                            } else if (finishDate.getUTCMilliseconds() == 0) {
-                                message.error("Fill in the finish date!")
-                            }
-                            
-                            let obj = { StartDate: startDate, FinishDate: finishDate}
-                            Promise
-                                .resolve(API.MakeOrderFromCart(obj))
-                                .then(() => message.success("Order is successfully carried out!"))
-                                .catch((ex) => message.error(ex))
+                                if (startDate.getUTCMilliseconds() == 0 && finishDate.getUTCMilliseconds() == 0) {
+                                    message.error("Fill in the start & finish date!")
+                                } else if (startDate.getUTCMilliseconds() == 0) {
+                                    message.error("Fill in the start date!")
+                                } else if (finishDate.getUTCMilliseconds() == 0) {
+                                    message.error("Fill in the finish date!")
+                                }
+                                
+                                const messageKey = Math.random();
+                                message.loading({content: 'Wait for it...', key: messageKey, duration: 0});
+
+                                let obj = { StartDate: startDate, FinishDate: finishDate}
+                                Promise
+                                    .resolve(
+                                        API.MakeOrderFromCart(obj)
+                                            .then(() => {
+                                                message.success({
+                                                    content: "Order is successfully carried out!",
+                                                    key: messageKey
+                                                });
+                                                
+                                                history.push("/order-history");
+                                            })
+                                            .catch(err => message.error({ content: err.response.data, key: messageKey }))
+                                    )
                             }
                         }>Make order</Button>
                     </div>

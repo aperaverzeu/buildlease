@@ -106,7 +106,7 @@ export default function Catalog() {
                 <SideMenu>
                     <Space direction={"vertical"} size={40}>
                         <div>
-                            {childCategories?.length &&
+                            {(childCategories && childCategories.length > 0)  &&
                             <>
                                 <h2 style={{
                                     fontSize: "1.4rem",
