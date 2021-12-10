@@ -37,6 +37,8 @@ export default function ProductOrderCard({ProductOrderView, isInteractive, setCa
         ProductOrderView.ProductId != null && 
         Promise
             .resolve(API.SetProductOrderCount(ProductOrderView.ProductId, value))
+            .then(() => API.GetCartDetails())
+            .then(res => setCartState(res))
             .then(() => {
                 message.success({ content: 'Done!', key: ProductOrderView.ProductId });
             });
@@ -80,9 +82,15 @@ export default function ProductOrderCard({ProductOrderView, isInteractive, setCa
                         </a>
                         <p style={{fontSize: '14px'}}>{LOGIC.GetShortDescription(ProductOrderView.Attributes)}</p>
                     </div>
-                    <h3 style={{fontWeight: 'lighter'}}>{`$${ProductOrderView.Price}${ProductOrderView.Count > 1 ? ` × ${ProductOrderView.Count} = $${(ProductOrderView.Price*ProductOrderView.Count).toFixed(2)}` : ``} per day`}</h3>
-                    {/*TODO: Replace above line with commented one in production*/}
-                    {/*<h3 style={{fontWeight: 'lighter'}}>{`$${ProductOrderView.Price.toFixed(2)}${ProductOrderView.Count > 1 ? ` × ${ProductOrderView.Count} = $${(ProductOrderView.Price*ProductOrderView.Count).toFixed(2)}` : ``} per day`}</h3>*/}
+                    {
+                        ProductOrderView.Price !== null ? <h3 style={{fontWeight: 'lighter'}}>
+                            {`$${ProductOrderView.Price.toFixed(2)}
+                            ${ProductOrderView.Count > 1 ? ` × ${ProductOrderView.Count} = $
+                            ${(ProductOrderView.Price*ProductOrderView.Count).toFixed(2)}` : ``} per day`}
+                        </h3> 
+                            :
+                            <h3 style={{fontWeight: 'lighter'}}> The price is not specified </h3>
+                    }
                 </div>
                 { isInteractive &&
                     <div className='d-flex align-items-center'>

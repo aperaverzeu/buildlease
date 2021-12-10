@@ -15,6 +15,7 @@ import authService from "./components/api-authorization/AuthorizeService";
 import CustomerInfo from "./components/dtos/CustomerInfo";
 import CategoryInfo from "./components/dtos/CategoryInfo";
 import ProductInfo from "./components/dtos/ProductInfo";
+import MakeOrderFromCartRequest from "./components/cart/MakeOrderFromCartRequest";
 
 const MainLink = 'https://localhost:5001/api/';
 
@@ -107,9 +108,9 @@ const API = {
         .then(res => res.data);
   },
 
-  MakeOrderFromCart: async () => {
+  MakeOrderFromCart: async (obj: MakeOrderFromCartRequest) => {
     return axios
-        .post<void>(MainLink + `MakeOrderFromCart`, {}, await AxiosTokenConfig())
+        .post<void>(MainLink + `MakeOrderFromCart`, obj, await AxiosTokenConfig())
         .then(res => res.data);
   },
 
