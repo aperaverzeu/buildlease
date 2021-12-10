@@ -187,13 +187,13 @@ namespace Services
             {
                 if (filter.ValueNumberLowerBound.HasValue)
                     query = query.Where(prod =>
-                        prod.ProductAttributes.SingleOrDefault(attr => attr.AttributeId == filter.AttributeId) != null &&
+                        prod.ProductAttributes.Any(attr => attr.AttributeId == filter.AttributeId) &&
                         prod.ProductAttributes.Single(attr => attr.AttributeId == filter.AttributeId)
                         .ValueNumber >= filter.ValueNumberLowerBound.Value);
 
                 if (filter.ValueNumberUpperBound.HasValue)
                     query = query.Where(prod =>
-                        prod.ProductAttributes.SingleOrDefault(attr => attr.AttributeId == filter.AttributeId) != null &&
+                        prod.ProductAttributes.Any(attr => attr.AttributeId == filter.AttributeId) &&
                         prod.ProductAttributes.Single(attr => attr.AttributeId == filter.AttributeId)
                         .ValueNumber <= filter.ValueNumberUpperBound.Value);
 

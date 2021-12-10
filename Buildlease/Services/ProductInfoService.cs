@@ -78,7 +78,7 @@ namespace Services
                     AttributeId = e.AttributeId,
                     ProductId = product.Id,
                     ValueNumber = e.Attribute.ValueType == AttributeType.Number ?
-                        decimal.Parse(e.Value) : null,
+                        decimal.Parse(e.Value, System.Globalization.CultureInfo.InvariantCulture) : null,
                     ValueString = e.Attribute.ValueType == AttributeType.String ?
                         e.Value : null,
                 });
