@@ -37,6 +37,8 @@ export default function ProductOrderCard({ProductOrderView, isInteractive, setCa
         ProductOrderView.ProductId != null && 
         Promise
             .resolve(API.SetProductOrderCount(ProductOrderView.ProductId, value))
+            .then(() => API.GetCartDetails())
+            .then(res => setCartState(res))
             .then(() => {
                 message.success({ content: 'Done!', key: ProductOrderView.ProductId });
             });
