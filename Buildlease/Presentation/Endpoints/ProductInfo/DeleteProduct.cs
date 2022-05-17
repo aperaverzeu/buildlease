@@ -11,9 +11,9 @@ using Services.Abstractions;
 namespace Presentation.Endpoints.ProductInfo
 {
     [Route("api")]
-    public class DeleteProduct : BaseEndpoint
+    public class DeleteProduct : EndpointBaseSync
         .WithRequest<int>
-        .WithoutResponse
+        .WithActionResult
     {
         private readonly IServiceManager _serviceManager;
         public DeleteProduct(IServiceManager serviceManager) => _serviceManager = serviceManager;

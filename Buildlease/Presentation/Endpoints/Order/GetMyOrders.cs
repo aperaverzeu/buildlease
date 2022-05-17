@@ -12,9 +12,9 @@ using Services.Abstractions;
 namespace Presentation.Endpoints.Order
 {
     [Route("api")]
-    public class GetMyOrders : BaseEndpoint
+    public class GetMyOrders : EndpointBaseSync
         .WithoutRequest
-        .WithResponse<OrderView[]>
+        .WithActionResult<OrderView[]>
     {
         private readonly IServiceManager _serviceManager;
         public GetMyOrders(IServiceManager serviceManager) => _serviceManager = serviceManager;

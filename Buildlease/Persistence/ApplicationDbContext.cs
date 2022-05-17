@@ -1,5 +1,5 @@
 ﻿using Domain.Models;
-using IdentityServer4.EntityFramework.Options;
+using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -47,7 +47,7 @@ namespace Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql(options => options.MigrationsAssembly("Buildlease"));
+            optionsBuilder.UseSqlServer(options => options.MigrationsAssembly("Buildlease"));
         }
     }
 }

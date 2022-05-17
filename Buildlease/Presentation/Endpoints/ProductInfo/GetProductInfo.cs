@@ -11,9 +11,9 @@ using Services.Abstractions;
 namespace Presentation.Endpoints.ProductInfo
 {
     [Route("api")]
-    public class GetProductInfo : BaseEndpoint
+    public class GetProductInfo : EndpointBaseSync
         .WithRequest<int>
-        .WithResponse<DTOs.ProductInfo>
+        .WithActionResult<DTOs.ProductInfo>
     {
         private readonly IServiceManager _serviceManager;
         public GetProductInfo(IServiceManager serviceManager) => _serviceManager = serviceManager;

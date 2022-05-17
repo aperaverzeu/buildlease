@@ -11,9 +11,9 @@ using Services.Abstractions;
 namespace Presentation.Endpoints.Catalogue
 {
     [Route("api")]
-    public class GetProduct : BaseEndpoint
+    public class GetProduct : EndpointBaseSync
         .WithRequest<int>
-        .WithResponse<ProductFullView>
+        .WithActionResult<ProductFullView>
     {
         private readonly IServiceManager _serviceManager;
         public GetProduct(IServiceManager serviceManager) => _serviceManager = serviceManager;

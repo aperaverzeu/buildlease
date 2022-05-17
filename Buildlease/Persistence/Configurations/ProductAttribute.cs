@@ -45,13 +45,13 @@ namespace Persistence.Configurations
                     .WithMany(a => a.ProductAttributes)
                     .HasForeignKey(pa => pa.AttributeId)
                     .IsRequired()
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.ClientCascade);
 
             builder .HasOne<Product>(pa => pa.Product)
                     .WithMany(p => p.ProductAttributes)
                     .HasForeignKey(pa => pa.ProductId)
                     .IsRequired()
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.ClientCascade);
         }
     }
 }

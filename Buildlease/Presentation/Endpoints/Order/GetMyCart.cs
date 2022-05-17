@@ -12,9 +12,9 @@ using Services.Abstractions;
 namespace Presentation.Endpoints.Order
 {
     [Route("api")]
-    public class GetMyCart : BaseEndpoint
+    public class GetMyCart : EndpointBaseSync
         .WithoutRequest
-        .WithResponse<CartFullView>
+        .WithActionResult<CartFullView>
     {
         private readonly IServiceManager _serviceManager;
         public GetMyCart(IServiceManager serviceManager) => _serviceManager = serviceManager;

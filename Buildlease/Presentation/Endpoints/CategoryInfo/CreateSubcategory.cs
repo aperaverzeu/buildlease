@@ -11,9 +11,9 @@ using Services.Abstractions;
 namespace Presentation.Endpoints.CategoryInfo
 {
     [Route("api")]
-    public class CreateSubcategory : BaseEndpoint
+    public class CreateSubcategory : EndpointBaseSync
         .WithRequest<int>
-        .WithoutResponse
+        .WithActionResult
     {
         private readonly IServiceManager _serviceManager;
         public CreateSubcategory(IServiceManager serviceManager) => _serviceManager = serviceManager;

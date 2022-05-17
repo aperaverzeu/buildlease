@@ -11,9 +11,9 @@ using Services.Abstractions;
 namespace Presentation.Endpoints.Catalogue
 {
     [Route("api")]
-    public class GetCategoryFilters : BaseEndpoint
+    public class GetCategoryFilters : EndpointBaseSync
         .WithRequest<int>
-        .WithResponse<CategoryFilterView[]>
+        .WithActionResult<CategoryFilterView[]>
     {
         private readonly IServiceManager _serviceManager;
         public GetCategoryFilters(IServiceManager serviceManager) => _serviceManager = serviceManager;
