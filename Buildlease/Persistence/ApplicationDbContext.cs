@@ -1,13 +1,13 @@
 ﻿using Domain.Models;
-using IdentityServer4.EntityFramework.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace Persistence
 {
-    public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
+    public class ApplicationDbContext : DbContext
     {
+        public DbSet<ApplicationUser> Users { get; set; }
+
         public DbSet<Attribute> Attributes { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Address> CustomerAddresses { get; set; }
@@ -18,10 +18,8 @@ namespace Persistence
         public DbSet<ProductOrder> ProductOrders { get; set; }
         public DbSet<HistoryOfOrderStatus> HistoryOfOrderStatus { get; set; }
 
-        public ApplicationDbContext(
-            DbContextOptions options,
-            IOptions<OperationalStoreOptions> operationalStoreOptions)
-            : base(options, operationalStoreOptions)
+        public ApplicationDbContext(DbContextOptions options)
+            : base(options)
         {
             Database.Migrate();
         }

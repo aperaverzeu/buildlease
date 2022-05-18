@@ -11,7 +11,7 @@ namespace Domain.EntitiesExample
             {
                 new Customer()
                 {
-                    UserId = "c65e9a5d-ef9f-450b-b851-f97190da3470", //User
+                    UserId = "user@mail.com", //User
                     CompanyName = "Never Zero INC.",
                     RepresentativeName = "NZINC",
                     ContactInfo = "Email: contact@nzinc.com\n" +
@@ -19,7 +19,7 @@ namespace Domain.EntitiesExample
                 },
                 new Customer()
                 {
-                    UserId = "f92039fd-5e51-431e-aefe-4a18e6cc846a", //ADMIN
+                    UserId = "admin@mail.com", //ADMIN
                     CompanyName = "Taiwan is not a legitimate state CORP",
                     RepresentativeName = "Jade Chieftain Xi CORP",
                     ContactInfo = "Email: contact@xi.com\n" +

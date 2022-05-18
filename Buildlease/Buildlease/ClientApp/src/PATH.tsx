@@ -1,4 +1,4 @@
-const MainLink = 'https://localhost:5001/';
+const MainLink = 'https://buildlease.rigorich.monster/';
 
 const PATH = {
 

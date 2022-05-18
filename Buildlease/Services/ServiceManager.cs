@@ -6,6 +6,7 @@ namespace Services
 {
     public sealed class ServiceManager : IServiceManager
     {
+        private readonly Lazy<IAuthService> _lazyAuthService;
         private readonly Lazy<IAdminService> _lazyAdminService;
         private readonly Lazy<ICatalogueService> _lazyCatalogueService;
         private readonly Lazy<IOrderService> _lazyOrderService;
@@ -16,6 +17,7 @@ namespace Services
 
         public ServiceManager(ApplicationDbContext dbContext)
         {
+            _lazyAuthService = new Lazy<IAuthService>(() => new AuthService(dbContext, this));
             _lazyAdminService = new Lazy<IAdminService>(() => new AdminService(dbContext, this));
             _lazyCatalogueService = new Lazy<ICatalogueService>(() => new CatalogueService(dbContext, this));
             _lazyOrderService = new Lazy<IOrderService>(() => new OrderService(dbContext, this));
@@ -25,6 +27,7 @@ namespace Services
             _lazyProductInfoService = new Lazy<IProductInfoService>(() => new ProductInfoService(dbContext, this));
         }
 
+        public IAuthService AuthService => _lazyAuthService.Value;
         public IAdminService AdminService => _lazyAdminService.Value;
         public ICatalogueService CatalogueService => _lazyCatalogueService.Value;
         public IOrderService OrderService => _lazyOrderService.Value;

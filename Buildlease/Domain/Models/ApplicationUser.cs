@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace Domain.Models
+﻿namespace Domain.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUser
     {
+        public string Id { get; set; } = default!;
+        public string PasswordHash { get; set; } = default!;
         public bool IsAdmin { get; set; }
     }
 }

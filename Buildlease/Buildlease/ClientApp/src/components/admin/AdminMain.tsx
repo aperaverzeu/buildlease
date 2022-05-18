@@ -5,7 +5,7 @@ import {Button, Col, Row} from "antd";
 
 export default function AdminMain() {
 
-    const AdminMainLink = 'https://localhost:5001/';
+    const AdminMainLink = 'https://buildlease.rigorich.monster/';
 
     return (
         <>

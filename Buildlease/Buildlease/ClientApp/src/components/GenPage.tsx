@@ -1,11 +1,6 @@
 // routing
 import {Route, Switch} from 'react-router-dom';
 
-// auth
-import ApiAuthorizationRoutes from './api-authorization/ApiAuthorizationRoutes';
-import {ApplicationPaths} from './api-authorization/ApiAuthorizationConstants';
-import AuthorizeRoute from './api-authorization/AuthorizeRoute';
-
 import {useState} from 'react';
 import Globals from '../Globals';
 
@@ -22,6 +17,7 @@ import AdminCategory from "./admin/category-panel/AdminCategory";
 
 // styles (do we need em here tho?)
 import './gen_page.module.css';
+import API from '../API';
 
 export default function GenPage() {
 
@@ -32,17 +28,22 @@ export default function GenPage() {
         <>
             {OK ?
                 <Switch>
-                    <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes}/>
-                    <AuthorizeRoute path='/cart' component={Cart}/>
-                    <AuthorizeRoute path='/profile' component={Profile}/>
-                    <AuthorizeRoute path='/orders/:stringOrderId' component={Order}/>
-                    <AuthorizeRoute path='/order-history' component={OrderHistory}/>
+                    { API.IsAuthorized() &&
+                    <>
+                        <Route path='/cart' component={Cart}/>
+                        <Route path='/profile' component={Profile}/>
+                        <Route path='/orders/:stringOrderId' component={Order}/>
+                        <Route path='/order-history' component={OrderHistory}/>
+                        <Route path='/admin/products/:stringProductId?' component={AdminProduct}/>
+                        <Route path='/admin/categories' component={AdminCategory}/>
+                        <Route path='/admin' component={Admin}/>
+                    </>}
+                    {
+                    // <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes}/>
+                    }
                     <Route path='/catalog/:stringCategoryId?' component={Catalog}/>
                     <Route path='/products/:stringProductId' component={() => <Product isHistoric={false}/>}/>
                     <Route path='/archived-products/:stringProductOrderId' component={() => <Product isHistoric={true}/>}/>
-                    <AuthorizeRoute path='/admin/products/:stringProductId?' component={AdminProduct}/>
-                    <AuthorizeRoute path='/admin/categories' component={AdminCategory}/>
-                    <AuthorizeRoute path='/admin' component={Admin}/>
                 </Switch>
                 :
                 <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>

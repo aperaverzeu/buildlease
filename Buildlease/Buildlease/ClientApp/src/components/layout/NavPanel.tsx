@@ -4,7 +4,6 @@ import {
     ShoppingCartOutlined as Cart, AccountCircleOutlined as Profile, FormatListBulleted as Catalog, History
 } from "@material-ui/icons"
 import { Link } from 'react-router-dom';
-import { LoginMenu } from '../api-authorization/LoginMenu';
 
 import styles from './layout.module.css';
 
@@ -54,7 +53,9 @@ export class NavPanel extends Component<NavPanelProps, NavBarState> {
                                 <History className={styles.navPanelIcon}/>
                             </NavLink>
                         </NavItem>
-                        <LoginMenu />
+                        {
+                        // <LoginMenu />
+                        }
                     </ul>
                 </Collapse>
             </>

@@ -10,21 +10,27 @@ import CartFullView from "./components/views/CartFullView";
 import OrderFullView from "./components/views/OrderFullView";
 import OrderView from "./components/views/OrderView";
 
-import authService from "./components/api-authorization/AuthorizeService";
-
 import CustomerInfo from "./components/dtos/CustomerInfo";
 import CategoryInfo from "./components/dtos/CategoryInfo";
 import ProductInfo from "./components/dtos/ProductInfo";
 import MakeOrderFromCartRequest from "./components/cart/MakeOrderFromCartRequest";
 
-const MainLink = 'https://localhost:5001/api/';
+const MainLink = 'https://buildlease.rigorich.monster/api/';
 
 async function AxiosTokenConfig() {
-  const token = await authService.getAccessToken();
-  return { headers: {'Authorization': `Bearer ${token}`} } ;
+  return {
+    headers: {
+      'login': localStorage.getItem('login') || '',
+      'password': localStorage.getItem('password') || '',
+    }
+  } ;
 }
 
 const API = {
+
+  IsAuthorized: () => {
+    return localStorage.getItem('login') != null && localStorage.getItem('password') != null;
+  },
 
   // Catalog:
   
