@@ -12,8 +12,8 @@ namespace Presentation.Endpoints
         public static string GetCurrentUserId(this ControllerBase obj)
         {
             var headers = obj.HttpContext.Request.Headers;
-            var login = headers["login"];
-            var password = headers["password"];
+            var login = headers["login"].SingleOrDefault();
+            var password = headers["password"].SingleOrDefault();
 
             var db = obj.HttpContext.RequestServices.GetRequiredService<ApplicationDbContext>();
 

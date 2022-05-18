@@ -1,23 +1,21 @@
-const MainLink = 'https://buildlease.rigorich.monster/';
-
 const PATH = {
 
     ToProduct: (productId: number) => {
-        return MainLink + `products/${productId}`;
+        return `products/${productId}`;
     },
 
     ToCategory: (categoryId: number) => {
         if (categoryId === 0)
-            return MainLink + `catalog`;
-        return MainLink + `catalog/${categoryId}`;
+            return `catalog`;
+        return `catalog/${categoryId}`;
     },
     
     ToOrder: (orderId: number) => {
-        return MainLink + `orders/${orderId}`;
+        return `orders/${orderId}`;
     },
     
     ToHistoricProduct: (productOrderId: number) => {
-        return MainLink + `archived-products/${productOrderId}`;
+        return `archived-products/${productOrderId}`;
     },
 
 }
