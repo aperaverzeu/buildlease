@@ -12,9 +12,9 @@ using Services.Abstractions;
 namespace Presentation.Endpoints.MakingOrder
 {
     [Route("api")]
-    public class MakeOrderFromCart : BaseEndpoint
+    public class MakeOrderFromCart : EndpointBaseSync
         .WithRequest<MakeOrderFromCartRequest>
-        .WithoutResponse
+        .WithActionResult
     {
         private readonly IServiceManager _serviceManager;
         public MakeOrderFromCart(IServiceManager serviceManager) => _serviceManager = serviceManager;

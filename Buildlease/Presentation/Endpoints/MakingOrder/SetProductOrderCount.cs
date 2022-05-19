@@ -12,9 +12,9 @@ using Services.Abstractions;
 namespace Presentation.Endpoints.MakingOrder
 {
     [Route("api")]
-    public class SetProductOrderCount : BaseEndpoint
+    public class SetProductOrderCount : EndpointBaseSync
         .WithRequest<SetProductOrderCountRequest>
-        .WithoutResponse
+        .WithActionResult
     {
         private readonly IServiceManager _serviceManager;
         public SetProductOrderCount(IServiceManager serviceManager) => _serviceManager = serviceManager;

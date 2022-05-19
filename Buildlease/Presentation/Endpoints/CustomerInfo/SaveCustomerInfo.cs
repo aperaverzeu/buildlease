@@ -11,9 +11,9 @@ using Services.Abstractions;
 namespace Presentation.Endpoints.CustomerInfo
 {
     [Route("api")]
-    public class SaveCustomerInfo : BaseEndpoint
+    public class SaveCustomerInfo : EndpointBaseSync
         .WithRequest<DTOs.CustomerInfo>
-        .WithoutResponse
+        .WithActionResult
     {
         private readonly IServiceManager _serviceManager;
         public SaveCustomerInfo(IServiceManager serviceManager) => _serviceManager = serviceManager;

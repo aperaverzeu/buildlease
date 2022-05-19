@@ -7,9 +7,6 @@ import MainPage from './components/main-page/MainPage';
 import GenPage from './components/GenPage';
 import NotFound from './components/NotFound';
 
-// auth
-import { ApplicationPaths } from './components/api-authorization/ApiAuthorizationConstants';
-
 // Rigorich
 import Globals from './Globals';
 import API from './API';
@@ -44,7 +41,6 @@ export default function App() {
                                 '/admin/categories',
                                 '/admin',
                                 // to be continued...
-                                `${ApplicationPaths.ApiAuthorizationPrefix}`
                             ]
                         } component={GenPage} />
 

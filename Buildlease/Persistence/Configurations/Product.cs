@@ -47,7 +47,7 @@ namespace Persistence.Configurations
                     .WithMany(c => c.Products)
                     .HasForeignKey(p => p.CategoryId)
                     .IsRequired()
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.ClientCascade);
         }
     }
 }

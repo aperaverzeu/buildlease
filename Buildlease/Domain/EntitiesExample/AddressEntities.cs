@@ -12,7 +12,7 @@ namespace Domain.EntitiesExample
                 new Address()
                 {
                     Id = -5,
-                    CustomerId = "f92039fd-5e51-431e-aefe-4a18e6cc846a", 
+                    CustomerId = "admin@mail.com", 
                     Priority = 1,
                     PostalCode = "602-8570",
                     City = "Kyoto",
@@ -23,7 +23,7 @@ namespace Domain.EntitiesExample
                 new Address()
                 {
                     Id = -1,
-                    CustomerId = "c65e9a5d-ef9f-450b-b851-f97190da3470", 
+                    CustomerId = "user@mail.com", 
                     Priority = 3,
                     PostalCode = "301-3322",
                     City = "Dortmund",
@@ -34,7 +34,7 @@ namespace Domain.EntitiesExample
                 new Address()
                 {
                     Id = -2,
-                    CustomerId = "c65e9a5d-ef9f-450b-b851-f97190da3470", 
+                    CustomerId = "user@mail.com", 
                     Priority = 1,
                     PostalCode = "111-6666",
                     City = "Reykjavik",
@@ -45,7 +45,7 @@ namespace Domain.EntitiesExample
                 new Address()
                 {
                     Id = -3,
-                    CustomerId = "c65e9a5d-ef9f-450b-b851-f97190da3470", 
+                    CustomerId = "user@mail.com", 
                     Priority = 2,
                     PostalCode = "4455-112",
                     City = "Lisbon",
@@ -56,7 +56,7 @@ namespace Domain.EntitiesExample
                 new Address()
                 {
                     Id = -4,
-                    CustomerId = "c65e9a5d-ef9f-450b-b851-f97190da3470", 
+                    CustomerId = "user@mail.com", 
                     Priority = 0,
                     PostalCode = "69-420",
                     City = "New-York",

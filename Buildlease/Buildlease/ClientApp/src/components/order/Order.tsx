@@ -12,7 +12,6 @@ import MainContent from "../layout/MainContent";
 import OrderFullView from "../views/OrderFullView";
 
 // Rigorich
-import PATH from "../../PATH";
 import LOGIC from "../../LOGIC";
 import API from "../../API";
 import ProductOrderCard from "../cards/ProductOrderCard";

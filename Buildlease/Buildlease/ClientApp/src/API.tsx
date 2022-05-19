@@ -10,52 +10,56 @@ import CartFullView from "./components/views/CartFullView";
 import OrderFullView from "./components/views/OrderFullView";
 import OrderView from "./components/views/OrderView";
 
-import authService from "./components/api-authorization/AuthorizeService";
-
 import CustomerInfo from "./components/dtos/CustomerInfo";
 import CategoryInfo from "./components/dtos/CategoryInfo";
 import ProductInfo from "./components/dtos/ProductInfo";
 import MakeOrderFromCartRequest from "./components/cart/MakeOrderFromCartRequest";
 
-const MainLink = 'https://localhost:5001/api/';
-
-async function AxiosTokenConfig() {
-  const token = await authService.getAccessToken();
-  return { headers: {'Authorization': `Bearer ${token}`} } ;
+function GetHeaders() {
+  return {
+    headers: {
+      'login': localStorage.getItem('login') || '',
+      'password': localStorage.getItem('password') || '',
+    }
+  };
 }
 
 const API = {
+
+  IsAuthorized: () => {
+    return localStorage.getItem('login') != null && localStorage.getItem('password') != null;
+  },
 
   // Catalog:
   
   GetAllCategories: async () => {
     return axios
-      .post<CategoryFullView[]>(MainLink + 'GetAllCategories', {}, await AxiosTokenConfig())
+      .post<CategoryFullView[]>('api/GetAllCategories', {}, GetHeaders())
       .then(res => res.data);
   },
   
   GetCategoryFilters: async (categoryId: number) => {
     return axios
-        .post<CategoryFilterView[]>(MainLink + `GetCategoryFilters/${categoryId}`, {}, await AxiosTokenConfig())
+        .post<CategoryFilterView[]>(`api/GetCategoryFilters/${categoryId}`, {}, GetHeaders())
         .then(res => res.data);
   },
 
   // corresponds to backend's "GetProduct"
   GetProductDetails: async (productId: number) => {
     return axios
-        .post<ProductFullView>(MainLink + `GetProduct/${productId}`, {}, await AxiosTokenConfig())
+        .post<ProductFullView>(`api/GetProduct/${productId}`, {}, GetHeaders())
         .then(res => res.data);
   },
   
   GetProducts: async (info: GetProductsRequest) => {
     return axios
-      .post<ProductView[]>(MainLink + 'GetProducts', info, await AxiosTokenConfig())
+      .post<ProductView[]>('api/GetProducts', info, GetHeaders())
       .then(res => res.data);
   },
   
   GetProductsCount: async (info: GetProductsRequest) => {
     return axios
-        .post<number>(MainLink + 'GetProductsCount', info, await AxiosTokenConfig())
+        .post<number>('api/GetProductsCount', info, GetHeaders())
         .then(res => res.data);
   },
 
@@ -63,25 +67,25 @@ const API = {
 
   CreateSubcategory: async (parentId: number) => {
     return axios
-        .post<void>(MainLink + `CreateSubcategory/${parentId}`, {}, await AxiosTokenConfig())
+        .post<void>(`api/CreateSubcategory/${parentId}`, {}, GetHeaders())
         .then(res => res.data);
   },
   
   DeleteCategory: async (categoryId: number) => {
     return axios
-        .post<void>(MainLink + `DeleteCategory/${categoryId}`, {}, await AxiosTokenConfig())
+        .post<void>(`api/DeleteCategory/${categoryId}`, {}, GetHeaders())
         .then(res => res.data);
   },
   
   GetCategoryInfo: async (categoryId: number) => {
     return axios
-        .post<CategoryInfo>(MainLink + `GetCategoryInfo/${categoryId}`, {}, await AxiosTokenConfig())
+        .post<CategoryInfo>(`api/GetCategoryInfo/${categoryId}`, {}, GetHeaders())
         .then(res => res.data);
   },
   
   SaveCategoryInfo: async (newCategoryInfo: CategoryInfo) => {
     return axios
-        .post<void>(MainLink + 'SaveCategoryInfo', newCategoryInfo, await AxiosTokenConfig())
+        .post<void>('api/SaveCategoryInfo', newCategoryInfo, GetHeaders())
         .then(res => res.data);
   },
   
@@ -90,13 +94,13 @@ const API = {
   // corresponds to backend's "GetCustomerInfo"
   GetProfileDetails: async () => {
     return axios
-        .post<CustomerInfo>(MainLink + `GetCustomerInfo`, {}, await AxiosTokenConfig())
+        .post<CustomerInfo>(`api/GetCustomerInfo`, {}, GetHeaders())
         .then(res => res.data);
   },
 
   SaveCustomerInfo: async (newCustomerInfo: CustomerInfo) => {
     return axios
-        .post<void>(MainLink + `SaveCustomerInfo`, newCustomerInfo, await AxiosTokenConfig())
+        .post<void>(`api/SaveCustomerInfo`, newCustomerInfo, GetHeaders())
         .then(res => res.data);
   },
   
@@ -104,19 +108,19 @@ const API = {
 
   DeclineOrder: async (orderId: number) => {
     return axios
-        .post<void>(MainLink + `DeclineOrder/${orderId}`, {}, await AxiosTokenConfig())
+        .post<void>(`api/DeclineOrder/${orderId}`, {}, GetHeaders())
         .then(res => res.data);
   },
 
   MakeOrderFromCart: async (obj: MakeOrderFromCartRequest) => {
     return axios
-        .post<void>(MainLink + `MakeOrderFromCart`, obj, await AxiosTokenConfig())
+        .post<void>(`api/MakeOrderFromCart`, obj, GetHeaders())
         .then(res => res.data);
   },
 
   SetProductOrderCount: async (productId: number, count: number) => {
     return axios
-        .post<void>(MainLink + `SetProductOrderCount/${productId}/${count}`, {}, await AxiosTokenConfig())
+        .post<void>(`api/SetProductOrderCount/${productId}/${count}`, {}, GetHeaders())
         .then(res => res.data);
   },
   
@@ -125,28 +129,28 @@ const API = {
   // corresponds to backend's "GetHistoryProduct"
   GetHistoricProduct: async (productOrderId: number) => {
     return axios
-        .post<ProductFullView>(MainLink + `GetHistoryProduct/${productOrderId}`, {}, await AxiosTokenConfig())
+        .post<ProductFullView>(`api/GetHistoryProduct/${productOrderId}`, {}, GetHeaders())
         .then(res => res.data);
   },
 
   // corresponds to backend's "GetMyCart"
   GetCartDetails: async () => {
     return axios
-        .post<CartFullView>(MainLink + 'GetMyCart', {}, await AxiosTokenConfig())
+        .post<CartFullView>('api/GetMyCart', {}, GetHeaders())
         .then(res => res.data);
   },
 
   // corresponds to backend's "GetMyOrders"
   GetOrders: async () => {
     return axios
-        .post<OrderView[]>(MainLink + 'GetMyOrders', {}, await AxiosTokenConfig())
+        .post<OrderView[]>('api/GetMyOrders', {}, GetHeaders())
         .then(res => res.data);
   },
 
   // corresponds to backend's "GetOrder"
   GetOrderDetails: async (orderId: number) => {
     return axios
-        .post<OrderFullView>(MainLink + `GetOrder/${orderId}`, {}, await AxiosTokenConfig())
+        .post<OrderFullView>(`api/GetOrder/${orderId}`, {}, GetHeaders())
         .then(res => res.data);
   },
   
@@ -154,19 +158,19 @@ const API = {
   
   DeleteProduct: async (productId: number) => {
     return axios
-        .post<void>(MainLink + `DeleteProduct/${productId}`, {}, await AxiosTokenConfig())
+        .post<void>(`api/DeleteProduct/${productId}`, {}, GetHeaders())
         .then(res => res.data);
   },
   
   GetProductInfo: async (productId: number) => {
     return axios
-        .post<ProductInfo>(MainLink + `GetProductInfo/${productId}`, {}, await AxiosTokenConfig())
+        .post<ProductInfo>(`api/GetProductInfo/${productId}`, {}, GetHeaders())
         .then(res => res.data);
   },
   
   SaveProductInfo: async (newProductInfo: ProductInfo) => {
     return axios
-        .post<ProductInfo>(MainLink + 'SaveProductInfo', newProductInfo, await AxiosTokenConfig())
+        .post<ProductInfo>('api/SaveProductInfo', newProductInfo, GetHeaders())
         .then(res => res.data);
   }
   

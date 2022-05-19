@@ -12,9 +12,9 @@ using Services.Abstractions;
 namespace Presentation.Endpoints.MakingOrder
 {
     [Route("api")]
-    public class DeclineOrder : BaseEndpoint
+    public class DeclineOrder : EndpointBaseSync
         .WithRequest<int>
-        .WithoutResponse
+        .WithActionResult
     {
         private readonly IServiceManager _serviceManager;
         public DeclineOrder(IServiceManager serviceManager) => _serviceManager = serviceManager;

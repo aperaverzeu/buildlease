@@ -5,8 +5,6 @@ import {Button, Col, Row} from "antd";
 
 export default function AdminMain() {
 
-    const AdminMainLink = 'https://localhost:5001/';
-
     return (
         <>
             <SubHeader>
@@ -29,7 +27,7 @@ export default function AdminMain() {
                                 justifyContent: "center",
                                 textAlign: "center",
                                 marginRight: "5rem"
-                            }} type="primary" size="large" href={AdminMainLink + `admin/product`}>
+                            }} type="primary" size="large" href={`admin/product`}>
                                 Manage products
                             </Button>
                         </Col>
@@ -41,7 +39,7 @@ export default function AdminMain() {
                                 justifyContent: "center",
                                 textAlign: "center",
                                 marginLeft: "5rem"
-                            }} type="primary" size="large" href={AdminMainLink + `admin/categories`}>
+                            }} type="primary" size="large" href={`admin/categories`}>
                                 Manage Categories
                             </Button>
                         </Col>

@@ -2,6 +2,7 @@
 {
     public interface IServiceManager
     {
+        IAuthService AuthService { get; }
         IAdminService AdminService { get; }
         ICatalogueService CatalogueService { get; }
         IOrderService OrderService { get; }

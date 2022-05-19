@@ -11,9 +11,9 @@ using Services.Abstractions;
 namespace Presentation.Endpoints.Order
 {
     [Route("api")]
-    public class GetHistoryProduct : BaseEndpoint
+    public class GetHistoryProduct : EndpointBaseSync
         .WithRequest<int>
-        .WithResponse<ProductFullView>
+        .WithActionResult<ProductFullView>
     {
         private readonly IServiceManager _serviceManager;
         public GetHistoryProduct(IServiceManager serviceManager) => _serviceManager = serviceManager;

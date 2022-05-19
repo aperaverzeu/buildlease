@@ -6,9 +6,9 @@ using System;
 namespace Presentation.Endpoints
 {
     [Route("api")]
-    public class AmIAdmin : BaseEndpoint
+    public class AmIAdmin : EndpointBaseSync
         .WithoutRequest
-        .WithResponse<bool>
+        .WithActionResult<bool>
     {
         private readonly IServiceManager _serviceManager;
         public AmIAdmin(IServiceManager serviceManager) => _serviceManager = serviceManager;

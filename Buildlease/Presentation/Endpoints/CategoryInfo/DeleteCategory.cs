@@ -11,9 +11,9 @@ using Services.Abstractions;
 namespace Presentation.Endpoints.CategoryInfo
 {
     [Route("api")]
-    public class DeleteCategory : BaseEndpoint
+    public class DeleteCategory : EndpointBaseSync
         .WithRequest<int>
-        .WithoutResponse
+        .WithActionResult
     {
         private readonly IServiceManager _serviceManager;
         public DeleteCategory(IServiceManager serviceManager) => _serviceManager = serviceManager;

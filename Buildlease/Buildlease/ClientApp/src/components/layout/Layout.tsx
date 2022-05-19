@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import { Container } from 'reactstrap';
 import { Header } from './Header';
 
