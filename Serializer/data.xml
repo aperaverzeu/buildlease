@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<ProductDescriptions>
+	<ProductDescription>
+		<ProductId>3</ProductId>
+		<Language>English</Language>
+		<Description>Test description
+Liar, cheater, bastard child
+Broken promise, love died
+Traitor, heartless filth of a man
+All broke down when you ran</Description>
+	</ProductDescription>
+	<ProductDescription>
+		<ProductId>3</ProductId>
+		<Language>Українська</Language>
+		<Description>Тестовий опис</Description>
+	</ProductDescription>
+</ProductDescriptions>
