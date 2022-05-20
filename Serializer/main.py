@@ -23,21 +23,31 @@ def xlsx_serializer(obj, file="data.xlsx"):
 
 
 def xml_serializer(obj, file="data.xml"):
-    with open(file, 'w', encoding='utf-8') as outfile:
+    with open(file, 'w', encoding='utf-8', ensure_ascii=False) as outfile:
         info = json2xml.Json2xml(
             obj, wrapper="ProductDescriptions", pretty=True, attr_type=False).to_xml()
         newstr = str(info).replace('item', 'ProductDescription')
         outfile.write(newstr)
 
 
+def POST_request(file="import.json"):
+    with open(file, "r", encoding='utf-8') as file:
+        json_data = json.load(file)
+
+    headers = {'Accept': 'application/json',
+               'Content-Type': 'application/json', 'charset': 'utf-8'}
+    requests.post("https://buildlease.rigorich.monster/api/ProductDescriptions",
+                  data=json.dumps(json_data), headers=headers)
+    assert response.status_code == 200
+
+
 response = requests.get(
     "https://buildlease.rigorich.monster/api/ProductDescriptions")
 print(response.status_code)
-# json_serializer(response.json())
-# xlsx_serializer(response.json())
-# xml_serializer(response.json())
-# xlsx_to_json("import.xlsx")
 
-requests.post("https://buildlease.rigorich.monster/api/ProductDescriptions", "import.json")
 
-# print(response.json())
+json_serializer(response.json())
+xlsx_serializer(response.json())
+xml_serializer(response.json())
+xlsx_to_json("import.xlsx")
+POST_request()
