@@ -73,22 +73,5 @@ namespace Buildlease.Migrations
                 name: "Description",
                 table: "Product");
         }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "ProductDescription");
-
-            migrationBuilder.DropTable(
-                name: "Language");
-
-            migrationBuilder.AddColumn<string>(
-                name: "Description",
-                table: "Product",
-                type: "nvarchar(max)",
-                maxLength: 2147483647,
-                nullable: false,
-                defaultValue: "");
-        }
     }
 }

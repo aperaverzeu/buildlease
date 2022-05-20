@@ -25,7 +25,17 @@ namespace Services
                 IsAdmin = false,
             });
 
-            _db.SaveChanges();
+            try
+            {
+                _db.SaveChanges();
+            }
+            catch (Exception ex)
+            when (
+                ex.InnerException is Microsoft.Data.SqlClient.SqlException inner &&
+                inner.Procedure == "UserEmailValidation")
+            {
+                throw new InvalidOperationException("Email is not valid");
+            }
         }
 
         public void SendRestoreCode(string userId)

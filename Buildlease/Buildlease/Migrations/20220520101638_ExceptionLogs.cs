@@ -59,11 +59,5 @@ namespace Buildlease.Migrations
                 ;
             ");
         }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "ExceptionLog");
-        }
     }
 }

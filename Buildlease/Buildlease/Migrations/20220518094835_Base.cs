@@ -289,38 +289,5 @@ namespace Buildlease.Migrations
                 table: "ProductOrder",
                 column: "ProductId");
         }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "Address");
-
-            migrationBuilder.DropTable(
-                name: "HistoryOfOrderStatus");
-
-            migrationBuilder.DropTable(
-                name: "ProductAttribute");
-
-            migrationBuilder.DropTable(
-                name: "ProductOrder");
-
-            migrationBuilder.DropTable(
-                name: "Attribute");
-
-            migrationBuilder.DropTable(
-                name: "Order");
-
-            migrationBuilder.DropTable(
-                name: "Product");
-
-            migrationBuilder.DropTable(
-                name: "Customer");
-
-            migrationBuilder.DropTable(
-                name: "Category");
-
-            migrationBuilder.DropTable(
-                name: "Users");
-        }
     }
 }

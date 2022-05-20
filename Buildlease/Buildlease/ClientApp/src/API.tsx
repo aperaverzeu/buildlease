@@ -172,7 +172,7 @@ const API = {
     return axios
         .post<ProductInfo>('api/SaveProductInfo', newProductInfo, GetHeaders())
         .then(res => res.data);
-  }
+  },
   
 }
 
