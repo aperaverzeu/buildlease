@@ -83,16 +83,25 @@ namespace Services
                     ValueString = e.Attribute.ValueType == AttributeType.String ?
                         e.Value : null,
                 });
+            
+            var newLanguages = info.Descriptions
+                .Select(d => d.Language)
+                .Where(dl => !string.IsNullOrWhiteSpace(dl))
+                .Where(dl => _db.Languages.All(l => l.Name != dl))
+                .ToArray();
+
+            _db.Languages.AddRange(newLanguages.Select(newLang => new Language() { Name = newLang, }));
+            _db.SaveChanges();
 
             var descriptions = info.Descriptions
                 .Where(e => !string.IsNullOrWhiteSpace(e.Description))
-                .Where(e => _db.Languages.Any(l => l.Name == e.Language))
                 .Select(e => new ProductDescription()
                 {
                     ProductId = product.Id,
                     LanguageId = _db.Languages.Single(l => l.Name == e.Language).Id,
                     Description = e.Description,
-                });
+                })
+                .ToArray();
 
             _db.ChangeTracker.Clear();
             _db.Database.BeginTransaction();

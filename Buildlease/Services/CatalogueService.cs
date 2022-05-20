@@ -136,6 +136,7 @@ namespace Services
                 Attributes = product.GetProductAttributeViews(),
                 AvailableCount = _db.GetProductAvailableCount(productId),
                 Descriptions = product.ProductDescriptions
+                    .OrderBy(pd => pd.LanguageId)
                     .Select(pd => new ProductDescriptionView()
                     {
                         Language = pd.Language.Name,
