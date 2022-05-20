@@ -8,6 +8,7 @@ namespace Services.Abstractions
     public interface IAuthService
     {
         void Register(string userId, string password);
+        void Login(string userId, string password);
         void SendRestoreCode(string userId);
         void ChangePassword(string userId, string restoreCode, string newPassword);
 

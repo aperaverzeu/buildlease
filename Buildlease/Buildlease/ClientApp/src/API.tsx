@@ -18,8 +18,8 @@ import MakeOrderFromCartRequest from "./components/cart/MakeOrderFromCartRequest
 function GetHeaders() {
   return {
     headers: {
-      'login': localStorage.getItem('login') || '',
-      'password': localStorage.getItem('password') || '',
+      'Login': localStorage.getItem('Login') || '',
+      'Password': localStorage.getItem('Password') || '',
     }
   };
 }
@@ -27,7 +27,37 @@ function GetHeaders() {
 const API = {
 
   IsAuthorized: () => {
-    return localStorage.getItem('login') != null && localStorage.getItem('password') != null;
+    return localStorage.getItem('Login') != null && localStorage.getItem('Password') != null;
+  },
+
+  // Authorization:
+
+  Register: async (Login: string, Password: string) => {
+    return axios
+        .post<void>(`api/Register`, { Login, Password }, GetHeaders())
+        .then(res => res.data);
+  },
+
+  Login: async (Login: string, Password: string) => {
+    return axios
+        .post<void>(`api/Login`, { Login, Password }, GetHeaders())
+        .then(res => res.data)
+        .then(() => {
+          localStorage.setItem('Login', Login);
+          localStorage.setItem('Password', Password); 
+        });
+  },
+
+  SendRestoreCode: async (Login: string) => {
+    return axios
+        .post<void>(`api/SendRestoreCode`, { Login }, GetHeaders())
+        .then(res => res.data);
+  },
+
+  ChangePassword: async (Login: string, RestoreCode: string, NewPassword: string) => {
+    return axios
+        .post<void>(`api/ChangePassword`, { Login, RestoreCode, NewPassword }, GetHeaders())
+        .then(res => res.data);
   },
 
   // Catalog:

@@ -27,7 +27,7 @@ export default function AdminMain() {
                                 justifyContent: "center",
                                 textAlign: "center",
                                 marginRight: "5rem"
-                            }} type="primary" size="large" href={`admin/product`}>
+                            }} type="primary" size="large" href={`admin/products`}>
                                 Manage products
                             </Button>
                         </Col>

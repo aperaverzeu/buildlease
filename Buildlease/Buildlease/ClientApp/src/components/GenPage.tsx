@@ -1,5 +1,5 @@
 // routing
-import {Route, Switch} from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 
 import {useState} from 'react';
 import Globals from '../Globals';
@@ -18,6 +18,7 @@ import AdminCategory from "./admin/category-panel/AdminCategory";
 // styles (do we need em here tho?)
 import './gen_page.module.css';
 import API from '../API';
+import AuthPage from './auth/AuthPage';
 
 export default function GenPage() {
 
@@ -28,7 +29,12 @@ export default function GenPage() {
         <>
             {OK ?
                 <Switch>
-                    { API.IsAuthorized() &&
+                    <Route path='/auth' component={AuthPage}/>
+                    <Route path='/catalog/:stringCategoryId?' component={Catalog}/>
+                    <Route path='/products/:stringProductId' component={() => <Product isHistoric={false}/>}/>
+                    <Route path='/archived-products/:stringProductOrderId' component={() => <Product isHistoric={true}/>}/>
+                    { API.IsAuthorized()
+                    ?
                     <>
                         <Route path='/cart' component={Cart}/>
                         <Route path='/profile' component={Profile}/>
@@ -37,13 +43,10 @@ export default function GenPage() {
                         <Route path='/admin/products/:stringProductId?' component={AdminProduct}/>
                         <Route path='/admin/categories' component={AdminCategory}/>
                         <Route path='/admin' component={Admin}/>
-                    </>}
-                    {
-                    // <Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes}/>
+                    </>
+                    :
+                    <Redirect from='*' to='/auth'/>
                     }
-                    <Route path='/catalog/:stringCategoryId?' component={Catalog}/>
-                    <Route path='/products/:stringProductId' component={() => <Product isHistoric={false}/>}/>
-                    <Route path='/archived-products/:stringProductOrderId' component={() => <Product isHistoric={true}/>}/>
                 </Switch>
                 :
                 <h1>YOU SHOULD NOT SEE THIS, MORTAL ONE!</h1>

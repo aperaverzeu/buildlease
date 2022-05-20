@@ -41,6 +41,7 @@ export default function App() {
                                 '/admin/categories',
                                 '/admin',
                                 // to be continued...
+                                '/auth',
                             ]
                         } component={GenPage} />
 

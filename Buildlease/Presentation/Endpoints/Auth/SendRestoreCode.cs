@@ -6,19 +6,19 @@ using Services.Abstractions;
 namespace Presentation.Endpoints.Auth
 {
     [Route("api")]
-    public class Login : EndpointBaseSync
-        .WithRequest<LoginRequest>
+    public class SendRestoreCode : EndpointBaseSync
+        .WithRequest<SendRestoreCodeRequest>
         .WithActionResult
     {
         private readonly IServiceManager _serviceManager;
-        public Login(IServiceManager serviceManager) => _serviceManager = serviceManager;
+        public SendRestoreCode(IServiceManager serviceManager) => _serviceManager = serviceManager;
 
-        [HttpPost("Login")]
-        public override ActionResult Handle([FromBody] LoginRequest request)
+        [HttpPost("SendRestoreCode")]
+        public override ActionResult Handle([FromBody] SendRestoreCodeRequest request)
         {
             try
             {
-                _serviceManager.AuthService.Login(request.Login, request.Password);
+                _serviceManager.AuthService.SendRestoreCode(request.Login);
             }
             catch (InvalidOperationException ex)
             {
@@ -28,9 +28,8 @@ namespace Presentation.Endpoints.Auth
         }
     }
 
-    public class LoginRequest
+    public class SendRestoreCodeRequest
     {
         public string Login { get; set; }
-        public string Password { get; set; }
     }
 }
