@@ -145,39 +145,41 @@ export default function AdminProduct() {
                                                obj.ImageLink = data.target.value;
                                                setNewProductDetails(obj);
                                            }}/>
-                                    <h3>Product descriptions:</h3>
-                                    { newProductDetails.Descriptions.map(d => <>
-                                    <Input addonBefore='Language'
-                                        defaultValue={d.Language}
-                                        onChange={(data) => {
-                                            const obj = Object.assign({}, newProductDetails);
-                                            obj.Descriptions.filter(x => x.Language == d.Language)[0].Language = data.target.value;
-                                            setNewProductDetails(obj);
-                                        }}/>
-                                    <Input.TextArea key={d.Language}
-                                                    defaultValue={d.Description}
-                                                    rows={8}
-                                                    onChange={(data) => {
-                                                        const obj = Object.assign({}, newProductDetails);
-                                                        obj.Descriptions.filter(x => x.Language == d.Language)[0].Description = data.target.value;
-                                                        setNewProductDetails(obj);
-                                                    }}/>
-                                    </>)
-                                    }
-                                    <Button type='primary'
-                                            style={{
-                                                marginBottom: '16px',
-                                            }}
-                                            onClick={() => {
-                                                let newDescriptionInfo : ProductDescriptionInfo = {
-                                                    Language: '',
-                                                    Description: '',
-                                                };
-                                                newProductDetails.Descriptions.push(newDescriptionInfo);
+                                    { productId !== 0 && <>
+                                        <h3>Product descriptions:</h3>
+                                        { newProductDetails.Descriptions.map(d => <>
+                                        <Input addonBefore='Language'
+                                            defaultValue={d.Language}
+                                            onChange={(data) => {
                                                 const obj = Object.assign({}, newProductDetails);
+                                                obj.Descriptions.filter(x => x.Language == d.Language)[0].Language = data.target.value;
                                                 setNewProductDetails(obj);
-                                            }}
-                                    >Add new description</Button>
+                                            }}/>
+                                        <Input.TextArea key={d.Language}
+                                                        defaultValue={d.Description}
+                                                        rows={8}
+                                                        onChange={(data) => {
+                                                            const obj = Object.assign({}, newProductDetails);
+                                                            obj.Descriptions.filter(x => x.Language == d.Language)[0].Description = data.target.value;
+                                                            setNewProductDetails(obj);
+                                                        }}/>
+                                        </>)
+                                        }
+                                        <Button type='primary'
+                                                style={{
+                                                    marginBottom: '16px',
+                                                }}
+                                                onClick={() => {
+                                                    let newDescriptionInfo : ProductDescriptionInfo = {
+                                                        Language: '',
+                                                        Description: '',
+                                                    };
+                                                    newProductDetails.Descriptions.push(newDescriptionInfo);
+                                                    const obj = Object.assign({}, newProductDetails);
+                                                    setNewProductDetails(obj);
+                                                }}
+                                        >Add new description</Button>
+                                    </>}
                                 </Space>
                             }
                         </MainContent>
@@ -185,7 +187,7 @@ export default function AdminProduct() {
                             width: '600px',
                         }}>
                             {
-                                productId != 0 &&
+                                productId !== 0 &&
                                 newProductDetails.Attributes.map(attr => (
                                     attr.ValueType === AttributeType.String ?
                                         <div className='w-100 d-flex align-items-center' style={{
