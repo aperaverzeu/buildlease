@@ -18,6 +18,11 @@ namespace Persistence
         public DbSet<ProductOrder> ProductOrders { get; set; }
         public DbSet<HistoryOfOrderStatus> HistoryOfOrderStatus { get; set; }
 
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<ProductDescription> ProductDescriptions { get; set; }
+
+        public DbSet<ExceptionLog> ExceptionLogs { get; set; }
+
         public ApplicationDbContext(DbContextOptions options)
             : base(options)
         {
@@ -40,6 +45,13 @@ namespace Persistence
                         Id = -42,
                         ParentId = -42,
                         Name = "All",
+                    });
+
+            builder.Entity<Language>()
+                    .HasData(new Language
+                    {
+                        Id = -1,
+                        Name = "English",
                     });
         }
 

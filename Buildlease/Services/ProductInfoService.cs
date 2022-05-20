@@ -20,6 +20,7 @@ namespace Services
         {
             var product = _db.Products
                 .Include(e => e.ProductAttributes)
+                .Include(e => e.ProductDescriptions).ThenInclude(e => e.Language)
                 .Single(e => e.Id == productId);
 
             var attributes = _db.GetAllAvailableAttributes(product.CategoryId);
@@ -82,6 +83,25 @@ namespace Services
                     ValueString = e.Attribute.ValueType == AttributeType.String ?
                         e.Value : null,
                 });
+            
+            var newLanguages = info.Descriptions
+                .Select(d => d.Language)
+                .Where(dl => !string.IsNullOrWhiteSpace(dl))
+                .Where(dl => _db.Languages.All(l => l.Name != dl))
+                .ToArray();
+
+            _db.Languages.AddRange(newLanguages.Select(newLang => new Language() { Name = newLang, }));
+            _db.SaveChanges();
+
+            var descriptions = info.Descriptions
+                .Where(e => !string.IsNullOrWhiteSpace(e.Description))
+                .Select(e => new ProductDescription()
+                {
+                    ProductId = product.Id,
+                    LanguageId = _db.Languages.Single(l => l.Name == e.Language).Id,
+                    Description = e.Description,
+                })
+                .ToArray();
 
             _db.ChangeTracker.Clear();
             _db.Database.BeginTransaction();
@@ -90,6 +110,9 @@ namespace Services
 
             _db.ProductAttributes.RemoveRange(_db.ProductAttributes.Where(e => e.ProductId == product.Id));
             _db.ProductAttributes.AddRange(attributes);
+
+            _db.ProductDescriptions.RemoveRange(_db.ProductDescriptions.Where(e => e.ProductId == product.Id));
+            _db.ProductDescriptions.AddRange(descriptions);
 
             _db.SaveChanges();
             _db.Database.CommitTransaction();

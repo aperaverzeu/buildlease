@@ -14,11 +14,18 @@ namespace Services.Extension.Mapping
                 Id = obj.Id,
                 CategoryId = obj.CategoryId,
                 Name = obj.Name,
-                Description = obj.Description,
                 ImageLink = obj.ImagePath,
                 TotalCount = obj.TotalCount,
                 Price = obj.Price,
                 Attributes = attributes,
+                Descriptions = obj.ProductDescriptions
+                    .OrderBy(e => e.LanguageId)
+                    .Select(e => new ProductDescriptionInfo()
+                    {
+                        Language = e.Language.Name,
+                        Description = e.Description,
+                    })
+                    .ToArray(),
             };
 
         public static Product MapToProduct(this ProductInfo info)
@@ -27,7 +34,6 @@ namespace Services.Extension.Mapping
                 Id = info.Id,
                 CategoryId = info.CategoryId,
                 Name = info.Name,
-                Description = info.Description,
                 ImagePath = info.ImageLink,
                 TotalCount = info.TotalCount,
                 Price = info.Price,

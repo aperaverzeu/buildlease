@@ -11,7 +11,7 @@ export default function Admin() {
         { API.IsAuthorized()
         ?
             <Switch>
-                <Route path='/admin/main' component={AdminMain}/>
+                <Route path='/admin' component={AdminMain}/>
                 <Route path='/admin/products/:productStringId?' component={AdminProduct}/>
                 <Route path='/admin/categories' component={AdminCategory}/>
             </Switch>
