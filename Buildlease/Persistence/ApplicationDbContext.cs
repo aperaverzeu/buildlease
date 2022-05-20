@@ -21,6 +21,8 @@ namespace Persistence
         public DbSet<Language> Languages { get; set; }
         public DbSet<ProductDescription> ProductDescriptions { get; set; }
 
+        public DbSet<ExceptionLog> ExceptionLogs { get; set; }
+
         public ApplicationDbContext(DbContextOptions options)
             : base(options)
         {

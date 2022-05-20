@@ -90,6 +90,8 @@ namespace Buildlease
 
             app.UseRouting();
 
+            app.UseMiddleware<ExceptionLoggerMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
