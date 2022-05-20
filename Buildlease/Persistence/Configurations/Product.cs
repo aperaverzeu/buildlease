@@ -26,11 +26,6 @@ namespace Persistence.Configurations
                     .IsRequired()
                     .HasMaxLength(500);
 
-            builder .Property(e => e.Description)
-                    .IsRequired()
-                    .HasDefaultValue(string.Empty)
-                    .HasMaxLength(int.MaxValue);
-
             builder .Property(e => e.ImagePath)
                     .IsRequired(false)
                     .HasDefaultValue(null)

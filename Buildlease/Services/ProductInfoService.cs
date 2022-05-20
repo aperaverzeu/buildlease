@@ -20,6 +20,7 @@ namespace Services
         {
             var product = _db.Products
                 .Include(e => e.ProductAttributes)
+                .Include(e => e.ProductDescriptions).ThenInclude(e => e.Language)
                 .Single(e => e.Id == productId);
 
             var attributes = _db.GetAllAvailableAttributes(product.CategoryId);
@@ -83,6 +84,14 @@ namespace Services
                         e.Value : null,
                 });
 
+            var descriptions = info.Descriptions
+                .Select(e => new ProductDescription()
+                {
+                    ProductId = product.Id,
+                    LanguageId = _db.Languages.Single(l => l.Name == e.Language).Id,
+                    Description = e.Description,
+                });
+
             _db.ChangeTracker.Clear();
             _db.Database.BeginTransaction();
 
@@ -90,6 +99,9 @@ namespace Services
 
             _db.ProductAttributes.RemoveRange(_db.ProductAttributes.Where(e => e.ProductId == product.Id));
             _db.ProductAttributes.AddRange(attributes);
+
+            _db.ProductDescriptions.RemoveRange(_db.ProductDescriptions.Where(e => e.ProductId == product.Id));
+            _db.ProductDescriptions.AddRange(descriptions);
 
             _db.SaveChanges();
             _db.Database.CommitTransaction();

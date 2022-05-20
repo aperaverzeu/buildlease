@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {useParams} from "react-router-dom";
 
-import {Breadcrumb, Button, message} from "antd";
+import {Breadcrumb, Button, message, Select} from "antd";
 import { InputNumber } from 'antd';
 
 // gen layout
@@ -33,10 +33,15 @@ export default function Product({isHistoric}: Props) {
     
     const [productDetails, setProductDetails] = useState<ProductFullView | undefined>(undefined);
     const [formProductCount, setFormProductCount] = useState<number>(1);
+
+    const [language, setLanguage] = useState<string | undefined>(undefined);
     
     function LoadProductDetails() {
         API.GetProductDetails(productId)
-            .then(res => setProductDetails(res));
+            .then(res => {
+                setProductDetails(res);
+                setLanguage(res.Descriptions[0]?.Language);
+            });
     }
     
     function LoadHistoricProductDetails() {
@@ -113,7 +118,11 @@ export default function Product({isHistoric}: Props) {
                             </div>
                             <div>
                                 <h3>Description:</h3>
-                                <p style={{whiteSpace: 'pre-wrap'}}>{productDetails?.Description}</p>
+                                {language &&
+                                <Select bordered={false} defaultValue={language} onChange={(newValue) => setLanguage(newValue)}>
+                                    {productDetails?.Descriptions.map((item => <Select.Option value={item.Language}>{item.Language}</Select.Option>))}
+                                </Select>}
+                                <p style={{whiteSpace: 'pre-wrap'}}>{productDetails?.Descriptions.filter(d => d.Language === language)[0]?.Description}</p>
                             </div>
                             <div>
                                 <h3>Parameters:</h3>

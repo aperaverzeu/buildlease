@@ -123,18 +123,25 @@ namespace Services
         {
             var product = _db.Products
                 .IncludeProductAttributeView()
+                .Include(p => p.ProductDescriptions).ThenInclude(pd => pd.Language)
                 .Single(e => e.Id == productId);
 
             var view = new ProductFullView()
             {
                 Id = product.Id,
                 Name = product.Name,
-                Description = product.Description,
                 Price = product.Price,
                 TotalCount = product.TotalCount,
                 ImagePath = product.ImagePath,
                 Attributes = product.GetProductAttributeViews(),
                 AvailableCount = _db.GetProductAvailableCount(productId),
+                Descriptions = product.ProductDescriptions
+                    .Select(pd => new ProductDescriptionView()
+                    {
+                        Language = pd.Language.Name,
+                        Description = pd.Description,
+                    })
+                    .ToArray(),
             };
 
             view.CategoryPath = _db.Categories
@@ -173,7 +180,7 @@ namespace Services
                     query = query
                         .Where(e =>
                             e.Name.Contains(word) ||
-                            e.Description.Contains(word));
+                            e.ProductDescriptions.Any(pd => pd.Description.Contains(word)));
             }
 
             if (request.MaxPrice.HasValue)
