@@ -1,50 +1,43 @@
 import json
 import requests
-import openpyxl
 from json2xml import json2xml
+import pandas as pd
 
 
-def json_serializer(obj):
-    with open('data.json', 'w', encoding='utf-8') as outfile:
+def json_serializer(obj, file='data.json'):
+    with open(file, 'w', encoding='utf-8') as outfile:
         json.dump(obj, outfile, indent=3, ensure_ascii=False)
-        
-def xlsx_to_json(file):
-    book = openpyxl.Workbook()
-    sheet = book.active
 
 
-def xlsx_serializer(obj):
-    book = openpyxl.Workbook()
-    sheet = book.active
-    sheet['A1']="ProductId"
-    sheet['B1']="Language"
-    sheet['C1']="Description"
-    row = 2
-    for item in obj: 
-        sheet[row][0].value = item['ProductId']
-        sheet[row][1].value = item['Language']
-        sheet[row][2].value = item['Description']
-        row+=1
-        
-    book.save("data.xlsx")
-    book.close()
-  
-     
-def xml_serializer(obj):
-    with open('data.xml', 'w', encoding='utf-8') as outfile:
-        info = json2xml.Json2xml(obj, wrapper="ProductDescriptions", pretty=True, attr_type=False).to_xml()
-        newstr = str(info).replace('item','ProductDescription')
-        outfile.write(newstr) 
- 
-             
-        
+def xlsx_to_json(file, outputfile="import.json"):
+    df = pd.read_excel(file)
+    json_str = df.to_json(orient='records')
+    parsed = json.loads(json_str)
+    json_serializer(parsed, outputfile)
+
+
+def xlsx_serializer(obj, file="data.xlsx"):
+    print(obj)
+    df = pd.DataFrame(obj)
+    df.to_excel(file)
+
+
+def xml_serializer(obj, file="data.xml"):
+    with open(file, 'w', encoding='utf-8') as outfile:
+        info = json2xml.Json2xml(
+            obj, wrapper="ProductDescriptions", pretty=True, attr_type=False).to_xml()
+        newstr = str(info).replace('item', 'ProductDescription')
+        outfile.write(newstr)
+
+
 response = requests.get(
     "https://buildlease.rigorich.monster/api/ProductDescriptions")
+print(response.status_code)
+# json_serializer(response.json())
+# xlsx_serializer(response.json())
+# xml_serializer(response.json())
+# xlsx_to_json("import.xlsx")
 
-json_serializer(response.json())
-xlsx_serializer(response.json())
-xml_serializer(response.json())
-
-# requests.post("https://buildlease.rigorich.monster/api/ProductDescriptions",file)
+requests.post("https://buildlease.rigorich.monster/api/ProductDescriptions", "import.json")
 
 # print(response.json())
