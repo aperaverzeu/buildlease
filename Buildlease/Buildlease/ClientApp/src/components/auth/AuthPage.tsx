@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { Redirect } from "react-router-dom";
 import API from "../../API";
 
 export default function AuthPage() {
+
+  const [OK, setOK] = useState<boolean>(false);
 
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -9,7 +12,7 @@ export default function AuthPage() {
 
   async function TryLogin() {
     await API.Login(login, password)
-      .then(() => alert('Wow!'))
+      .then(() => setOK(true))
       .catch((e) => alert(e.response.data))
   }
 
@@ -32,6 +35,8 @@ export default function AuthPage() {
   }
 
   return (
+    <>
+    {OK && <Redirect to='/profile' />}
     <div style={{ width: 200, height: 300, display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignSelf: 'center'}}>
       <input placeholder='Email' type='email' value={login} onChange={e => setLogin(e.target.value)} />
       <input placeholder='Password' type='password' value={password} onChange={e => setPassword(e.target.value)} />
@@ -41,5 +46,6 @@ export default function AuthPage() {
       <input placeholder='Restore code' value={restoreCode} onChange={e => setRestoreCode(e.target.value)} />
       <button onClick={TryChangePassword}>Change password</button>
     </div>
+    </>
   );
 }

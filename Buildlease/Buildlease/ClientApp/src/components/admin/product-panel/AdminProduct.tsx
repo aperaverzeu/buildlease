@@ -13,6 +13,7 @@ import {AutoComplete, Button, Checkbox, Input, InputNumber, message, Select, Spa
 import CategoryTreeSelect from "../CategoryTreeSelect";
 import Globals from "../../../Globals";
 import {AttributeType} from "../../dtos/CategoryAttributeInfo";
+import ProductDescriptionInfo from "../../dtos/ProductDescriptionInfo";
 
 export default function AdminProduct() {
     
@@ -34,7 +35,7 @@ export default function AdminProduct() {
                 Id: 0,
                 CategoryId: LOGIC.GetRootCategoryId(),
                 Name: 'New product',
-                Description: 'No description.',
+                Descriptions: [],
                 ImageLink: 'No image link',
                 TotalCount: 0,
                 Price: null,
@@ -144,14 +145,39 @@ export default function AdminProduct() {
                                                obj.ImageLink = data.target.value;
                                                setNewProductDetails(obj);
                                            }}/>
-                                    <h3>Product description:</h3>
-                                    <Input.TextArea defaultValue={newProductDetails.Description}
+                                    <h3>Product descriptions:</h3>
+                                    { newProductDetails.Descriptions.map(d => <>
+                                    <Input addonBefore='Language'
+                                        defaultValue={d.Language}
+                                        onChange={(data) => {
+                                            const obj = Object.assign({}, newProductDetails);
+                                            obj.Descriptions.filter(x => x.Language == d.Language)[0].Language = data.target.value;
+                                            setNewProductDetails(obj);
+                                        }}/>
+                                    <Input.TextArea key={d.Language}
+                                                    defaultValue={d.Description}
                                                     rows={8}
                                                     onChange={(data) => {
                                                         const obj = Object.assign({}, newProductDetails);
-                                                        obj.Description = data.target.value;
+                                                        obj.Descriptions.filter(x => x.Language == d.Language)[0].Description = data.target.value;
                                                         setNewProductDetails(obj);
                                                     }}/>
+                                    </>)
+                                    }
+                                    <Button type='primary'
+                                            style={{
+                                                marginBottom: '16px',
+                                            }}
+                                            onClick={() => {
+                                                let newDescriptionInfo : ProductDescriptionInfo = {
+                                                    Language: '',
+                                                    Description: '',
+                                                };
+                                                newProductDetails.Descriptions.push(newDescriptionInfo);
+                                                const obj = Object.assign({}, newProductDetails);
+                                                setNewProductDetails(obj);
+                                            }}
+                                    >Add new description</Button>
                                 </Space>
                             }
                         </MainContent>

@@ -45,7 +45,7 @@ export default function GenPage() {
                         <Route path='/admin' component={Admin}/>
                     </>
                     :
-                    <Redirect from='*' to='/auth'/>
+                        <Redirect path='*' to='/auth'/>
                     }
                 </Switch>
                 :

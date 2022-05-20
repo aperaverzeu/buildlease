@@ -85,6 +85,8 @@ namespace Services
                 });
 
             var descriptions = info.Descriptions
+                .Where(e => !string.IsNullOrWhiteSpace(e.Description))
+                .Where(e => _db.Languages.Any(l => l.Name == e.Language))
                 .Select(e => new ProductDescription()
                 {
                     ProductId = product.Id,
