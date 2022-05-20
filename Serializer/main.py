@@ -25,7 +25,7 @@ def xml_serializer(obj, file="data.xml"):
     with open(file, 'w', encoding='utf-8') as outfile:
         info = json2xml.Json2xml(
             obj, wrapper="ProductDescriptions", pretty=True, attr_type=False).to_xml()
-        newstr = str(info).replace('item', 'ProductDescription')
+        newstr = str(info).replace('item>', 'ProductDescription>')
         outfile.write(newstr)
 
 
