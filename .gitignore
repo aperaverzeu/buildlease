@@ -238,3 +238,4 @@ appsettings.json
 *.sln.iml
 *.DS_Store
 .vscode/
+env/
