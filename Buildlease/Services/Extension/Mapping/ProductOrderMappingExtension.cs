@@ -19,6 +19,7 @@ namespace Services.Extension
             {
                 return new ProductOrderView()
                 {
+                    ProductOrderId = obj.Id,
                     ProductId = obj.Product.Id,
                     Count = obj.Count,
                     Name = obj.Product.Name,
@@ -32,6 +33,7 @@ namespace Services.Extension
                 var product = Newtonsoft.Json.JsonConvert.DeserializeObject<ProductFullView>(obj.SerializedProductFullView);
                 return new ProductOrderView()
                 {
+                    ProductOrderId = obj.Id,
                     ProductId = product.Id,
                     Count = obj.Count,
                     Name = product.Name,
