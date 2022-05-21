@@ -182,7 +182,7 @@ export default function Product({isHistoric}: Props) {
                                                 margin: '0px',
                                                 marginBottom: '16px',
                                                 fontStyle: 'lighter italic',
-                                            }}>{`You are viewing the "${productDetails?.Name}" page state as of ${}`}</p>
+                                            }}>{`You are viewing the "${productDetails?.Name}" page state as of ...`}</p>
                                             <a>
                                                 <p className={styles.link} style={{
                                                     margin: '0px',
