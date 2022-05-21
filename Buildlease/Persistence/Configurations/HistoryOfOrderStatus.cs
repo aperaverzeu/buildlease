@@ -31,7 +31,7 @@ namespace Persistence.Configurations
             builder .HasOne<Order>(h => h.Order)
                     .WithMany(o => o.HistoryOfOrderStatus)
                     .IsRequired()
-                    .OnDelete(DeleteBehavior.ClientCascade);
+                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Services.Extension.Mapping
                 Id = info.Id,
                 Name = info.Name,
                 ValueType = info.ValueType,
-                UnitName = info.UnitName,
+                UnitName = info.ValueType == AttributeType.Number ? info.UnitName : null,
 
                 CategoryId = -1,
             };

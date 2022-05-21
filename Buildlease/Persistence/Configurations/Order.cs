@@ -42,7 +42,7 @@ namespace Persistence.Configurations
                     .WithMany(c => c.Orders)
                     .HasForeignKey(o => o.CustomerId)
                     .IsRequired()
-                    .OnDelete(DeleteBehavior.ClientCascade);
+                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

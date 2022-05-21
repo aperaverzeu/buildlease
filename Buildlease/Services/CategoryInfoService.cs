@@ -66,7 +66,7 @@ namespace Services
         public void DeleteCategory(int categoryId)
         {
             var category = _db.Categories.Single(e => e.Id == categoryId);
-
+            _db.Categories.Load();
             _db.Categories.Remove(category);
             _db.SaveChanges();
         }
