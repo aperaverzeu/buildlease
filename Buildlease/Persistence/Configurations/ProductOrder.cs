@@ -37,7 +37,7 @@ namespace Persistence.Configurations
                     .WithMany(o => o.ProductOrders)
                     .HasForeignKey(po => po.OrderId)
                     .IsRequired()
-                    .OnDelete(DeleteBehavior.ClientCascade);
+                    .OnDelete(DeleteBehavior.Cascade);
 
             builder .HasOne<Product>(po => po.Product)
                     .WithMany(p => p.ProductOrders)

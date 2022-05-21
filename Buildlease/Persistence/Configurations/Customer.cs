@@ -47,7 +47,7 @@ namespace Persistence.Configurations
                     .WithOne()
                     .HasForeignKey<Customer>(c => c.UserId)
                     .IsRequired()
-                    .OnDelete(DeleteBehavior.ClientCascade);
+                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

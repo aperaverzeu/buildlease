@@ -34,13 +34,13 @@ namespace Persistence.Configurations
                     .WithMany(p => p.ProductDescriptions)
                     .HasForeignKey(pd => pd.ProductId)
                     .IsRequired()
-                    .OnDelete(DeleteBehavior.ClientCascade);
+                    .OnDelete(DeleteBehavior.Cascade);
 
             builder .HasOne<Language>(pd => pd.Language)
                     .WithMany()
                     .HasForeignKey(pd => pd.LanguageId)
                     .IsRequired()
-                    .OnDelete(DeleteBehavior.ClientCascade);
+                    .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

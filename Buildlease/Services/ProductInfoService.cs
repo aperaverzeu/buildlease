@@ -49,7 +49,7 @@ namespace Services
                             product.ProductAttributes
                             .SingleOrDefault(pa => pa.AttributeId == e.Id)
                             ?.ValueNumber?.ToString(),
-                        _ => throw new System.NotImplementedException(),
+                        _ => throw new System.ArgumentOutOfRangeException(),
                     }
                 })
                 .ToArray();
@@ -122,7 +122,7 @@ namespace Services
 
         public void DeleteProduct(int productId)
         {
-            var product = _db.Products.Single(e => e.Id == productId);
+            var product = _db.Products.Include(e => e.ProductAttributes).Single(e => e.Id == productId);
 
             _db.Products.Remove(product);
             _db.SaveChanges();

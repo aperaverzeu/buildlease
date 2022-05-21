@@ -45,7 +45,7 @@ namespace Persistence.Configurations
                     .WithMany(a => a.ProductAttributes)
                     .HasForeignKey(pa => pa.AttributeId)
                     .IsRequired()
-                    .OnDelete(DeleteBehavior.ClientCascade);
+                    .OnDelete(DeleteBehavior.Cascade);
 
             builder .HasOne<Product>(pa => pa.Product)
                     .WithMany(p => p.ProductAttributes)
