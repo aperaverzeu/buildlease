@@ -90,9 +90,11 @@ export default function AdminProduct() {
                                                     message.success({ content: 'Done.', key: someKey });
                                                 }));
                                     }}>
-                                { productId == 0 ? 'Create product' : 'Apply changes' }
+                                { productId === 0 ? 'Create product' : 'Apply changes' }
                             </Button>
+                            { productId !== 0 &&
                             <Button type='primary'
+                                    danger
                                     onClick={() => {
                                         if (productId) {
                                         const someKey = Math.random();
@@ -104,9 +106,10 @@ export default function AdminProduct() {
                                                 }))
                                                 .then(() => setRedirect('admin/product'));
                                     }
-                                    }}>
-                                { productId == 0 ? 'Create product' : 'Delete product' }
-                            </Button>
+                                    }}
+                            >
+                                Delete product
+                            </Button>}
                         </div>
                     </SubHeader>
                     <div className='d-flex flex-row flex-grow-1'>
