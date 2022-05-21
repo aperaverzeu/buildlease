@@ -1,7 +1,7 @@
 import SubHeader from "../../layout/SubHeader";
 import MainContent from "../../layout/MainContent";
 
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 import ProductInfo from "../../dtos/ProductInfo";
@@ -14,6 +14,7 @@ import CategoryTreeSelect from "../CategoryTreeSelect";
 import Globals from "../../../Globals";
 import {AttributeType} from "../../dtos/CategoryAttributeInfo";
 import ProductDescriptionInfo from "../../dtos/ProductDescriptionInfo";
+import {Display} from "react-bootstrap-icons";
 
 export default function AdminProduct() {
     
@@ -22,6 +23,7 @@ export default function AdminProduct() {
 
     const [oldProductDetails, setOldProductDetails] = useState<ProductInfo | undefined>(undefined);
     const [newProductDetails, setNewProductDetails] = useState<ProductInfo | undefined>(undefined);
+    const [redirect, setRedirect] = useState<string | null>(null);
 
     function LoadProductDetails() {
         if (productId != 0) {
@@ -52,6 +54,7 @@ export default function AdminProduct() {
     
     return (
         <>
+            {redirect && <Redirect to={redirect}/>}
             {
                 newProductDetails &&
                 <>
@@ -69,7 +72,7 @@ export default function AdminProduct() {
                                                     setNewProductDetails(obj);
                                                 }}/>
                         </div>
-                        <div>
+                        <div style={{display: 'flex', flexDirection: "column", gap: '10px'}}>
                             <Button type='primary'
                                     onClick={() => {
                                         // save to api
@@ -88,6 +91,21 @@ export default function AdminProduct() {
                                                 }));
                                     }}>
                                 { productId == 0 ? 'Create product' : 'Apply changes' }
+                            </Button>
+                            <Button type='primary'
+                                    onClick={() => {
+                                        if (productId) {
+                                        const someKey = Math.random();
+                                        message.loading({ content: 'Wait for it...', key: someKey, duration: 0 });
+                                        Promise
+                                            .resolve(API.DeleteProduct(productId)
+                                                .then(() => {
+                                                    message.success({ content: 'Product removed', key: someKey });
+                                                }))
+                                                .then(() => setRedirect('admin/product'));
+                                    }
+                                    }}>
+                                { productId == 0 ? 'Create product' : 'Delete product' }
                             </Button>
                         </div>
                     </SubHeader>
