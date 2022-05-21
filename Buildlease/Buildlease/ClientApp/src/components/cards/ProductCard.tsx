@@ -33,8 +33,7 @@ export default function ProductCard({ProductView}: ItemProps) {
                     margin: '8',
                     height: '100%',
                     backgroundImage: `url(${ProductView.ImagePath || 'https://www.meme-arsenal.com/memes/d076c825ca4c7745b32e6fa9867ff806.jpg'})`,
-                    backgroundSize: 'contain',
-                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     borderRight: '1px solid #000'
                 }}
