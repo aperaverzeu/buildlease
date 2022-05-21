@@ -76,8 +76,8 @@ export default function Product({isHistoric}: Props) {
                     <Breadcrumb.Item><a href={PATH.ToProduct(productId)} target='_self'>{productDetails?.Name}</a></Breadcrumb.Item>
                 </Breadcrumb>
             </SubHeader>
-            <div className='d-flex flex-row flex-grow-1'>
-                <SideMenu>
+            <div className='d-flex flex-row w-100 flex-grow-1'>
+                <SideMenu width={360}>
                     <div style={{
                         padding: '24px',
                     }}>
@@ -90,8 +90,8 @@ export default function Product({isHistoric}: Props) {
                     </div>
                 </SideMenu>
                 <MainContent>
-                    <div className='d-flex flex-row'>
-                        <div style={{padding: '24px'}}>
+                    <div className='d-flex flex-row w-100'>
+                        <div className='d-flex flex-grow-1 flex-column' style={{padding: '24px'}}>
                             <div className='d-flex justify-content-between'>
                                 <h2>{productDetails?.Name}</h2>
                                 <p style={{
@@ -150,7 +150,7 @@ export default function Product({isHistoric}: Props) {
                                 </div>
                             </div>
                         </div>
-                        <SideMenu>
+                        <SideMenu width={320}>
                             { /* TODO: add logic to the form */ }
                             <div style={{
                                 padding: '24px',
