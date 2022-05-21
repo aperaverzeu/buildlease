@@ -43,7 +43,7 @@ namespace Services
             var path = new List<Category>() { categories.Single(c => c.Id == categoryId) };
 
             foreach (var category in categories.OrderBy(c => c.Id).Reverse())
-                if (category.Id == path.Last().ParentId)
+                if (category.Id == path.Last().ParentId && category.Id != path.Last().Id)
                     path.Add(category);
 
             return path;
