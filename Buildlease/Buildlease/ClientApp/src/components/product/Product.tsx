@@ -45,7 +45,11 @@ export default function Product({isHistoric}: Props) {
     }
     
     function LoadHistoricProductDetails() {
-        return;
+        API.GetHistoricProductDetails(productOrderId)
+            .then(res => {
+                setProductDetails(res);
+                setLanguage(res.Descriptions[0]?.Language);
+            });
     }
     
     useEffect(() => {
@@ -76,8 +80,8 @@ export default function Product({isHistoric}: Props) {
                     <Breadcrumb.Item><a href={PATH.ToProduct(productId)} target='_self'>{productDetails?.Name}</a></Breadcrumb.Item>
                 </Breadcrumb>
             </SubHeader>
-            <div className='d-flex flex-row flex-grow-1'>
-                <SideMenu>
+            <div className='d-flex flex-row w-100 flex-grow-1'>
+                <SideMenu width={360}>
                     <div style={{
                         padding: '24px',
                     }}>
@@ -90,8 +94,8 @@ export default function Product({isHistoric}: Props) {
                     </div>
                 </SideMenu>
                 <MainContent>
-                    <div className='d-flex flex-row'>
-                        <div style={{padding: '24px'}}>
+                    <div className='d-flex flex-row w-100'>
+                        <div className='d-flex flex-grow-1 flex-column' style={{padding: '24px'}}>
                             <div className='d-flex justify-content-between'>
                                 <h2>{productDetails?.Name}</h2>
                                 <p style={{
@@ -105,8 +109,9 @@ export default function Product({isHistoric}: Props) {
                                 <p style={{
                                     fontSize: '28px',
                                     fontWeight: 'lighter',
+                                    fontStyle: productDetails?.Price ? 'inherit' : 'italic', 
                                 }}>
-                                    {`$${productDetails?.Price?.toFixed(2)} per day`}
+                                    {productDetails?.Price ? `$${productDetails?.Price.toFixed(2)} per day` : 'Price unspecified'}
                                 </p>
                             </div>
                             <div style={{
@@ -116,7 +121,11 @@ export default function Product({isHistoric}: Props) {
                                     {LOGIC.GetShortDescription(productDetails?.Attributes)}
                                 </p>
                             </div>
-                            <div>
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: 10,
+                            }}>
                                 <h3>Description:</h3>
                                 {language &&
                                 <Select bordered={false} defaultValue={language} onChange={(newValue) => setLanguage(newValue)}>
@@ -124,33 +133,36 @@ export default function Product({isHistoric}: Props) {
                                 </Select>}
                                 <p style={{whiteSpace: 'pre-wrap'}}>{productDetails?.Descriptions.filter(d => d.Language === language)[0]?.Description}</p>
                             </div>
-                            <div>
-                                <h3>Parameters:</h3>
-                                <div className={styles.boxey} style={{
-                                    padding: '16px',
-                                    paddingBottom: '4px',
-                                }}>
-                                    {productDetails?.Attributes.map(pair =>
-                                        <div className='d-flex flex-row' style={{
-                                            marginBottom: '12px',
-                                        }}>
-                                            <div className='d-flex' style={{flex: 1}}>
-                                                <p style={{
-                                                    margin: '0px',
-                                                }}>{pair.Name}</p>
+                            {
+                                productDetails?.Attributes && productDetails?.Attributes?.length > 0 &&
+                                <div>
+                                    <h3>Parameters:</h3>
+                                    <div className={styles.boxey} style={{
+                                        padding: '16px',
+                                        paddingBottom: '4px',
+                                    }}>
+                                        {productDetails?.Attributes.map(pair =>
+                                            <div className='d-flex flex-row' style={{
+                                                marginBottom: '12px',
+                                            }}>
+                                                <div className='d-flex' style={{flex: 1}}>
+                                                    <p style={{
+                                                        margin: '0px',
+                                                    }}>{pair.Name}</p>
+                                                </div>
+                                                <div className='d-flex' style={{flex: 1}}>
+                                                    <p style={{
+                                                        margin: '0px',
+                                                        fontWeight: 'lighter',
+                                                    }}>{pair.Value}</p>
+                                                </div>
                                             </div>
-                                            <div className='d-flex' style={{flex: 1}}>
-                                                <p style={{
-                                                    margin: '0px',
-                                                    fontWeight: 'lighter',
-                                                }}>{pair.Value}</p>
-                                            </div>
-                                        </div>
-                                    )}
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         </div>
-                        <SideMenu>
+                        <SideMenu width={320}>
                             { /* TODO: add logic to the form */ }
                             <div style={{
                                 padding: '24px',
