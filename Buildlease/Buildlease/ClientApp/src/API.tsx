@@ -80,6 +80,12 @@ const API = {
         .post<ProductFullView>(`api/GetProduct/${productId}`, {}, GetHeaders())
         .then(res => res.data);
   },
+
+  GetHistoricProductDetails: async (productOrderId: number) => {
+    return axios
+        .post<ProductFullView>(`api/GetHistoryProduct/${productOrderId}`, {}, GetHeaders())
+        .then(res => res.data);
+  },
   
   GetProducts: async (info: GetProductsRequest) => {
     return axios
